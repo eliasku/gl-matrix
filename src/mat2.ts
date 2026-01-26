@@ -10,7 +10,7 @@ import * as glMatrix from "./common";
  *
  * @returns {mat2} a new 2x2 matrix
  */
-export function create() {
+export function create(): mat2 {
   let out = new glMatrix.ARRAY_TYPE(4);
   if (glMatrix.ARRAY_TYPE != Float32Array) {
     out[1] = 0;
@@ -27,7 +27,7 @@ export function create() {
  * @param {ReadonlyMat2} a matrix to clone
  * @returns {mat2} a new 2x2 matrix
  */
-export function clone(a) {
+export function clone(a: ReadonlyMat2): mat2 {
   let out = new glMatrix.ARRAY_TYPE(4);
   out[0] = a[0];
   out[1] = a[1];
@@ -43,7 +43,7 @@ export function clone(a) {
  * @param {ReadonlyMat2} a the source matrix
  * @returns {mat2} out
  */
-export function copy(out, a) {
+export function copy(out: mat2, a: ReadonlyMat2): mat2 {
   out[0] = a[0];
   out[1] = a[1];
   out[2] = a[2];
@@ -57,7 +57,7 @@ export function copy(out, a) {
  * @param {mat2} out the receiving matrix
  * @returns {mat2} out
  */
-export function identity(out) {
+export function identity(out: mat2): mat2 {
   out[0] = 1;
   out[1] = 0;
   out[2] = 0;
@@ -74,7 +74,7 @@ export function identity(out) {
  * @param {Number} m11 Component in column 1, row 1 position (index 3)
  * @returns {mat2} out A new 2x2 matrix
  */
-export function fromValues(m00, m01, m10, m11) {
+export function fromValues(m00: number, m01: number, m10: number, m11: number): mat2 {
   let out = new glMatrix.ARRAY_TYPE(4);
   out[0] = m00;
   out[1] = m01;
@@ -93,7 +93,7 @@ export function fromValues(m00, m01, m10, m11) {
  * @param {Number} m11 Component in column 1, row 1 position (index 3)
  * @returns {mat2} out
  */
-export function set(out, m00, m01, m10, m11) {
+export function set(out: mat2, m00: number, m01: number, m10: number, m11: number): mat2 {
   out[0] = m00;
   out[1] = m01;
   out[2] = m10;
@@ -108,7 +108,7 @@ export function set(out, m00, m01, m10, m11) {
  * @param {ReadonlyMat2} a the source matrix
  * @returns {mat2} out
  */
-export function transpose(out, a) {
+export function transpose(out: mat2, a: ReadonlyMat2): mat2 {
   // If we are transposing ourselves we can skip a few steps but have to cache
   // some values
   if (out === a) {
@@ -132,7 +132,7 @@ export function transpose(out, a) {
  * @param {ReadonlyMat2} a the source matrix
  * @returns {mat2 | null} out, or null if source matrix is not invertible
  */
-export function invert(out, a) {
+export function invert(out: mat2, a: ReadonlyMat2): mat2 | null {
   let a0 = a[0],
     a1 = a[1],
     a2 = a[2],
@@ -161,7 +161,7 @@ export function invert(out, a) {
  * @param {ReadonlyMat2} a the source matrix
  * @returns {mat2} out
  */
-export function adjoint(out, a) {
+export function adjoint(out: mat2, a: ReadonlyMat2): mat2 {
   // Caching this value is necessary if out == a
   let a0 = a[0];
   out[0] = a[3];
@@ -178,7 +178,7 @@ export function adjoint(out, a) {
  * @param {ReadonlyMat2} a the source matrix
  * @returns {Number} determinant of a
  */
-export function determinant(a) {
+export function determinant(a: ReadonlyMat2): number {
   return a[0] * a[3] - a[2] * a[1];
 }
 
@@ -190,7 +190,7 @@ export function determinant(a) {
  * @param {ReadonlyMat2} b the second operand
  * @returns {mat2} out
  */
-export function multiply(out, a, b) {
+export function multiply(out: mat2, a: ReadonlyMat2, b: ReadonlyMat2): mat2 {
   let a0 = a[0],
     a1 = a[1],
     a2 = a[2],
@@ -214,7 +214,7 @@ export function multiply(out, a, b) {
  * @param {Number} rad the angle to rotate the matrix by
  * @returns {mat2} out
  */
-export function rotate(out, a, rad) {
+export function rotate(out: mat2, a: ReadonlyMat2, rad: number): mat2 {
   let a0 = a[0],
     a1 = a[1],
     a2 = a[2],
@@ -236,7 +236,7 @@ export function rotate(out, a, rad) {
  * @param {ReadonlyVec2} v the vec2 to scale the matrix by
  * @returns {mat2} out
  **/
-export function scale(out, a, v) {
+export function scale(out: mat2, a: ReadonlyMat2, v: ReadonlyMat2): mat2 {
   let a0 = a[0],
     a1 = a[1],
     a2 = a[2],
@@ -261,7 +261,7 @@ export function scale(out, a, v) {
  * @param {Number} rad the angle to rotate the matrix by
  * @returns {mat2} out
  */
-export function fromRotation(out, rad) {
+export function fromRotation(out: mat2, rad: number): mat2 {
   let s = Math.sin(rad);
   let c = Math.cos(rad);
   out[0] = c;
@@ -282,7 +282,7 @@ export function fromRotation(out, rad) {
  * @param {ReadonlyVec2} v Scaling vector
  * @returns {mat2} out
  */
-export function fromScaling(out, v) {
+export function fromScaling(out: mat2, v: ReadonlyVec2): mat2 {
   out[0] = v[0];
   out[1] = 0;
   out[2] = 0;
@@ -296,7 +296,7 @@ export function fromScaling(out, v) {
  * @param {ReadonlyMat2} a matrix to represent as a string
  * @returns {String} string representation of the matrix
  */
-export function str(a) {
+export function str(a: ReadonlyMat2): string {
   return "mat2(" + a[0] + ", " + a[1] + ", " + a[2] + ", " + a[3] + ")";
 }
 
@@ -306,7 +306,7 @@ export function str(a) {
  * @param {ReadonlyMat2} a the matrix to calculate Frobenius norm of
  * @returns {Number} Frobenius norm
  */
-export function frob(a) {
+export function frob(a: ReadonlyMat2): number {
   return Math.sqrt(a[0] * a[0] + a[1] * a[1] + a[2] * a[2] + a[3] * a[3]);
 }
 
@@ -318,7 +318,7 @@ export function frob(a) {
  * @param {ReadonlyMat2} a the input matrix to factorize
  */
 
-export function LDU(L, D, U, a) {
+export function LDU(L: mat2, D: ReadonlyMat2, U: mat2, a: ReadonlyMat2) {
   L[2] = a[2] / a[0];
   U[0] = a[0];
   U[1] = a[1];
@@ -334,7 +334,7 @@ export function LDU(L, D, U, a) {
  * @param {ReadonlyMat2} b the second operand
  * @returns {mat2} out
  */
-export function add(out, a, b) {
+export function add(out: mat2, a: ReadonlyMat2, b: ReadonlyMat2): mat2 {
   out[0] = a[0] + b[0];
   out[1] = a[1] + b[1];
   out[2] = a[2] + b[2];
@@ -350,7 +350,7 @@ export function add(out, a, b) {
  * @param {ReadonlyMat2} b the second operand
  * @returns {mat2} out
  */
-export function subtract(out, a, b) {
+export function subtract(out: mat2, a: ReadonlyMat2, b: ReadonlyMat2): mat2 {
   out[0] = a[0] - b[0];
   out[1] = a[1] - b[1];
   out[2] = a[2] - b[2];
@@ -365,7 +365,7 @@ export function subtract(out, a, b) {
  * @param {ReadonlyMat2} b The second matrix.
  * @returns {Boolean} True if the matrices are equal, false otherwise.
  */
-export function exactEquals(a, b) {
+export function exactEquals(a: ReadonlyMat2, b: ReadonlyMat2): boolean {
   return a[0] === b[0] && a[1] === b[1] && a[2] === b[2] && a[3] === b[3];
 }
 
@@ -376,7 +376,7 @@ export function exactEquals(a, b) {
  * @param {ReadonlyMat2} b The second matrix.
  * @returns {Boolean} True if the matrices are equal, false otherwise.
  */
-export function equals(a, b) {
+export function equals(a: ReadonlyMat2, b: ReadonlyMat2): boolean {
   let a0 = a[0],
     a1 = a[1],
     a2 = a[2],
@@ -401,7 +401,7 @@ export function equals(a, b) {
  * @param {Number} b amount to scale the matrix's elements by
  * @returns {mat2} out
  */
-export function multiplyScalar(out, a, b) {
+export function multiplyScalar(out: mat2, a: ReadonlyMat2, b: number): mat2 {
   out[0] = a[0] * b;
   out[1] = a[1] * b;
   out[2] = a[2] * b;
@@ -418,7 +418,7 @@ export function multiplyScalar(out, a, b) {
  * @param {Number} scale the amount to scale b's elements by before adding
  * @returns {mat2} out
  */
-export function multiplyScalarAndAdd(out, a, b, scale) {
+export function multiplyScalarAndAdd(out: mat2, a: ReadonlyMat2, b: ReadonlyMat2, scale: number): mat2 {
   out[0] = a[0] + b[0] * scale;
   out[1] = a[1] + b[1] * scale;
   out[2] = a[2] + b[2] * scale;
