@@ -436,17 +436,17 @@ export function lerp(out, a, b, t) {
 /**
  * Generates a random vector with the given scale
  *
- * @param {vec4} out the receiving vector
- * @param {Number} [scale] Length of the resulting vector. If omitted, a unit vector will be returned
- * @returns {vec4} out
+ * @param out the receiving vector
+ * @param scale Length of the resulting vector. If omitted, a unit vector will be returned
+ * @returns out
  */
-export function random(out, scale = 1) {
+export function random(out: vec4, scale: number = 1): vec4 {
   // Marsaglia, George. Choosing a Point from the Surface of a
   // Sphere. Ann. Math. Statist. 43 (1972), no. 2, 645--646.
   // http://projecteuclid.org/euclid.aoms/1177692644;
-  var v1, v2, v3, v4;
-  var s1, s2;
-  var rand;
+  let v1, v2, v3, v4;
+  let s1, s2;
+  let rand;
 
   rand = glMatrix.RANDOM();
   v1 = rand * 2 - 1;

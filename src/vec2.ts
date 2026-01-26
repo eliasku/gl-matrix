@@ -368,11 +368,11 @@ export const lerp = (out: vec2, a: ReadonlyVec2, b: ReadonlyVec2, t: number): ve
 /**
  * Generates a random vector with the given scale
  *
- * @param {vec2} out the receiving vector
- * @param {Number} [scale] Length of the resulting vector. If omitted, a unit vector will be returned
- * @returns {vec2} out
+ * @param out the receiving vector
+ * @param scale Length of the resulting vector. If omitted, a unit vector will be returned
+ * @returns out
  */
-export const random = (out: vec2, scale?: number): vec2 => {
+export const random = (out: vec2, scale: number = 1): vec2 => {
   const r = glMatrix.RANDOM() * 2.0 * Math.PI;
   out[0] = Math.cos(r) * scale;
   out[1] = Math.sin(r) * scale;
