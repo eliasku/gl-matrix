@@ -10,7 +10,7 @@ import * as glMatrix from "./common";
  *
  * @returns {vec3} a new 3D vector
  */
-export function create(): vec3 {
+export const create = (): vec3 => {
   const out = new glMatrix.ARRAY_TYPE(3);
   if (glMatrix.ARRAY_TYPE != Float32Array) {
     out[0] = 0;
@@ -18,7 +18,7 @@ export function create(): vec3 {
     out[2] = 0;
   }
   return out;
-}
+};
 
 /**
  * Creates a new vec3 initialized with values from an existing vector
@@ -26,13 +26,13 @@ export function create(): vec3 {
  * @param {ReadonlyVec3} a vector to clone
  * @returns {vec3} a new 3D vector
  */
-export function clone(a: vec3): vec3 {
+export const clone = (a: vec3): vec3 => {
   const out = new glMatrix.ARRAY_TYPE(3);
   out[0] = a[0];
   out[1] = a[1];
   out[2] = a[2];
   return out;
-}
+};
 
 /**
  * Calculates the length of a vec3
@@ -40,12 +40,12 @@ export function clone(a: vec3): vec3 {
  * @param {ReadonlyVec3} a vector to calculate length of
  * @returns {Number} length of a
  */
-export function length(a) {
+export const length = (a: ReadonlyVec3): number => {
   const x = a[0];
   const y = a[1];
   const z = a[2];
   return Math.sqrt(x * x + y * y + z * z);
-}
+};
 
 /**
  * Creates a new vec3 initialized with the given values
@@ -55,13 +55,13 @@ export function length(a) {
  * @param {Number} z Z component
  * @returns {vec3} a new 3D vector
  */
-export function fromValues(x: number, y: number, z: number): vec3 {
+export const fromValues = (x: number, y: number, z: number): vec3 => {
   const out = new glMatrix.ARRAY_TYPE(3);
   out[0] = x;
   out[1] = y;
   out[2] = z;
   return out;
-}
+};
 
 /**
  * Copy the values from one vec3 to another
@@ -70,12 +70,12 @@ export function fromValues(x: number, y: number, z: number): vec3 {
  * @param {ReadonlyVec3} a the source vector
  * @returns {vec3} out
  */
-export function copy(out: vec3, a: ReadonlyVec3): vec3 {
+export const copy = (out: vec3, a: ReadonlyVec3): vec3 => {
   out[0] = a[0];
   out[1] = a[1];
   out[2] = a[2];
   return out;
-}
+};
 
 /**
  * Set the components of a vec3 to the given values
@@ -86,12 +86,12 @@ export function copy(out: vec3, a: ReadonlyVec3): vec3 {
  * @param {Number} z Z component
  * @returns {vec3} out
  */
-export function set(out: vec3, x: number, y: number, z: number): vec3 {
+export const set = (out: vec3, x: number, y: number, z: number): vec3 => {
   out[0] = x;
   out[1] = y;
   out[2] = z;
   return out;
-}
+};
 
 /**
  * Adds two vec3's
@@ -101,12 +101,12 @@ export function set(out: vec3, x: number, y: number, z: number): vec3 {
  * @param {ReadonlyVec3} b the second operand
  * @returns {vec3} out
  */
-export function add(out: vec3, a: ReadonlyVec3, b: ReadonlyVec3): vec3 {
+export const add = (out: vec3, a: ReadonlyVec3, b: ReadonlyVec3): vec3 => {
   out[0] = a[0] + b[0];
   out[1] = a[1] + b[1];
   out[2] = a[2] + b[2];
   return out;
-}
+};
 
 /**
  * Subtracts vector b from vector a
@@ -116,12 +116,12 @@ export function add(out: vec3, a: ReadonlyVec3, b: ReadonlyVec3): vec3 {
  * @param {ReadonlyVec3} b the second operand
  * @returns {vec3} out
  */
-export function subtract(out: vec3, a: ReadonlyVec3, b: ReadonlyVec3) {
+export const subtract = (out: vec3, a: ReadonlyVec3, b: ReadonlyVec3): vec3 => {
   out[0] = a[0] - b[0];
   out[1] = a[1] - b[1];
   out[2] = a[2] - b[2];
   return out;
-}
+};
 
 /**
  * Multiplies two vec3's
@@ -131,12 +131,12 @@ export function subtract(out: vec3, a: ReadonlyVec3, b: ReadonlyVec3) {
  * @param {ReadonlyVec3} b the second operand
  * @returns {vec3} out
  */
-export function multiply(out: vec3, a: ReadonlyVec3, b: ReadonlyVec3): vec3 {
+export const multiply = (out: vec3, a: ReadonlyVec3, b: ReadonlyVec3): vec3 => {
   out[0] = a[0] * b[0];
   out[1] = a[1] * b[1];
   out[2] = a[2] * b[2];
   return out;
-}
+};
 
 /**
  * Divides two vec3's
@@ -146,12 +146,12 @@ export function multiply(out: vec3, a: ReadonlyVec3, b: ReadonlyVec3): vec3 {
  * @param {ReadonlyVec3} b the second operand
  * @returns {vec3} out
  */
-export function divide(out, a, b) {
+export const divide = (out: vec3, a: ReadonlyVec3, b: ReadonlyVec3): vec3 => {
   out[0] = a[0] / b[0];
   out[1] = a[1] / b[1];
   out[2] = a[2] / b[2];
   return out;
-}
+};
 
 /**
  * Math.ceil the components of a vec3
@@ -174,12 +174,12 @@ export function ceil(out, a) {
  * @param {ReadonlyVec3} a vector to floor
  * @returns {vec3} out
  */
-export function floor(out, a) {
+export const floor = (out: vec3, a: ReadonlyVec3): vec3 => {
   out[0] = Math.floor(a[0]);
   out[1] = Math.floor(a[1]);
   out[2] = Math.floor(a[2]);
   return out;
-}
+};
 
 /**
  * Returns the minimum of two vec3's

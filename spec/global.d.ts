@@ -1,11 +1,11 @@
-interface IndexedCollection extends Iterable<number> {
+interface IndexedCollection2 extends Iterable<number> {
   readonly length: number;
   [index: number]: number;
 }
 
 interface HelperMatchers {
-  toBeEqualish(expected: number | number[] | Float32Array | IndexedCollection): any;
-  toBeEqualishQuat2(expected: number[] | Float32Array | IndexedCollection, epsilon?: number): any;
+  toBeEqualish(expected: number | number[] | Float32Array | IndexedCollection2): any;
+  toBeEqualishQuat2(expected: number[] | Float32Array | IndexedCollection2, epsilon?: number): any;
 }
 
 declare module "bun:test" {

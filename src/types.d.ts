@@ -1,4 +1,4 @@
-interface IndexedCollection extends Iterable<number> {
+declare interface IndexedCollection extends Iterable<number> {
   readonly length: number;
   [index: number]: number;
 }
