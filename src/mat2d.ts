@@ -24,7 +24,7 @@ import * as glMatrix from "./common";
  *
  * @returns a new 2x3 matrix
  */
-export function create(): mat2d {
+export const create = (): mat2d => {
   let out = new glMatrix.ARRAY_TYPE(6);
   if (glMatrix.ARRAY_TYPE != Float32Array) {
     out[1] = 0;
@@ -35,7 +35,7 @@ export function create(): mat2d {
   out[0] = 1;
   out[3] = 1;
   return out;
-}
+};
 
 /**
  * Creates a new mat2d initialized with values from an existing matrix
@@ -43,7 +43,7 @@ export function create(): mat2d {
  * @param a matrix to clone
  * @returns a new 2x3 matrix
  */
-export function clone(a: Readonly<mat2d>): mat2d {
+export const clone = (a: Readonly<mat2d>): mat2d => {
   let out = new glMatrix.ARRAY_TYPE(6);
   out[0] = a[0];
   out[1] = a[1];
@@ -52,7 +52,7 @@ export function clone(a: Readonly<mat2d>): mat2d {
   out[4] = a[4];
   out[5] = a[5];
   return out;
-}
+};
 
 /**
  * Copy the values from one mat2d to another
@@ -61,7 +61,7 @@ export function clone(a: Readonly<mat2d>): mat2d {
  * @param a the source matrix
  * @returns out
  */
-export function copy(out: mat2d, a: ReadonlyMat2d): mat2d {
+export const copy = (out: mat2d, a: ReadonlyMat2d): mat2d => {
   out[0] = a[0];
   out[1] = a[1];
   out[2] = a[2];
@@ -69,7 +69,7 @@ export function copy(out: mat2d, a: ReadonlyMat2d): mat2d {
   out[4] = a[4];
   out[5] = a[5];
   return out;
-}
+};
 
 /**
  * Set a mat2d to the identity matrix
@@ -77,7 +77,7 @@ export function copy(out: mat2d, a: ReadonlyMat2d): mat2d {
  * @param out the receiving matrix
  * @returns out
  */
-export function identity(out: mat2d): mat2d {
+export const identity = (out: mat2d): mat2d => {
   out[0] = 1;
   out[1] = 0;
   out[2] = 0;
@@ -85,7 +85,7 @@ export function identity(out: mat2d): mat2d {
   out[4] = 0;
   out[5] = 0;
   return out;
-}
+};
 
 /**
  * Create a new mat2d with the given values
@@ -98,7 +98,7 @@ export function identity(out: mat2d): mat2d {
  * @param ty Component TY (index 5)
  * @returns A new mat2d
  */
-export function fromValues(a: number, b: number, c: number, d: number, tx: number, ty: number): mat2d {
+export const fromValues = (a: number, b: number, c: number, d: number, tx: number, ty: number): mat2d => {
   let out = new glMatrix.ARRAY_TYPE(6);
   out[0] = a;
   out[1] = b;
@@ -107,7 +107,7 @@ export function fromValues(a: number, b: number, c: number, d: number, tx: numbe
   out[4] = tx;
   out[5] = ty;
   return out;
-}
+};
 
 /**
  * Set the components of a mat2d to the given values
@@ -121,7 +121,7 @@ export function fromValues(a: number, b: number, c: number, d: number, tx: numbe
  * @param ty Component TY (index 5)
  * @returns out
  */
-export function set(out: mat2d, a: number, b: number, c: number, d: number, tx: number, ty: number): mat2d {
+export const set = (out: mat2d, a: number, b: number, c: number, d: number, tx: number, ty: number): mat2d => {
   out[0] = a;
   out[1] = b;
   out[2] = c;
@@ -129,7 +129,7 @@ export function set(out: mat2d, a: number, b: number, c: number, d: number, tx: 
   out[4] = tx;
   out[5] = ty;
   return out;
-}
+};
 
 /**
  * Inverts a mat2d
@@ -138,7 +138,7 @@ export function set(out: mat2d, a: number, b: number, c: number, d: number, tx: 
  * @param a the source matrix
  * @returns out, or null if source matrix is not invertible
  */
-export function invert(out: mat2d, a: ReadonlyMat2d): mat2d | null {
+export const invert = (out: mat2d, a: ReadonlyMat2d): mat2d | null => {
   let aa = a[0],
     ab = a[1],
     ac = a[2],
@@ -159,7 +159,7 @@ export function invert(out: mat2d, a: ReadonlyMat2d): mat2d | null {
   out[4] = (ac * aty - ad * atx) * det;
   out[5] = (ab * atx - aa * aty) * det;
   return out;
-}
+};
 
 /**
  * Calculates the determinant of a mat2d
@@ -167,9 +167,9 @@ export function invert(out: mat2d, a: ReadonlyMat2d): mat2d | null {
  * @param a the source matrix
  * @returns determinant of a
  */
-export function determinant(a: ReadonlyMat2d): number {
+export const determinant = (a: ReadonlyMat2d): number => {
   return a[0] * a[3] - a[1] * a[2];
-}
+};
 
 /**
  * Multiplies two mat2d's
@@ -179,7 +179,7 @@ export function determinant(a: ReadonlyMat2d): number {
  * @param b the second operand
  * @returns out
  */
-export function multiply(out: mat2d, a: ReadonlyMat2d, b: ReadonlyMat2d): mat2d {
+export const multiply = (out: mat2d, a: ReadonlyMat2d, b: ReadonlyMat2d): mat2d => {
   let a0 = a[0],
     a1 = a[1],
     a2 = a[2],
@@ -199,7 +199,7 @@ export function multiply(out: mat2d, a: ReadonlyMat2d, b: ReadonlyMat2d): mat2d 
   out[4] = a0 * b4 + a2 * b5 + a4;
   out[5] = a1 * b4 + a3 * b5 + a5;
   return out;
-}
+};
 
 /**
  * Rotates a mat2d by the given angle
@@ -408,7 +408,7 @@ export function subtract(out: mat2d, a: ReadonlyMat2d, b: ReadonlyMat2d): mat2d 
  * @param b amount to scale the matrix's elements by
  * @returns out
  */
-export function multiplyScalar(out: mat2d, a: ReadonlyMat2d, b: number): mat2d {
+export const multiplyScalar = (out: mat2d, a: ReadonlyMat2d, b: number): mat2d => {
   out[0] = a[0] * b;
   out[1] = a[1] * b;
   out[2] = a[2] * b;
@@ -416,7 +416,7 @@ export function multiplyScalar(out: mat2d, a: ReadonlyMat2d, b: number): mat2d {
   out[4] = a[4] * b;
   out[5] = a[5] * b;
   return out;
-}
+};
 
 /**
  * Adds two mat2d's after multiplying each element of the second operand by a scalar value.

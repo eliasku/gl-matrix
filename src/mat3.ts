@@ -10,7 +10,7 @@ import * as glMatrix from "./common";
  *
  * @returns a new 3x3 matrix
  */
-export function create(): mat3 {
+export const create = (): mat3 => {
   let out = new glMatrix.ARRAY_TYPE(9);
   if (glMatrix.ARRAY_TYPE != Float32Array) {
     out[1] = 0;
@@ -24,7 +24,7 @@ export function create(): mat3 {
   out[4] = 1;
   out[8] = 1;
   return out;
-}
+};
 
 /**
  * Copies the upper-left 3x3 values into the given mat3.
@@ -33,7 +33,7 @@ export function create(): mat3 {
  * @param a   the source 4x4 matrix
  * @returns out
  */
-export function fromMat4(out: mat3, a: ReadonlyMat4): mat3 {
+export const fromMat4 = (out: mat3, a: ReadonlyMat4): mat3 => {
   out[0] = a[0];
   out[1] = a[1];
   out[2] = a[2];
@@ -44,7 +44,7 @@ export function fromMat4(out: mat3, a: ReadonlyMat4): mat3 {
   out[7] = a[9];
   out[8] = a[10];
   return out;
-}
+};
 
 /**
  * Creates a new mat3 initialized with values from an existing matrix

@@ -652,7 +652,7 @@ export const mul = multiply;
  * @param b amount to scale the dual quat by
  * @returns out
  */
-export function scale(out: quat2, a: ReadonlyQuat2, b: number): quat2 {
+export const scale = (out: quat2, a: ReadonlyQuat2, b: number): quat2 => {
   out[0] = a[0] * b;
   out[1] = a[1] * b;
   out[2] = a[2] * b;
@@ -662,7 +662,7 @@ export function scale(out: quat2, a: ReadonlyQuat2, b: number): quat2 {
   out[6] = a[6] * b;
   out[7] = a[7] * b;
   return out;
-}
+};
 
 /**
  * Calculates the dot product of two dual quat's (The dot product of the real parts)
@@ -683,7 +683,7 @@ export const dot = quat.dot;
  * @param t interpolation amount, in the range [0-1], between the two inputs
  * @returns out
  */
-export function lerp(out: quat2, a: ReadonlyQuat2, b: ReadonlyQuat2, t: number): quat2 {
+export const lerp = (out: quat2, a: ReadonlyQuat2, b: ReadonlyQuat2, t: number): quat2 => {
   let mt = 1 - t;
   if (dot(a, b) < 0) t = -t;
 
@@ -697,7 +697,7 @@ export function lerp(out: quat2, a: ReadonlyQuat2, b: ReadonlyQuat2, t: number):
   out[7] = a[7] * mt + b[7] * t;
 
   return out;
-}
+};
 
 /**
  * Calculates the inverse of a dual quat. If they are normalized, conjugate is cheaper
@@ -706,7 +706,7 @@ export function lerp(out: quat2, a: ReadonlyQuat2, b: ReadonlyQuat2, t: number):
  * @param a dual quat to calculate inverse of
  * @returns out
  */
-export function invert(out: quat2, a: ReadonlyQuat2): quat2 {
+export const invert = (out: quat2, a: ReadonlyQuat2): quat2 => {
   let sqlen = squaredLength(a);
   out[0] = -a[0] / sqlen;
   out[1] = -a[1] / sqlen;
@@ -717,7 +717,7 @@ export function invert(out: quat2, a: ReadonlyQuat2): quat2 {
   out[6] = -a[6] / sqlen;
   out[7] = a[7] / sqlen;
   return out;
-}
+};
 
 /**
  * Calculates the conjugate of a dual quat
@@ -727,7 +727,7 @@ export function invert(out: quat2, a: ReadonlyQuat2): quat2 {
  * @param a quat to calculate conjugate of
  * @returns out
  */
-export function conjugate(out: quat2, a: ReadonlyQuat2): quat2 {
+export const conjugate = (out: quat2, a: ReadonlyQuat2): quat2 => {
   out[0] = -a[0];
   out[1] = -a[1];
   out[2] = -a[2];
@@ -737,7 +737,7 @@ export function conjugate(out: quat2, a: ReadonlyQuat2): quat2 {
   out[6] = -a[6];
   out[7] = a[7];
   return out;
-}
+};
 
 /**
  * Calculates the length of a dual quat
@@ -772,7 +772,7 @@ export const sqrLen = squaredLength;
  * @param a dual quaternion to normalize
  * @returns out
  */
-export function normalize(out: quat2, a: ReadonlyQuat2): quat2 {
+export const normalize = (out: quat2, a: ReadonlyQuat2): quat2 => {
   let magnitude = squaredLength(a);
   if (magnitude > 0) {
     magnitude = Math.sqrt(magnitude);
@@ -800,7 +800,7 @@ export function normalize(out: quat2, a: ReadonlyQuat2): quat2 {
     out[7] = (b3 - a3 * a_dot_b) / magnitude;
   }
   return out;
-}
+};
 
 /**
  * Returns a string representation of a dual quaternion
@@ -808,7 +808,7 @@ export function normalize(out: quat2, a: ReadonlyQuat2): quat2 {
  * @param a dual quaternion to represent as a string
  * @returns string representation of the dual quat
  */
-export function str(a: ReadonlyQuat2): string {
+export const str = (a: ReadonlyQuat2): string => {
   return (
     "quat2(" +
     a[0] +
@@ -828,7 +828,7 @@ export function str(a: ReadonlyQuat2): string {
     a[7] +
     ")"
   );
-}
+};
 
 /**
  * Returns whether or not the dual quaternions have exactly the same elements in the same position (when compared with ===)
@@ -837,7 +837,7 @@ export function str(a: ReadonlyQuat2): string {
  * @param b the second dual quaternion.
  * @returns true if the dual quaternions are equal, false otherwise.
  */
-export function exactEquals(a: ReadonlyQuat2, b: ReadonlyQuat2): boolean {
+export const exactEquals = (a: ReadonlyQuat2, b: ReadonlyQuat2): boolean => {
   return (
     a[0] === b[0] &&
     a[1] === b[1] &&
@@ -848,7 +848,7 @@ export function exactEquals(a: ReadonlyQuat2, b: ReadonlyQuat2): boolean {
     a[6] === b[6] &&
     a[7] === b[7]
   );
-}
+};
 
 /**
  * Returns whether or not the dual quaternions have approximately the same elements in the same position.
@@ -857,7 +857,7 @@ export function exactEquals(a: ReadonlyQuat2, b: ReadonlyQuat2): boolean {
  * @param b the second dual quat.
  * @returns true if the dual quats are equal, false otherwise.
  */
-export function equals(a: ReadonlyQuat2, b: ReadonlyQuat2): boolean {
+export const equals = (a: ReadonlyQuat2, b: ReadonlyQuat2): boolean => {
   let a0 = a[0],
     a1 = a[1],
     a2 = a[2],
@@ -884,4 +884,4 @@ export function equals(a: ReadonlyQuat2, b: ReadonlyQuat2): boolean {
     Math.abs(a6 - b6) <= glMatrix.EPSILON * Math.max(1.0, Math.abs(a6), Math.abs(b6)) &&
     Math.abs(a7 - b7) <= glMatrix.EPSILON * Math.max(1.0, Math.abs(a7), Math.abs(b7))
   );
-}
+};
