@@ -8,7 +8,7 @@ import * as glMatrix from "./common";
 /**
  * Creates a new, empty vec2
  *
- * @returns {vec2} a new 2D vector
+ * @returns a new 2D vector
  */
 export const create = (): vec2 => {
   const out = new glMatrix.ARRAY_TYPE(2);
@@ -22,8 +22,8 @@ export const create = (): vec2 => {
 /**
  * Creates a new vec2 initialized with values from an existing vector
  *
- * @param {ReadonlyVec2} a vector to clone
- * @returns {vec2} a new 2D vector
+ * @param a vector to clone
+ * @returns a new 2D vector
  */
 export const clone = (a: ReadonlyVec2): vec2 => {
   const out = new glMatrix.ARRAY_TYPE(2);
@@ -35,9 +35,9 @@ export const clone = (a: ReadonlyVec2): vec2 => {
 /**
  * Creates a new vec2 initialized with given values
  *
- * @param {Number} x X component
- * @param {Number} y Y component
- * @returns {vec2} a new 2D vector
+ * @param x X component
+ * @param y Y component
+ * @returns a new 2D vector
  */
 export const fromValues = (x: number, y: number): vec2 => {
   const out = new glMatrix.ARRAY_TYPE(2);
@@ -49,9 +49,9 @@ export const fromValues = (x: number, y: number): vec2 => {
 /**
  * Copy the values from one vec2 to another
  *
- * @param {vec2} out the receiving vector
- * @param {ReadonlyVec2} a the source vector
- * @returns {vec2} out
+ * @param out the receiving vector
+ * @param a the source vector
+ * @returns out
  */
 export const copy = (out: vec2, a: ReadonlyVec2): vec2 => {
   out[0] = a[0];
@@ -62,10 +62,10 @@ export const copy = (out: vec2, a: ReadonlyVec2): vec2 => {
 /**
  * Set the components of a vec2 to the given values
  *
- * @param {vec2} out the receiving vector
- * @param {Number} x X component
- * @param {Number} y Y component
- * @returns {vec2} out
+ * @param out the receiving vector
+ * @param x X component
+ * @param y Y component
+ * @returns out
  */
 export const set = (out: vec2, x: number, y: number): vec2 => {
   out[0] = x;
@@ -76,10 +76,10 @@ export const set = (out: vec2, x: number, y: number): vec2 => {
 /**
  * Adds two vec2's
  *
- * @param {vec2} out the receiving vector
- * @param {ReadonlyVec2} a the first operand
- * @param {ReadonlyVec2} b the second operand
- * @returns {vec2} out
+ * @param out the receiving vector
+ * @param a the first operand
+ * @param b the second operand
+ * @returns out
  */
 export const add = (out: vec2, a: ReadonlyVec2, b: ReadonlyVec2): vec2 => {
   out[0] = a[0] + b[0];
@@ -90,10 +90,10 @@ export const add = (out: vec2, a: ReadonlyVec2, b: ReadonlyVec2): vec2 => {
 /**
  * Subtracts vector b from vector a
  *
- * @param {vec2} out the receiving vector
- * @param {ReadonlyVec2} a the first operand
- * @param {ReadonlyVec2} b the second operand
- * @returns {vec2} out
+ * @param out the receiving vector
+ * @param a the first operand
+ * @param b the second operand
+ * @returns out
  */
 export const subtract = (out: vec2, a: ReadonlyVec2, b: ReadonlyVec2): vec2 => {
   out[0] = a[0] - b[0];
@@ -104,10 +104,10 @@ export const subtract = (out: vec2, a: ReadonlyVec2, b: ReadonlyVec2): vec2 => {
 /**
  * Multiplies two vec2's
  *
- * @param {vec2} out the receiving vector
- * @param {ReadonlyVec2} a the first operand
- * @param {ReadonlyVec2} b the second operand
- * @returns {vec2} out
+ * @param out the receiving vector
+ * @param a the first operand
+ * @param b the second operand
+ * @returns out
  */
 export const multiply = (out: vec2, a: ReadonlyVec2, b: ReadonlyVec2): vec2 => {
   out[0] = a[0] * b[0];
@@ -118,10 +118,10 @@ export const multiply = (out: vec2, a: ReadonlyVec2, b: ReadonlyVec2): vec2 => {
 /**
  * Divides two vec2's
  *
- * @param {vec2} out the receiving vector
- * @param {ReadonlyVec2} a the first operand
- * @param {ReadonlyVec2} b the second operand
- * @returns {vec2} out
+ * @param out the receiving vector
+ * @param a the first operand
+ * @param b the second operand
+ * @returns out
  */
 export const divide = (out: vec2, a: ReadonlyVec2, b: ReadonlyVec2): vec2 => {
   out[0] = a[0] / b[0];
@@ -132,9 +132,9 @@ export const divide = (out: vec2, a: ReadonlyVec2, b: ReadonlyVec2): vec2 => {
 /**
  * Math.ceil the components of a vec2
  *
- * @param {vec2} out the receiving vector
- * @param {ReadonlyVec2} a vector to ceil
- * @returns {vec2} out
+ * @param out the receiving vector
+ * @param a vector to ceil
+ * @returns out
  */
 export const ceil = (out: vec2, a: ReadonlyVec2): vec2 => {
   out[0] = Math.ceil(a[0]);
@@ -145,9 +145,9 @@ export const ceil = (out: vec2, a: ReadonlyVec2): vec2 => {
 /**
  * Math.floor the components of a vec2
  *
- * @param {vec2} out the receiving vector
- * @param {ReadonlyVec2} a vector to floor
- * @returns {vec2} out
+ * @param out the receiving vector
+ * @param a vector to floor
+ * @returns out
  */
 export const floor = (out: vec2, a: ReadonlyVec2): vec2 => {
   out[0] = Math.floor(a[0]);
@@ -158,10 +158,10 @@ export const floor = (out: vec2, a: ReadonlyVec2): vec2 => {
 /**
  * Returns the minimum of two vec2's
  *
- * @param {vec2} out the receiving vector
- * @param {ReadonlyVec2} a the first operand
- * @param {ReadonlyVec2} b the second operand
- * @returns {vec2} out
+ * @param out the receiving vector
+ * @param a the first operand
+ * @param b the second operand
+ * @returns out
  */
 export const min = (out: vec2, a: ReadonlyVec2, b: ReadonlyVec2): vec2 => {
   out[0] = Math.min(a[0], b[0]);
@@ -172,10 +172,10 @@ export const min = (out: vec2, a: ReadonlyVec2, b: ReadonlyVec2): vec2 => {
 /**
  * Returns the maximum of two vec2's
  *
- * @param {vec2} out the receiving vector
- * @param {ReadonlyVec2} a the first operand
- * @param {ReadonlyVec2} b the second operand
- * @returns {vec2} out
+ * @param out the receiving vector
+ * @param a the first operand
+ * @param b the second operand
+ * @returns out
  */
 export const max = (out: vec2, a: ReadonlyVec2, b: ReadonlyVec2): vec2 => {
   out[0] = Math.max(a[0], b[0]);
@@ -186,9 +186,9 @@ export const max = (out: vec2, a: ReadonlyVec2, b: ReadonlyVec2): vec2 => {
 /**
  * symmetric round the components of a vec2
  *
- * @param {vec2} out the receiving vector
- * @param {ReadonlyVec2} a vector to round
- * @returns {vec2} out
+ * @param out the receiving vector
+ * @param a vector to round
+ * @returns out
  */
 export const round = (out: vec2, a: ReadonlyVec2): vec2 => {
   out[0] = glMatrix.round(a[0]);
@@ -199,10 +199,10 @@ export const round = (out: vec2, a: ReadonlyVec2): vec2 => {
 /**
  * Scales a vec2 by a scalar number
  *
- * @param {vec2} out the receiving vector
- * @param {ReadonlyVec2} a the vector to scale
- * @param {Number} b amount to scale the vector by
- * @returns {vec2} out
+ * @param out the receiving vector
+ * @param a the vector to scale
+ * @param b amount to scale the vector by
+ * @returns out
  */
 export const scale = (out: vec2, a: ReadonlyVec2, b: number): vec2 => {
   out[0] = a[0] * b;
@@ -213,11 +213,11 @@ export const scale = (out: vec2, a: ReadonlyVec2, b: number): vec2 => {
 /**
  * Adds two vec2's after scaling the second operand by a scalar value
  *
- * @param {vec2} out the receiving vector
- * @param {ReadonlyVec2} a the first operand
- * @param {ReadonlyVec2} b the second operand
- * @param {Number} scale the amount to scale b by before adding
- * @returns {vec2} out
+ * @param out the receiving vector
+ * @param a the first operand
+ * @param b the second operand
+ * @param scale the amount to scale b by before adding
+ * @returns out
  */
 export const scaleAndAdd = (out: vec2, a: ReadonlyVec2, b: ReadonlyVec2, scale: number): vec2 => {
   out[0] = a[0] + b[0] * scale;
@@ -228,9 +228,9 @@ export const scaleAndAdd = (out: vec2, a: ReadonlyVec2, b: ReadonlyVec2, scale: 
 /**
  * Calculates the euclidian distance between two vec2's
  *
- * @param {ReadonlyVec2} a the first operand
- * @param {ReadonlyVec2} b the second operand
- * @returns {Number} distance between a and b
+ * @param a the first operand
+ * @param b the second operand
+ * @returns distance between a and b
  */
 export const distance = (a: ReadonlyVec2, b: ReadonlyVec2): number => {
   const x = b[0] - a[0];
@@ -241,9 +241,9 @@ export const distance = (a: ReadonlyVec2, b: ReadonlyVec2): number => {
 /**
  * Calculates the squared euclidian distance between two vec2's
  *
- * @param {ReadonlyVec2} a the first operand
- * @param {ReadonlyVec2} b the second operand
- * @returns {Number} squared distance between a and b
+ * @param a the first operand
+ * @param b the second operand
+ * @returns squared distance between a and b
  */
 export const squaredDistance = (a: ReadonlyVec2, b: ReadonlyVec2): number => {
   const x = b[0] - a[0];
@@ -254,8 +254,8 @@ export const squaredDistance = (a: ReadonlyVec2, b: ReadonlyVec2): number => {
 /**
  * Calculates the length of a vec2
  *
- * @param {ReadonlyVec2} a vector to calculate length of
- * @returns {Number} length of a
+ * @param a vector to calculate length of
+ * @returns length of a
  */
 export const length = (a: ReadonlyVec2): number => {
   const x = a[0];
@@ -266,8 +266,8 @@ export const length = (a: ReadonlyVec2): number => {
 /**
  * Calculates the squared length of a vec2
  *
- * @param {ReadonlyVec2} a vector to calculate squared length of
- * @returns {Number} squared length of a
+ * @param a vector to calculate squared length of
+ * @returns squared length of a
  */
 export const squaredLength = (a: ReadonlyVec2): number => {
   const x = a[0];
@@ -278,9 +278,9 @@ export const squaredLength = (a: ReadonlyVec2): number => {
 /**
  * Negates the components of a vec2
  *
- * @param {vec2} out the receiving vector
- * @param {ReadonlyVec2} a vector to negate
- * @returns {vec2} out
+ * @param out the receiving vector
+ * @param a vector to negate
+ * @returns out
  */
 export const negate = (out: vec2, a: ReadonlyVec2): vec2 => {
   out[0] = -a[0];
@@ -291,9 +291,9 @@ export const negate = (out: vec2, a: ReadonlyVec2): vec2 => {
 /**
  * Returns the inverse of the components of a vec2
  *
- * @param {vec2} out the receiving vector
- * @param {ReadonlyVec2} a vector to invert
- * @returns {vec2} out
+ * @param out the receiving vector
+ * @param a vector to invert
+ * @returns out
  */
 export const inverse = (out: vec2, a: ReadonlyVec2): vec2 => {
   out[0] = 1.0 / a[0];
@@ -304,9 +304,9 @@ export const inverse = (out: vec2, a: ReadonlyVec2): vec2 => {
 /**
  * Normalize a vec2
  *
- * @param {vec2} out the receiving vector
- * @param {ReadonlyVec2} a vector to normalize
- * @returns {vec2} out
+ * @param out the receiving vector
+ * @param a vector to normalize
+ * @returns out
  */
 export const normalize = (out: vec2, a: ReadonlyVec2): vec2 => {
   const x = a[0];
@@ -324,9 +324,9 @@ export const normalize = (out: vec2, a: ReadonlyVec2): vec2 => {
 /**
  * Calculates the dot product of two vec2's
  *
- * @param {ReadonlyVec2} a the first operand
- * @param {ReadonlyVec2} b the second operand
- * @returns {Number} dot product of a and b
+ * @param a the first operand
+ * @param b the second operand
+ * @returns dot product of a and b
  */
 export const dot = (a: ReadonlyVec2, b: ReadonlyVec2): number => {
   return a[0] * b[0] + a[1] * b[1];
@@ -336,10 +336,10 @@ export const dot = (a: ReadonlyVec2, b: ReadonlyVec2): number => {
  * Computes the cross product of two vec2's
  * Note that the cross product must by definition produce a 3D vector
  *
- * @param {vec3} out the receiving vector
- * @param {ReadonlyVec2} a the first operand
- * @param {ReadonlyVec2} b the second operand
- * @returns {vec3} out
+ * @param out the receiving vector
+ * @param a the first operand
+ * @param b the second operand
+ * @returns out
  */
 export const cross = (out: vec3, a: ReadonlyVec2, b: ReadonlyVec2): vec3 => {
   const z = a[0] * b[1] - a[1] * b[0];
@@ -351,11 +351,11 @@ export const cross = (out: vec3, a: ReadonlyVec2, b: ReadonlyVec2): vec3 => {
 /**
  * Performs a linear interpolation between two vec2's
  *
- * @param {vec2} out the receiving vector
- * @param {ReadonlyVec2} a the first operand
- * @param {ReadonlyVec2} b the second operand
- * @param {Number} t interpolation amount, in the range [0-1], between the two inputs
- * @returns {vec2} out
+ * @param out the receiving vector
+ * @param a the first operand
+ * @param b the second operand
+ * @param t interpolation amount, in the range [0-1], between the two inputs
+ * @returns out
  */
 export const lerp = (out: vec2, a: ReadonlyVec2, b: ReadonlyVec2, t: number): vec2 => {
   const ax = a[0];
@@ -382,10 +382,10 @@ export const random = (out: vec2, scale: number = 1): vec2 => {
 /**
  * Transforms the vec2 with a mat2
  *
- * @param {vec2} out the receiving vector
- * @param {ReadonlyVec2} a the vector to transform
- * @param {ReadonlyMat2} m matrix to transform with
- * @returns {vec2} out
+ * @param out the receiving vector
+ * @param a the vector to transform
+ * @param m matrix to transform with
+ * @returns out
  */
 export const transformMat2 = (out: vec2, a: ReadonlyVec2, m: ReadonlyMat2): vec2 => {
   const x = a[0];
@@ -398,10 +398,10 @@ export const transformMat2 = (out: vec2, a: ReadonlyVec2, m: ReadonlyMat2): vec2
 /**
  * Transforms the vec2 with a mat2d
  *
- * @param {vec2} out the receiving vector
- * @param {ReadonlyVec2} a the vector to transform
- * @param {ReadonlyMat2d} m matrix to transform with
- * @returns {vec2} out
+ * @param out the receiving vector
+ * @param a the vector to transform
+ * @param m matrix to transform with
+ * @returns out
  */
 export const transformMat2d = (out: vec2, a: ReadonlyVec2, m: ReadonlyMat2d): vec2 => {
   const x = a[0];
@@ -415,10 +415,10 @@ export const transformMat2d = (out: vec2, a: ReadonlyVec2, m: ReadonlyMat2d): ve
  * Transforms the vec2 with a mat3
  * 3rd vector component is implicitly '1'
  *
- * @param {vec2} out the receiving vector
- * @param {ReadonlyVec2} a the vector to transform
- * @param {ReadonlyMat3} m matrix to transform with
- * @returns {vec2} out
+ * @param out the receiving vector
+ * @param a the vector to transform
+ * @param m matrix to transform with
+ * @returns out
  */
 export const transformMat3 = (out: vec2, a: ReadonlyVec2, m: ReadonlyMat3): vec2 => {
   const x = a[0];
@@ -433,10 +433,10 @@ export const transformMat3 = (out: vec2, a: ReadonlyVec2, m: ReadonlyMat3): vec2
  * 3rd vector component is implicitly '0'
  * 4th vector component is implicitly '1'
  *
- * @param {vec2} out the receiving vector
- * @param {ReadonlyVec2} a the vector to transform
- * @param {ReadonlyMat4} m matrix to transform with
- * @returns {vec2} out
+ * @param out the receiving vector
+ * @param a the vector to transform
+ * @param m matrix to transform with
+ * @returns out
  */
 export const transformMat4 = (out: vec2, a: ReadonlyVec2, m: ReadonlyMat4): vec2 => {
   const x = a[0];
@@ -448,11 +448,11 @@ export const transformMat4 = (out: vec2, a: ReadonlyVec2, m: ReadonlyMat4): vec2
 
 /**
  * Rotate a 2D vector
- * @param {vec2} out The receiving vec2
- * @param {ReadonlyVec2} a The vec2 point to rotate
- * @param {ReadonlyVec2} b The origin of the rotation
- * @param {Number} rad The angle of rotation in radians
- * @returns {vec2} out
+ * @param out The receiving vec2
+ * @param a The vec2 point to rotate
+ * @param b The origin of the rotation
+ * @param rad The angle of rotation in radians
+ * @returns out
  */
 export const rotate = (out: vec2, a: ReadonlyVec2, b: ReadonlyVec2, rad: number): vec2 => {
   //Translate point to the origin
@@ -470,9 +470,9 @@ export const rotate = (out: vec2, a: ReadonlyVec2, b: ReadonlyVec2, rad: number)
 
 /**
  * Get the smallest angle between two 2D vectors
- * @param {ReadonlyVec2} a The first operand
- * @param {ReadonlyVec2} b The second operand
- * @returns {Number} The angle in radians
+ * @param a The first operand
+ * @param b The second operand
+ * @returns The angle in radians
  */
 export const angle = (a: ReadonlyVec2, b: ReadonlyVec2): number => {
   const ax = a[0];
@@ -485,9 +485,9 @@ export const angle = (a: ReadonlyVec2, b: ReadonlyVec2): number => {
 /**
  * Get the signed angle in the interval [-pi,pi] between two 2D vectors (positive if `a` is to the right of `b`)
  *
- * @param {ReadonlyVec2} a The first vector
- * @param {ReadonlyVec2} b The second vector
- * @returns {number} The signed angle in radians
+ * @param a The first vector
+ * @param b The second vector
+ * @returns The signed angle in radians
  */
 export const signedAngle = (a: ReadonlyVec2, b: ReadonlyVec2): number => {
   const ax = a[0];
@@ -500,8 +500,8 @@ export const signedAngle = (a: ReadonlyVec2, b: ReadonlyVec2): number => {
 /**
  * Set the components of a vec2 to zero
  *
- * @param {vec2} out the receiving vector
- * @returns {vec2} out
+ * @param out the receiving vector
+ * @returns out
  */
 export const zero = (out: vec2): vec2 => {
   out[0] = 0.0;
@@ -512,8 +512,8 @@ export const zero = (out: vec2): vec2 => {
 /**
  * Returns a string representation of a vector
  *
- * @param {ReadonlyVec2} a vector to represent as a string
- * @returns {String} string representation of the vector
+ * @param a vector to represent as a string
+ * @returns string representation of the vector
  */
 export const str = (a: ReadonlyVec2): string => {
   return "vec2(" + a[0] + ", " + a[1] + ")";
@@ -522,9 +522,9 @@ export const str = (a: ReadonlyVec2): string => {
 /**
  * Returns whether or not the vectors exactly have the same elements in the same position (when compared with ===)
  *
- * @param {ReadonlyVec2} a The first vector.
- * @param {ReadonlyVec2} b The second vector.
- * @returns {Boolean} True if the vectors are equal, false otherwise.
+ * @param a The first vector.
+ * @param b The second vector.
+ * @returns True if the vectors are equal, false otherwise.
  */
 export const exactEquals = (a: ReadonlyVec2, b: ReadonlyVec2): boolean => {
   return a[0] === b[0] && a[1] === b[1];
@@ -533,9 +533,9 @@ export const exactEquals = (a: ReadonlyVec2, b: ReadonlyVec2): boolean => {
 /**
  * Returns whether or not the vectors have approximately the same elements in the same position.
  *
- * @param {ReadonlyVec2} a The first vector.
- * @param {ReadonlyVec2} b The second vector.
- * @returns {Boolean} True if the vectors are equal, false otherwise.
+ * @param a The first vector.
+ * @param b The second vector.
+ * @returns True if the vectors are equal, false otherwise.
  */
 export const equals = (a: ReadonlyVec2, b: ReadonlyVec2): boolean => {
   const a0 = a[0];
@@ -550,43 +550,36 @@ export const equals = (a: ReadonlyVec2, b: ReadonlyVec2): boolean => {
 
 /**
  * Alias for {@link vec2.length}
- * @function
  */
 export const len = length;
 
 /**
  * Alias for {@link vec2.subtract}
- * @function
  */
 export const sub = subtract;
 
 /**
  * Alias for {@link vec2.multiply}
- * @function
  */
 export const mul = multiply;
 
 /**
  * Alias for {@link vec2.divide}
- * @function
  */
 export const div = divide;
 
 /**
  * Alias for {@link vec2.distance}
- * @function
  */
 export const dist = distance;
 
 /**
  * Alias for {@link vec2.squaredDistance}
- * @function
  */
 export const sqrDist = squaredDistance;
 
 /**
  * Alias for {@link vec2.squaredLength}
- * @function
  */
 export const sqrLen = squaredLength;
 

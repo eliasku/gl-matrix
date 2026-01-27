@@ -11,7 +11,7 @@ export let DEFAULT_ANGLE_ORDER = AngleOrder.zyx;
  * Symmetric round
  * see https://www.npmjs.com/package/round-half-up-symmetric#user-content-detailed-background
  *
- * @param {Number} a value to round
+ * @param a value to round
  */
 export const round = (a: number): number => {
   if (a >= 0) {
@@ -23,7 +23,7 @@ export const round = (a: number): number => {
 /**
  * Sets the type of array used when creating new vectors and matrices
  *
- * @param {Float32ArrayConstructor | ArrayConstructor} type Array type, such as Float32Array or Array
+ * @param type Array type, such as Float32Array or Array
  */
 export const setMatrixArrayType = (type: ArrayType) => {
   ARRAY_TYPE = type;
@@ -36,14 +36,14 @@ const radian = 180 / Math.PI;
 /**
  * Convert Degree To Radian
  *
- * @param {Number} a Angle in Degrees
+ * @param a Angle in Degrees
  */
 export const toRadian = (a: number): number => a * degree;
 
 /**
  * Convert Radian To Degree
  *
- * @param {Number} a Angle in Radians
+ * @param a Angle in Radians
  */
 export const toDegree = (a: number): number => a * radian;
 
@@ -52,10 +52,10 @@ export const toDegree = (a: number): number => a * radian;
  * or relative tolerance of glMatrix.EPSILON (an absolute tolerance is used for values less
  * than or equal to 1.0, and a relative tolerance is used for larger values)
  *
- * @param {Number} a          The first number to test.
- * @param {Number} b          The second number to test.
- * @param {Number} tolerance  Absolute or relative tolerance (default glMatrix.EPSILON)
- * @returns {Boolean} True if the numbers are approximately equal, false otherwise.
+ * @param a          The first number to test.
+ * @param b          The second number to test.
+ * @param tolerance  Absolute or relative tolerance (default glMatrix.EPSILON)
+ * @returns True if the numbers are approximately equal, false otherwise.
  */
 export const equals = (a: number, b: number, tolerance: number = EPSILON): boolean =>
   Math.abs(a - b) <= tolerance * Math.max(1, Math.abs(a), Math.abs(b));
