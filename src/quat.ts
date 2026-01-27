@@ -1,5 +1,6 @@
 import { AngleOrder } from "./AngleOrder";
-import { createArray, EPSILON, RANDOM } from "./common";
+import { createArray } from "./common";
+import { EPSILON, RANDOM, ABS, SQRT, PI, SIN, COS, ACOS, ATAN2, EXP, LOG } from "./builtin";
 import * as mat3 from "./mat3";
 import * as vec3 from "./vec3";
 import * as vec4 from "./vec4";
@@ -53,11 +54,11 @@ export const identity = (out: Quat): Quat => {
  **/
 export const setAxisAngle = (out: Quat, axis: Readonly<Vec3>, rad: number): Quat => {
   rad = rad * 0.5;
-  const s = Math.sin(rad);
+  const s = SIN(rad);
   out[0] = s * axis[0];
   out[1] = s * axis[1];
   out[2] = s * axis[2];
-  out[3] = Math.cos(rad);
+  out[3] = COS(rad);
   return out;
 };
 
@@ -75,8 +76,8 @@ export const setAxisAngle = (out: Quat, axis: Readonly<Vec3>, rad: number): Quat
  * @returns Angle, in radians, of the rotation
  */
 export const getAxisAngle = (out_axis: Vec3, q: Readonly<Quat>): number => {
-  const rad = Math.acos(q[3]) * 2.0;
-  const s = Math.sin(rad / 2.0);
+  const rad = ACOS(q[3]) * 2.0;
+  const s = SIN(rad / 2.0);
   if (s > EPSILON) {
     out_axis[0] = q[0] / s;
     out_axis[1] = q[1] / s;
@@ -100,7 +101,7 @@ export const getAxisAngle = (out_axis: Vec3, q: Readonly<Quat>): number => {
 export const getAngle = (a: Readonly<Quat>, b: Readonly<Quat>): number => {
   const dotproduct = dot(a, b);
 
-  return Math.acos(2 * dotproduct * dotproduct - 1);
+  return ACOS(2 * dotproduct * dotproduct - 1);
 };
 
 /**
@@ -143,8 +144,8 @@ export const rotateX = (out: Quat, a: Readonly<Quat>, rad: number): Quat => {
     ay = a[1],
     az = a[2],
     aw = a[3];
-  const bx = Math.sin(rad),
-    bw = Math.cos(rad);
+  const bx = SIN(rad),
+    bw = COS(rad);
 
   out[0] = ax * bw + aw * bx;
   out[1] = ay * bw + az * bx;
@@ -168,8 +169,8 @@ export const rotateY = (out: Quat, a: Readonly<Quat>, rad: number): Quat => {
     ay = a[1],
     az = a[2],
     aw = a[3];
-  const by = Math.sin(rad),
-    bw = Math.cos(rad);
+  const by = SIN(rad),
+    bw = COS(rad);
 
   out[0] = ax * bw - az * by;
   out[1] = ay * bw + aw * by;
@@ -193,8 +194,8 @@ export const rotateZ = (out: Quat, a: Readonly<Quat>, rad: number): Quat => {
     ay = a[1],
     az = a[2],
     aw = a[3];
-  const bz = Math.sin(rad),
-    bw = Math.cos(rad);
+  const bz = SIN(rad),
+    bw = COS(rad);
 
   out[0] = ax * bw + ay * bz;
   out[1] = ay * bw - ax * bz;
@@ -220,7 +221,7 @@ export const calculateW = (out: Quat, a: Readonly<Quat>): Quat => {
   out[0] = x;
   out[1] = y;
   out[2] = z;
-  out[3] = Math.sqrt(Math.abs(1.0 - x * x - y * y - z * z));
+  out[3] = SQRT(ABS(1.0 - x * x - y * y - z * z));
   return out;
 };
 
@@ -237,14 +238,14 @@ export const exp = (out: Quat, a: Readonly<Quat>): Quat => {
     z = a[2],
     w = a[3];
 
-  const r = Math.sqrt(x * x + y * y + z * z);
-  const et = Math.exp(w);
-  const s = r > 0 ? (et * Math.sin(r)) / r : 0;
+  const r = SQRT(x * x + y * y + z * z);
+  const et = EXP(w);
+  const s = r > 0 ? (et * SIN(r)) / r : 0;
 
   out[0] = x * s;
   out[1] = y * s;
   out[2] = z * s;
-  out[3] = et * Math.cos(r);
+  out[3] = et * COS(r);
 
   return out;
 };
@@ -262,13 +263,13 @@ export const ln = (out: Quat, a: Readonly<Quat>): Quat => {
     z = a[2],
     w = a[3];
 
-  const r = Math.sqrt(x * x + y * y + z * z);
-  const t = r > 0 ? Math.atan2(r, w) / r : 0;
+  const r = SQRT(x * x + y * y + z * z);
+  const t = r > 0 ? ATAN2(r, w) / r : 0;
 
   out[0] = x * t;
   out[1] = y * t;
   out[2] = z * t;
-  out[3] = 0.5 * Math.log(x * x + y * y + z * z + w * w);
+  out[3] = 0.5 * LOG(x * x + y * y + z * z + w * w);
 
   return out;
 };
@@ -324,10 +325,10 @@ export const slerp = (out: Quat, a: Readonly<Quat>, b: Readonly<Quat>, t: number
   // calculate coefficients
   if (1.0 - cosom > EPSILON) {
     // standard case (slerp)
-    const omega = Math.acos(cosom);
-    const sinom = Math.sin(omega);
-    scale0 = Math.sin((1.0 - t) * omega) / sinom;
-    scale1 = Math.sin(t * omega) / sinom;
+    const omega = ACOS(cosom);
+    const sinom = SIN(omega);
+    scale0 = SIN((1.0 - t) * omega) / sinom;
+    scale1 = SIN(t * omega) / sinom;
   } else {
     // "from" and "to" quaternions are very close
     //  ... so we can do a linear interpolation
@@ -356,13 +357,13 @@ export const random = (out: Quat): Quat => {
   const u2 = RANDOM();
   const u3 = RANDOM();
 
-  const sqrt1MinusU1 = Math.sqrt(1 - u1);
-  const sqrtU1 = Math.sqrt(u1);
+  const sqrt1MinusU1 = SQRT(1 - u1);
+  const sqrtU1 = SQRT(u1);
 
-  out[0] = sqrt1MinusU1 * Math.sin(2.0 * Math.PI * u2);
-  out[1] = sqrt1MinusU1 * Math.cos(2.0 * Math.PI * u2);
-  out[2] = sqrtU1 * Math.sin(2.0 * Math.PI * u3);
-  out[3] = sqrtU1 * Math.cos(2.0 * Math.PI * u3);
+  out[0] = sqrt1MinusU1 * SIN(2.0 * PI * u2);
+  out[1] = sqrt1MinusU1 * COS(2.0 * PI * u2);
+  out[2] = sqrtU1 * SIN(2.0 * PI * u3);
+  out[3] = sqrtU1 * COS(2.0 * PI * u3);
 
   return out;
 };
@@ -425,7 +426,7 @@ export const fromMat3 = (out: Quat, m: Readonly<Mat3>): Quat => {
 
   if (fTrace > 0.0) {
     // |w| > 1/2, may as well choose w > 1/2
-    fRoot = Math.sqrt(fTrace + 1.0); // 2w
+    fRoot = SQRT(fTrace + 1.0); // 2w
     out[3] = 0.5 * fRoot;
     fRoot = 0.5 / fRoot; // 1/(4w)
     out[0] = (m[5] - m[7]) * fRoot;
@@ -443,7 +444,7 @@ export const fromMat3 = (out: Quat, m: Readonly<Mat3>): Quat => {
     const j = (i + 1) % 3;
     const k = (i + 2) % 3;
 
-    fRoot = Math.sqrt(m[i * 3 + i] - m[j * 3 + j] - m[k * 3 + k] + 1.0);
+    fRoot = SQRT(m[i * 3 + i] - m[j * 3 + j] - m[k * 3 + k] + 1.0);
     out[i] = 0.5 * fRoot;
     fRoot = 0.5 / fRoot;
     out[3] = (m[j * 3 + k] - m[k * 3 + j]) * fRoot;
@@ -469,12 +470,12 @@ export const fromEuler = (out: Quat, x: number, y: number, z: number, order = An
   z *= 0.5;
   y *= 0.5;
 
-  const sx = Math.sin(x);
-  const cx = Math.cos(x);
-  const sy = Math.sin(y);
-  const cy = Math.cos(y);
-  const sz = Math.sin(z);
-  const cz = Math.cos(z);
+  const sx = SIN(x);
+  const cx = COS(x);
+  const sy = SIN(y);
+  const cy = COS(y);
+  const sz = SIN(z);
+  const cz = COS(z);
 
   switch (order) {
     case AngleOrder.xyz:
@@ -669,7 +670,7 @@ export const exactEquals = vec4.exactEquals;
  * @param b The second unit quaternion.
  * @returns True if the quaternions are equal, false otherwise.
  */
-export const equals = (a: Readonly<Quat>, b: Readonly<Quat>): boolean => Math.abs(vec4.dot(a, b)) >= 1 - EPSILON;
+export const equals = (a: Readonly<Quat>, b: Readonly<Quat>): boolean => ABS(vec4.dot(a, b)) >= 1 - EPSILON;
 
 const tmpvec3 = vec3.create();
 const xUnitVec3 = vec3.fromValues(1, 0, 0);
@@ -694,7 +695,7 @@ export const rotationTo = (out: Quat, a: Readonly<Vec3>, b: Readonly<Vec3>): Qua
       vec3.cross(tmpvec3, yUnitVec3, a);
     }
     vec3.normalize(tmpvec3, tmpvec3);
-    setAxisAngle(out, tmpvec3, Math.PI);
+    setAxisAngle(out, tmpvec3, PI);
     return out;
   } else if (dot > 0.999999) {
     out[0] = 0;

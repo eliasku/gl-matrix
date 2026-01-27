@@ -9,7 +9,9 @@
     "noEmit": true,
     "useDefineForClassFields": false,
     "isolatedModules": true,
-    "strict": true
+    "strict": true,
+    "lib": ["ESNext", "ES2015.Iterable"],
+    "esModuleInterop": false,
   },
-  "include": ["./src/**/*.ts", "./spec/**/*.ts"]
+  "include": ["./src/**/*.ts", "./spec/**/*.ts"],
 }

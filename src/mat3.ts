@@ -1,4 +1,5 @@
-import { EPSILON, createArray } from "./common";
+import { EPSILON, ABS, COS, MAX, SIN, SQRT } from "./builtin";
+import { createArray } from "./common";
 import type { Mat3, Mat2d, Mat4, Quat, Vec2 } from "./types";
 
 /**
@@ -396,8 +397,8 @@ export const rotate = (out: Mat3, a: Readonly<Mat3>, rad: number): Mat3 => {
   const a20 = a[6];
   const a21 = a[7];
   const a22 = a[8];
-  const s = Math.sin(rad);
-  const c = Math.cos(rad);
+  const s = SIN(rad);
+  const c = COS(rad);
 
   out[0] = c * a00 + s * a10;
   out[1] = c * a01 + s * a11;
@@ -477,8 +478,8 @@ export const fromTranslation = (out: Mat3, v: Readonly<Vec2>): Mat3 => {
  * @returns out
  */
 export const fromRotation = (out: Mat3, rad: number): Mat3 => {
-  const s = Math.sin(rad);
-  const c = Math.cos(rad);
+  const s = SIN(rad);
+  const c = COS(rad);
 
   out[0] = c;
   out[1] = s;
@@ -698,7 +699,7 @@ export const str = (a: Readonly<Mat3>): string =>
  * @returns Frobenius norm
  */
 export const frob = (a: Readonly<Mat3>): number =>
-  Math.sqrt(
+  SQRT(
     a[0] * a[0] +
       a[1] * a[1] +
       a[2] * a[2] +
@@ -840,15 +841,15 @@ export const equals = (a: Readonly<Mat3>, b: Readonly<Mat3>): boolean => {
   const b7 = b[7];
   const b8 = b[8];
   return (
-    Math.abs(a0 - b0) <= EPSILON * Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
-    Math.abs(a1 - b1) <= EPSILON * Math.max(1.0, Math.abs(a1), Math.abs(b1)) &&
-    Math.abs(a2 - b2) <= EPSILON * Math.max(1.0, Math.abs(a2), Math.abs(b2)) &&
-    Math.abs(a3 - b3) <= EPSILON * Math.max(1.0, Math.abs(a3), Math.abs(b3)) &&
-    Math.abs(a4 - b4) <= EPSILON * Math.max(1.0, Math.abs(a4), Math.abs(b4)) &&
-    Math.abs(a5 - b5) <= EPSILON * Math.max(1.0, Math.abs(a5), Math.abs(b5)) &&
-    Math.abs(a6 - b6) <= EPSILON * Math.max(1.0, Math.abs(a6), Math.abs(b6)) &&
-    Math.abs(a7 - b7) <= EPSILON * Math.max(1.0, Math.abs(a7), Math.abs(b7)) &&
-    Math.abs(a8 - b8) <= EPSILON * Math.max(1.0, Math.abs(a8), Math.abs(b8))
+    ABS(a0 - b0) <= EPSILON * MAX(1.0, ABS(a0), ABS(b0)) &&
+    ABS(a1 - b1) <= EPSILON * MAX(1.0, ABS(a1), ABS(b1)) &&
+    ABS(a2 - b2) <= EPSILON * MAX(1.0, ABS(a2), ABS(b2)) &&
+    ABS(a3 - b3) <= EPSILON * MAX(1.0, ABS(a3), ABS(b3)) &&
+    ABS(a4 - b4) <= EPSILON * MAX(1.0, ABS(a4), ABS(b4)) &&
+    ABS(a5 - b5) <= EPSILON * MAX(1.0, ABS(a5), ABS(b5)) &&
+    ABS(a6 - b6) <= EPSILON * MAX(1.0, ABS(a6), ABS(b6)) &&
+    ABS(a7 - b7) <= EPSILON * MAX(1.0, ABS(a7), ABS(b7)) &&
+    ABS(a8 - b8) <= EPSILON * MAX(1.0, ABS(a8), ABS(b8))
   );
 };
 

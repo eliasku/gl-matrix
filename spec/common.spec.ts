@@ -1,6 +1,7 @@
 import { describe, beforeEach, it, expect } from "bun:test";
-import { EPSILON, equals, symround } from "../src/common";
+import { equals, symround } from "../src/common";
 import "./helpers";
+import { EPSILON } from "../src/builtin";
 
 describe("common", () => {
   it("symround for negative -0.5 as for 0.5", () => {

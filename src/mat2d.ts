@@ -1,4 +1,5 @@
-import { EPSILON, createArray } from "./common";
+import { ABS, COS, MAX, SIN, SQRT, EPSILON } from "./builtin";
+import { createArray } from "./common";
 import type { Mat2d, Vec2 } from "./types";
 
 /**
@@ -209,8 +210,8 @@ export const rotate = (out: Mat2d, a: Readonly<Mat2d>, rad: number): Mat2d => {
     a3 = a[3],
     a4 = a[4],
     a5 = a[5];
-  const s = Math.sin(rad);
-  const c = Math.cos(rad);
+  const s = SIN(rad);
+  const c = COS(rad);
   out[0] = a0 * c + a2 * s;
   out[1] = a1 * c + a3 * s;
   out[2] = a0 * -s + a2 * c;
@@ -284,8 +285,8 @@ export const translate = (out: Mat2d, a: Readonly<Mat2d>, v: Readonly<Vec2>): Ma
  * @returns out
  */
 export const fromRotation = (out: Mat2d, rad: number): Mat2d => {
-  const s = Math.sin(rad),
-    c = Math.cos(rad);
+  const s = SIN(rad),
+    c = COS(rad);
   out[0] = c;
   out[1] = s;
   out[2] = -s;
@@ -353,7 +354,7 @@ export const str = (a: Readonly<Mat2d>): string =>
  * @returns Frobenius norm
  */
 export const frob = (a: Readonly<Mat2d>): number =>
-  Math.sqrt(a[0] * a[0] + a[1] * a[1] + a[2] * a[2] + a[3] * a[3] + a[4] * a[4] + a[5] * a[5] + 1);
+  SQRT(a[0] * a[0] + a[1] * a[1] + a[2] * a[2] + a[3] * a[3] + a[4] * a[4] + a[5] * a[5] + 1);
 
 /**
  * Adds two mat2d's
@@ -459,12 +460,12 @@ export const equals = (a: Readonly<Mat2d>, b: Readonly<Mat2d>): boolean => {
     b4 = b[4],
     b5 = b[5];
   return (
-    Math.abs(a0 - b0) <= EPSILON * Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
-    Math.abs(a1 - b1) <= EPSILON * Math.max(1.0, Math.abs(a1), Math.abs(b1)) &&
-    Math.abs(a2 - b2) <= EPSILON * Math.max(1.0, Math.abs(a2), Math.abs(b2)) &&
-    Math.abs(a3 - b3) <= EPSILON * Math.max(1.0, Math.abs(a3), Math.abs(b3)) &&
-    Math.abs(a4 - b4) <= EPSILON * Math.max(1.0, Math.abs(a4), Math.abs(b4)) &&
-    Math.abs(a5 - b5) <= EPSILON * Math.max(1.0, Math.abs(a5), Math.abs(b5))
+    ABS(a0 - b0) <= EPSILON * MAX(1.0, ABS(a0), ABS(b0)) &&
+    ABS(a1 - b1) <= EPSILON * MAX(1.0, ABS(a1), ABS(b1)) &&
+    ABS(a2 - b2) <= EPSILON * MAX(1.0, ABS(a2), ABS(b2)) &&
+    ABS(a3 - b3) <= EPSILON * MAX(1.0, ABS(a3), ABS(b3)) &&
+    ABS(a4 - b4) <= EPSILON * MAX(1.0, ABS(a4), ABS(b4)) &&
+    ABS(a5 - b5) <= EPSILON * MAX(1.0, ABS(a5), ABS(b5))
   );
 };
 

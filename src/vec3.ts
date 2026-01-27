@@ -1,4 +1,5 @@
-import { createArray, EPSILON, invSqrt, RANDOM, symround } from "./common";
+import { EPSILON, COS, PI, SIN, RANDOM, ABS, ACOS, MAX, MIN, SQRT, CEIL, FLOOR } from "./builtin";
+import { createArray, invSqrt, symround } from "./common";
 import type { Mat3, Mat4, Quat, Vec3 } from "./types";
 
 /**
@@ -37,7 +38,7 @@ export const length = (a: Readonly<Vec3>): number => {
   const x = a[0];
   const y = a[1];
   const z = a[2];
-  return Math.sqrt(x * x + y * y + z * z);
+  return SQRT(x * x + y * y + z * z);
 };
 
 /**
@@ -147,30 +148,30 @@ export const divide = (out: Vec3, a: Readonly<Vec3>, b: Readonly<Vec3>): Vec3 =>
 };
 
 /**
- * Math.ceil the components of a vec3
+ * `ceil` the components of a vec3
  *
  * @param out the receiving vector
  * @param a vector to ceil
  * @returns out
  */
 export const ceil = (out: Vec3, a: Readonly<Vec3>): Vec3 => {
-  out[0] = Math.ceil(a[0]);
-  out[1] = Math.ceil(a[1]);
-  out[2] = Math.ceil(a[2]);
+  out[0] = CEIL(a[0]);
+  out[1] = CEIL(a[1]);
+  out[2] = CEIL(a[2]);
   return out;
 };
 
 /**
- * Math.floor the components of a vec3
+ * `floor` the components of a vec3
  *
  * @param out the receiving vector
  * @param a vector to floor
  * @returns out
  */
 export const floor = (out: Vec3, a: Readonly<Vec3>): Vec3 => {
-  out[0] = Math.floor(a[0]);
-  out[1] = Math.floor(a[1]);
-  out[2] = Math.floor(a[2]);
+  out[0] = FLOOR(a[0]);
+  out[1] = FLOOR(a[1]);
+  out[2] = FLOOR(a[2]);
   return out;
 };
 
@@ -183,9 +184,9 @@ export const floor = (out: Vec3, a: Readonly<Vec3>): Vec3 => {
  * @returns out
  */
 export const min = (out: Vec3, a: Readonly<Vec3>, b: Readonly<Vec3>): Vec3 => {
-  out[0] = Math.min(a[0], b[0]);
-  out[1] = Math.min(a[1], b[1]);
-  out[2] = Math.min(a[2], b[2]);
+  out[0] = MIN(a[0], b[0]);
+  out[1] = MIN(a[1], b[1]);
+  out[2] = MIN(a[2], b[2]);
   return out;
 };
 
@@ -198,9 +199,9 @@ export const min = (out: Vec3, a: Readonly<Vec3>, b: Readonly<Vec3>): Vec3 => {
  * @returns out
  */
 export const max = (out: Vec3, a: Readonly<Vec3>, b: Readonly<Vec3>): Vec3 => {
-  out[0] = Math.max(a[0], b[0]);
-  out[1] = Math.max(a[1], b[1]);
-  out[2] = Math.max(a[2], b[2]);
+  out[0] = MAX(a[0], b[0]);
+  out[1] = MAX(a[1], b[1]);
+  out[2] = MAX(a[2], b[2]);
   return out;
 };
 
@@ -260,7 +261,7 @@ export const distance = (a: Readonly<Vec3>, b: Readonly<Vec3>): number => {
   const x = b[0] - a[0];
   const y = b[1] - a[1];
   const z = b[2] - a[2];
-  return Math.sqrt(x * x + y * y + z * z);
+  return SQRT(x * x + y * y + z * z);
 };
 
 /**
@@ -399,11 +400,11 @@ export const lerp = (out: Vec3, a: Readonly<Vec3>, b: Readonly<Vec3>, t: number)
  * @returns out
  */
 export const slerp = (out: Vec3, a: Readonly<Vec3>, b: Readonly<Vec3>, t: number): Vec3 => {
-  const angle = Math.acos(Math.min(Math.max(dot(a, b), -1), 1));
-  const sinTotal = Math.sin(angle);
+  const angle = ACOS(MIN(MAX(dot(a, b), -1), 1));
+  const sinTotal = SIN(angle);
 
-  const ratioA = Math.sin((1 - t) * angle) / sinTotal;
-  const ratioB = Math.sin(t * angle) / sinTotal;
+  const ratioA = SIN((1 - t) * angle) / sinTotal;
+  const ratioB = SIN(t * angle) / sinTotal;
   out[0] = ratioA * a[0] + ratioB * b[0];
   out[1] = ratioA * a[1] + ratioB * b[1];
   out[2] = ratioA * a[2] + ratioB * b[2];
@@ -485,12 +486,12 @@ export const bezier = (
  * @returns out
  */
 export const random = (out: Vec3, scale = 1): Vec3 => {
-  const r = RANDOM() * 2.0 * Math.PI;
+  const r = RANDOM() * 2.0 * PI;
   const z = RANDOM() * 2.0 - 1.0;
-  const zScale = Math.sqrt(1.0 - z * z) * scale;
+  const zScale = SQRT(1.0 - z * z) * scale;
 
-  out[0] = Math.cos(r) * zScale;
-  out[1] = Math.sin(r) * zScale;
+  out[0] = COS(r) * zScale;
+  out[1] = SIN(r) * zScale;
   out[2] = z * scale;
   return out;
 };
@@ -592,8 +593,8 @@ export const rotateX = (out: Vec3, a: Readonly<Vec3>, b: Readonly<Vec3>, rad: nu
 
   //perform rotation
   r[0] = p[0];
-  r[1] = p[1] * Math.cos(rad) - p[2] * Math.sin(rad);
-  r[2] = p[1] * Math.sin(rad) + p[2] * Math.cos(rad);
+  r[1] = p[1] * COS(rad) - p[2] * SIN(rad);
+  r[2] = p[1] * SIN(rad) + p[2] * COS(rad);
 
   //translate to correct position
   out[0] = r[0] + b[0];
@@ -620,9 +621,9 @@ export const rotateY = (out: Vec3, a: Readonly<Vec3>, b: Readonly<Vec3>, rad: nu
   p[2] = a[2] - b[2];
 
   //perform rotation
-  r[0] = p[2] * Math.sin(rad) + p[0] * Math.cos(rad);
+  r[0] = p[2] * SIN(rad) + p[0] * COS(rad);
   r[1] = p[1];
-  r[2] = p[2] * Math.cos(rad) - p[0] * Math.sin(rad);
+  r[2] = p[2] * COS(rad) - p[0] * SIN(rad);
 
   //translate to correct position
   out[0] = r[0] + b[0];
@@ -649,8 +650,8 @@ export const rotateZ = (out: Vec3, a: Readonly<Vec3>, b: Readonly<Vec3>, rad: nu
   p[2] = a[2] - b[2];
 
   //perform rotation
-  r[0] = p[0] * Math.cos(rad) - p[1] * Math.sin(rad);
-  r[1] = p[0] * Math.sin(rad) + p[1] * Math.cos(rad);
+  r[0] = p[0] * COS(rad) - p[1] * SIN(rad);
+  r[1] = p[0] * SIN(rad) + p[1] * COS(rad);
   r[2] = p[2];
 
   //translate to correct position
@@ -674,9 +675,9 @@ export const angle = (a: Readonly<Vec3>, b: Readonly<Vec3>): number => {
   const bx = b[0];
   const by = b[1];
   const bz = b[2];
-  const mag = Math.sqrt((ax * ax + ay * ay + az * az) * (bx * bx + by * by + bz * bz));
+  const mag = SQRT((ax * ax + ay * ay + az * az) * (bx * bx + by * by + bz * bz));
   const cosine = mag && dot(a, b) / mag;
-  return Math.acos(Math.min(Math.max(cosine, -1), 1));
+  return ACOS(MIN(MAX(cosine, -1), 1));
 };
 
 /**
@@ -725,9 +726,9 @@ export const equals = (a: Readonly<Vec3>, b: Readonly<Vec3>): boolean => {
   const b1 = b[1];
   const b2 = b[2];
   return (
-    Math.abs(a0 - b0) <= EPSILON * Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
-    Math.abs(a1 - b1) <= EPSILON * Math.max(1.0, Math.abs(a1), Math.abs(b1)) &&
-    Math.abs(a2 - b2) <= EPSILON * Math.max(1.0, Math.abs(a2), Math.abs(b2))
+    ABS(a0 - b0) <= EPSILON * MAX(1.0, ABS(a0), ABS(b0)) &&
+    ABS(a1 - b1) <= EPSILON * MAX(1.0, ABS(a1), ABS(b1)) &&
+    ABS(a2 - b2) <= EPSILON * MAX(1.0, ABS(a2), ABS(b2))
   );
 };
 
@@ -795,7 +796,7 @@ export const forEach = <T>(
     offset = 0;
   }
 
-  const end = count ? Math.min(count * stride + offset, a.length) : a.length;
+  const end = count ? MIN(count * stride + offset, a.length) : a.length;
   for (let i = offset; i < end; i += stride) {
     tmp[0] = a[i];
     tmp[1] = a[i + 1];

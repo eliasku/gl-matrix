@@ -1,9 +1,10 @@
-import { createArray, EPSILON } from "./common";
+import { createArray } from "./common";
 
 import * as quat from "./quat";
 import * as mat4 from "./mat4";
 import * as vec3 from "./vec3";
 import type { Quat, Quat2, Mat4, Vec3 } from "./types";
+import { COS, SIN, ABS, SQRT, MAX, EPSILON } from "./builtin";
 
 /**
  * Dual Quaternion
@@ -547,17 +548,17 @@ export const rotateByQuatPrepend = (out: Quat2, q: Readonly<Quat>, a: Readonly<Q
  */
 export const rotateAroundAxis = (out: Quat2, a: Readonly<Quat2>, axis: Readonly<Vec3>, rad: number): Quat2 => {
   //Special case for rad = 0
-  if (Math.abs(rad) < EPSILON) {
+  if (ABS(rad) < EPSILON) {
     return copy(out, a);
   }
-  const axisLength = Math.sqrt(axis[0] * axis[0] + axis[1] * axis[1] + axis[2] * axis[2]);
+  const axisLength = SQRT(axis[0] * axis[0] + axis[1] * axis[1] + axis[2] * axis[2]);
 
   rad = rad * 0.5;
-  const s = Math.sin(rad);
+  const s = SIN(rad);
   const bx = (s * axis[0]) / axisLength;
   const by = (s * axis[1]) / axisLength;
   const bz = (s * axis[2]) / axisLength;
-  const bw = Math.cos(rad);
+  const bw = COS(rad);
   const ax1 = a[0];
   const ay1 = a[1];
   const az1 = a[2];
@@ -777,7 +778,7 @@ export const sqrLen = squaredLength;
 export const normalize = (out: Quat2, a: Readonly<Quat2>): Quat2 => {
   let magnitude = squaredLength(a);
   if (magnitude > 0) {
-    magnitude = Math.sqrt(magnitude);
+    magnitude = SQRT(magnitude);
 
     const a0 = a[0] / magnitude;
     const a1 = a[1] / magnitude;
@@ -871,13 +872,13 @@ export const equals = (a: Readonly<Quat2>, b: Readonly<Quat2>): boolean => {
   const b6 = b[6];
   const b7 = b[7];
   return (
-    Math.abs(a0 - b0) <= EPSILON * Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
-    Math.abs(a1 - b1) <= EPSILON * Math.max(1.0, Math.abs(a1), Math.abs(b1)) &&
-    Math.abs(a2 - b2) <= EPSILON * Math.max(1.0, Math.abs(a2), Math.abs(b2)) &&
-    Math.abs(a3 - b3) <= EPSILON * Math.max(1.0, Math.abs(a3), Math.abs(b3)) &&
-    Math.abs(a4 - b4) <= EPSILON * Math.max(1.0, Math.abs(a4), Math.abs(b4)) &&
-    Math.abs(a5 - b5) <= EPSILON * Math.max(1.0, Math.abs(a5), Math.abs(b5)) &&
-    Math.abs(a6 - b6) <= EPSILON * Math.max(1.0, Math.abs(a6), Math.abs(b6)) &&
-    Math.abs(a7 - b7) <= EPSILON * Math.max(1.0, Math.abs(a7), Math.abs(b7))
+    ABS(a0 - b0) <= EPSILON * MAX(1.0, ABS(a0), ABS(b0)) &&
+    ABS(a1 - b1) <= EPSILON * MAX(1.0, ABS(a1), ABS(b1)) &&
+    ABS(a2 - b2) <= EPSILON * MAX(1.0, ABS(a2), ABS(b2)) &&
+    ABS(a3 - b3) <= EPSILON * MAX(1.0, ABS(a3), ABS(b3)) &&
+    ABS(a4 - b4) <= EPSILON * MAX(1.0, ABS(a4), ABS(b4)) &&
+    ABS(a5 - b5) <= EPSILON * MAX(1.0, ABS(a5), ABS(b5)) &&
+    ABS(a6 - b6) <= EPSILON * MAX(1.0, ABS(a6), ABS(b6)) &&
+    ABS(a7 - b7) <= EPSILON * MAX(1.0, ABS(a7), ABS(b7))
   );
 };

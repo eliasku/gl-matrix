@@ -1,4 +1,5 @@
-import { createArray, EPSILON, invSqrt, RANDOM, symround } from "./common";
+import { EPSILON, COS, PI, SIN, RANDOM, ABS, MAX, MIN, SQRT, ATAN2, CEIL, FLOOR } from "./builtin";
+import { createArray, invSqrt, symround } from "./common";
 import type { Mat2, Mat2d, Mat3, Mat4, Vec2, Vec3 } from "./types";
 
 /**
@@ -124,28 +125,28 @@ export const divide = (out: Vec2, a: Readonly<Vec2>, b: Readonly<Vec2>): Vec2 =>
 };
 
 /**
- * Math.ceil the components of a vec2
+ * `ceil` the components of a vec2
  *
  * @param out the receiving vector
  * @param a vector to ceil
  * @returns out
  */
 export const ceil = (out: Vec2, a: Readonly<Vec2>): Vec2 => {
-  out[0] = Math.ceil(a[0]);
-  out[1] = Math.ceil(a[1]);
+  out[0] = CEIL(a[0]);
+  out[1] = CEIL(a[1]);
   return out;
 };
 
 /**
- * Math.floor the components of a vec2
+ * `floor` the components of a vec2
  *
  * @param out the receiving vector
  * @param a vector to floor
  * @returns out
  */
 export const floor = (out: Vec2, a: Readonly<Vec2>): Vec2 => {
-  out[0] = Math.floor(a[0]);
-  out[1] = Math.floor(a[1]);
+  out[0] = FLOOR(a[0]);
+  out[1] = FLOOR(a[1]);
   return out;
 };
 
@@ -158,8 +159,8 @@ export const floor = (out: Vec2, a: Readonly<Vec2>): Vec2 => {
  * @returns out
  */
 export const min = (out: Vec2, a: Readonly<Vec2>, b: Readonly<Vec2>): Vec2 => {
-  out[0] = Math.min(a[0], b[0]);
-  out[1] = Math.min(a[1], b[1]);
+  out[0] = MIN(a[0], b[0]);
+  out[1] = MIN(a[1], b[1]);
   return out;
 };
 
@@ -172,8 +173,8 @@ export const min = (out: Vec2, a: Readonly<Vec2>, b: Readonly<Vec2>): Vec2 => {
  * @returns out
  */
 export const max = (out: Vec2, a: Readonly<Vec2>, b: Readonly<Vec2>): Vec2 => {
-  out[0] = Math.max(a[0], b[0]);
-  out[1] = Math.max(a[1], b[1]);
+  out[0] = MAX(a[0], b[0]);
+  out[1] = MAX(a[1], b[1]);
   return out;
 };
 
@@ -229,7 +230,7 @@ export const scaleAndAdd = (out: Vec2, a: Readonly<Vec2>, b: Readonly<Vec2>, sca
 export const distance = (a: Readonly<Vec2>, b: Readonly<Vec2>): number => {
   const x = b[0] - a[0];
   const y = b[1] - a[1];
-  return Math.sqrt(x * x + y * y);
+  return SQRT(x * x + y * y);
 };
 
 /**
@@ -254,7 +255,7 @@ export const squaredDistance = (a: Readonly<Vec2>, b: Readonly<Vec2>): number =>
 export const length = (a: Readonly<Vec2>): number => {
   const x = a[0];
   const y = a[1];
-  return Math.sqrt(x * x + y * y);
+  return SQRT(x * x + y * y);
 };
 
 /**
@@ -364,9 +365,9 @@ export const lerp = (out: Vec2, a: Readonly<Vec2>, b: Readonly<Vec2>, t: number)
  * @returns out
  */
 export const random = (out: Vec2, scale = 1): Vec2 => {
-  const r = RANDOM() * 2.0 * Math.PI;
-  out[0] = Math.cos(r) * scale;
-  out[1] = Math.sin(r) * scale;
+  const r = RANDOM() * 2.0 * PI;
+  out[0] = COS(r) * scale;
+  out[1] = SIN(r) * scale;
   return out;
 };
 
@@ -449,8 +450,8 @@ export const rotate = (out: Vec2, a: Readonly<Vec2>, b: Readonly<Vec2>, rad: num
   //Translate point to the origin
   const p0 = a[0] - b[0];
   const p1 = a[1] - b[1];
-  const sinC = Math.sin(rad);
-  const cosC = Math.cos(rad);
+  const sinC = SIN(rad);
+  const cosC = COS(rad);
 
   //perform rotation and translate to correct position
   out[0] = p0 * cosC - p1 * sinC + b[0];
@@ -470,7 +471,7 @@ export const angle = (a: Readonly<Vec2>, b: Readonly<Vec2>): number => {
   const ay = a[1];
   const bx = b[0];
   const by = b[1];
-  return Math.abs(Math.atan2(ay * bx - ax * by, ax * bx + ay * by));
+  return ABS(ATAN2(ay * bx - ax * by, ax * bx + ay * by));
 };
 
 /**
@@ -485,7 +486,7 @@ export const signedAngle = (a: Readonly<Vec2>, b: Readonly<Vec2>): number => {
   const ay = a[1];
   const bx = b[0];
   const by = b[1];
-  return Math.atan2(ax * by - ay * bx, ax * bx + ay * by);
+  return ATAN2(ax * by - ay * bx, ax * bx + ay * by);
 };
 
 /**
@@ -529,10 +530,7 @@ export const equals = (a: Readonly<Vec2>, b: Readonly<Vec2>): boolean => {
   const a1 = a[1];
   const b0 = b[0];
   const b1 = b[1];
-  return (
-    Math.abs(a0 - b0) <= EPSILON * Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
-    Math.abs(a1 - b1) <= EPSILON * Math.max(1.0, Math.abs(a1), Math.abs(b1))
-  );
+  return ABS(a0 - b0) <= EPSILON * MAX(1.0, ABS(a0), ABS(b0)) && ABS(a1 - b1) <= EPSILON * MAX(1.0, ABS(a1), ABS(b1));
 };
 
 /**
@@ -598,7 +596,7 @@ export const forEach = <T>(
     offset = 0;
   }
 
-  const end = count ? Math.min(count * stride + offset, a.length) : a.length;
+  const end = count ? MIN(count * stride + offset, a.length) : a.length;
   for (let i = offset; i < end; i += stride) {
     tmp[0] = a[i];
     tmp[1] = a[i + 1];

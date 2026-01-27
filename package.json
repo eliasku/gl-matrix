@@ -14,7 +14,8 @@
     "format": "prettier --write **/*.{ts,json,md}",
     "check": "tsc -p .",
     "lint": "eslint .",
-    "build": "tsup ./src/index.ts --target esnext --format esm --minify terser --dts --sourcemap",
+    "s": "",
+    "build": "tsup ./src/index.ts --target esnext --platform neutral --format esm --dts --sourcemap --minify terser --treeshake smallest --splitting false",
     "doc": "typedoc --out doc"
   },
   "devDependencies": {

@@ -1,4 +1,5 @@
-import { EPSILON, createArray, invSqrt } from "./common";
+import { EPSILON, ABS, COS, MAX, SIN, SQRT, TAN } from "./builtin";
+import { createArray, invSqrt } from "./common";
 import type { FovParams, Mat4, Quat, Quat2, Vec3 } from "./types";
 
 /**
@@ -619,8 +620,8 @@ export const rotate = (out: Mat4, a: Readonly<Mat4>, rad: number, axis: Readonly
   y *= len;
   z *= len;
 
-  const s = Math.sin(rad);
-  const c = Math.cos(rad);
+  const s = SIN(rad);
+  const c = COS(rad);
   const t = 1 - c;
 
   const a00 = a[0];
@@ -680,8 +681,8 @@ export const rotate = (out: Mat4, a: Readonly<Mat4>, rad: number, axis: Readonly
  * @returns out
  */
 export const rotateX = (out: Mat4, a: Readonly<Mat4>, rad: number): Mat4 => {
-  const s = Math.sin(rad);
-  const c = Math.cos(rad);
+  const s = SIN(rad);
+  const c = COS(rad);
   const a10 = a[4];
   const a11 = a[5];
   const a12 = a[6];
@@ -724,8 +725,8 @@ export const rotateX = (out: Mat4, a: Readonly<Mat4>, rad: number): Mat4 => {
  * @returns out
  */
 export const rotateY = (out: Mat4, a: Readonly<Mat4>, rad: number): Mat4 => {
-  const s = Math.sin(rad);
-  const c = Math.cos(rad);
+  const s = SIN(rad);
+  const c = COS(rad);
   const a00 = a[0];
   const a01 = a[1];
   const a02 = a[2];
@@ -768,8 +769,8 @@ export const rotateY = (out: Mat4, a: Readonly<Mat4>, rad: number): Mat4 => {
  * @returns out
  */
 export const rotateZ = (out: Mat4, a: Readonly<Mat4>, rad: number): Mat4 => {
-  const s = Math.sin(rad);
-  const c = Math.cos(rad);
+  const s = SIN(rad);
+  const c = COS(rad);
   const a00 = a[0];
   const a01 = a[1];
   const a02 = a[2];
@@ -881,7 +882,7 @@ export const fromRotation = (out: Mat4, rad: number, axis: Readonly<Vec3>): Mat4
   let x = axis[0];
   let y = axis[1];
   let z = axis[2];
-  const len = Math.sqrt(x * x + y * y + z * z);
+  const len = SQRT(x * x + y * y + z * z);
   if (len < EPSILON) {
     return null;
   }
@@ -889,8 +890,8 @@ export const fromRotation = (out: Mat4, rad: number, axis: Readonly<Vec3>): Mat4
   y *= len;
   z *= len;
 
-  const s = Math.sin(rad);
-  const c = Math.cos(rad);
+  const s = SIN(rad);
+  const c = COS(rad);
   const t = 1 - c;
 
   // Perform rotation-specific matrix multiplication
@@ -926,8 +927,8 @@ export const fromRotation = (out: Mat4, rad: number, axis: Readonly<Vec3>): Mat4
  * @returns out
  */
 export const fromXRotation = (out: Mat4, rad: number): Mat4 => {
-  const s = Math.sin(rad);
-  const c = Math.cos(rad);
+  const s = SIN(rad);
+  const c = COS(rad);
 
   // Perform axis-specific matrix multiplication
   out[0] = 1;
@@ -961,8 +962,8 @@ export const fromXRotation = (out: Mat4, rad: number): Mat4 => {
  * @returns out
  */
 export const fromYRotation = (out: Mat4, rad: number): Mat4 => {
-  const s = Math.sin(rad);
-  const c = Math.cos(rad);
+  const s = SIN(rad);
+  const c = COS(rad);
 
   // Perform axis-specific matrix multiplication
   out[0] = c;
@@ -996,8 +997,8 @@ export const fromYRotation = (out: Mat4, rad: number): Mat4 => {
  * @returns out
  */
 export const fromZRotation = (out: Mat4, rad: number): Mat4 => {
-  const s = Math.sin(rad);
-  const c = Math.cos(rad);
+  const s = SIN(rad);
+  const c = COS(rad);
 
   // Perform axis-specific matrix multiplication
   out[0] = c;
@@ -1146,9 +1147,9 @@ export const getScaling = (out: Vec3, mat: Readonly<Mat4>): Vec3 => {
   const m32 = mat[9];
   const m33 = mat[10];
 
-  out[0] = Math.sqrt(m11 * m11 + m12 * m12 + m13 * m13);
-  out[1] = Math.sqrt(m21 * m21 + m22 * m22 + m23 * m23);
-  out[2] = Math.sqrt(m31 * m31 + m32 * m32 + m33 * m33);
+  out[0] = SQRT(m11 * m11 + m12 * m12 + m13 * m13);
+  out[1] = SQRT(m21 * m21 + m22 * m22 + m23 * m23);
+  out[2] = SQRT(m31 * m31 + m32 * m32 + m33 * m33);
 
   return out;
 };
@@ -1184,25 +1185,25 @@ export const getRotation = (out: Quat, mat: Readonly<Mat4>): Quat => {
   let S = 0;
 
   if (trace > 0) {
-    S = Math.sqrt(trace + 1.0) * 2;
+    S = SQRT(trace + 1.0) * 2;
     out[3] = 0.25 * S;
     out[0] = (sm23 - sm32) / S;
     out[1] = (sm31 - sm13) / S;
     out[2] = (sm12 - sm21) / S;
   } else if (sm11 > sm22 && sm11 > sm33) {
-    S = Math.sqrt(1.0 + sm11 - sm22 - sm33) * 2;
+    S = SQRT(1.0 + sm11 - sm22 - sm33) * 2;
     out[3] = (sm23 - sm32) / S;
     out[0] = 0.25 * S;
     out[1] = (sm12 + sm21) / S;
     out[2] = (sm31 + sm13) / S;
   } else if (sm22 > sm33) {
-    S = Math.sqrt(1.0 + sm22 - sm11 - sm33) * 2;
+    S = SQRT(1.0 + sm22 - sm11 - sm33) * 2;
     out[3] = (sm31 - sm13) / S;
     out[0] = (sm12 + sm21) / S;
     out[1] = 0.25 * S;
     out[2] = (sm23 + sm32) / S;
   } else {
-    S = Math.sqrt(1.0 + sm33 - sm11 - sm22) * 2;
+    S = SQRT(1.0 + sm33 - sm11 - sm22) * 2;
     out[3] = (sm12 - sm21) / S;
     out[0] = (sm31 + sm13) / S;
     out[1] = (sm23 + sm32) / S;
@@ -1236,9 +1237,9 @@ export const decompose = (out_r: Quat, out_t: Vec3, out_s: Vec3, mat: Readonly<M
   const m32 = mat[9];
   const m33 = mat[10];
 
-  out_s[0] = Math.sqrt(m11 * m11 + m12 * m12 + m13 * m13);
-  out_s[1] = Math.sqrt(m21 * m21 + m22 * m22 + m23 * m23);
-  out_s[2] = Math.sqrt(m31 * m31 + m32 * m32 + m33 * m33);
+  out_s[0] = SQRT(m11 * m11 + m12 * m12 + m13 * m13);
+  out_s[1] = SQRT(m21 * m21 + m22 * m22 + m23 * m23);
+  out_s[2] = SQRT(m31 * m31 + m32 * m32 + m33 * m33);
 
   const is1 = 1 / out_s[0];
   const is2 = 1 / out_s[1];
@@ -1258,25 +1259,25 @@ export const decompose = (out_r: Quat, out_t: Vec3, out_s: Vec3, mat: Readonly<M
   let S = 0;
 
   if (trace > 0) {
-    S = Math.sqrt(trace + 1.0) * 2;
+    S = SQRT(trace + 1.0) * 2;
     out_r[3] = 0.25 * S;
     out_r[0] = (sm23 - sm32) / S;
     out_r[1] = (sm31 - sm13) / S;
     out_r[2] = (sm12 - sm21) / S;
   } else if (sm11 > sm22 && sm11 > sm33) {
-    S = Math.sqrt(1.0 + sm11 - sm22 - sm33) * 2;
+    S = SQRT(1.0 + sm11 - sm22 - sm33) * 2;
     out_r[3] = (sm23 - sm32) / S;
     out_r[0] = 0.25 * S;
     out_r[1] = (sm12 + sm21) / S;
     out_r[2] = (sm31 + sm13) / S;
   } else if (sm22 > sm33) {
-    S = Math.sqrt(1.0 + sm22 - sm11 - sm33) * 2;
+    S = SQRT(1.0 + sm22 - sm11 - sm33) * 2;
     out_r[3] = (sm31 - sm13) / S;
     out_r[0] = (sm12 + sm21) / S;
     out_r[1] = 0.25 * S;
     out_r[2] = (sm23 + sm32) / S;
   } else {
-    S = Math.sqrt(1.0 + sm33 - sm11 - sm22) * 2;
+    S = SQRT(1.0 + sm33 - sm11 - sm22) * 2;
     out_r[3] = (sm12 - sm21) / S;
     out_r[0] = (sm31 + sm13) / S;
     out_r[1] = (sm23 + sm32) / S;
@@ -1537,7 +1538,7 @@ export const frustum = (
  * @returns out
  */
 export const perspectiveNO = (out: Mat4, fovy: number, aspect: number, near: number, far = Infinity): Mat4 => {
-  const f = 1.0 / Math.tan(fovy / 2);
+  const f = 1.0 / TAN(fovy / 2);
   out[0] = f / aspect;
   out[1] = 0;
   out[2] = 0;
@@ -1582,7 +1583,7 @@ export const perspective = perspectiveNO;
  * @returns out
  */
 export const perspectiveZO = (out: Mat4, fovy: number, aspect: number, near: number, far = Infinity): Mat4 => {
-  const f = 1.0 / Math.tan(fovy / 2);
+  const f = 1.0 / TAN(fovy / 2);
   out[0] = f / aspect;
   out[1] = 0;
   out[2] = 0;
@@ -1620,10 +1621,10 @@ export const perspectiveZO = (out: Mat4, fovy: number, aspect: number, near: num
  * @returns out
  */
 export const perspectiveFromFieldOfView = (out: Mat4, fov: FovParams, near: number, far: number): Mat4 => {
-  const upTan = Math.tan(fov.up);
-  const downTan = Math.tan(fov.down);
-  const leftTan = Math.tan(fov.left);
-  const rightTan = Math.tan(fov.right);
+  const upTan = TAN(fov.up);
+  const downTan = TAN(fov.down);
+  const leftTan = TAN(fov.left);
+  const rightTan = TAN(fov.right);
   const xScale = 2.0 / (leftTan + rightTan);
   const yScale = 2.0 / (upTan + downTan);
 
@@ -1763,7 +1764,7 @@ export const lookAt = (out: Mat4, eye: Readonly<Vec3>, center: Readonly<Vec3>, u
   const centery = center[1];
   const centerz = center[2];
 
-  if (Math.abs(eyex - centerx) < EPSILON && Math.abs(eyey - centery) < EPSILON && Math.abs(eyez - centerz) < EPSILON) {
+  if (ABS(eyex - centerx) < EPSILON && ABS(eyey - centery) < EPSILON && ABS(eyez - centerz) < EPSILON) {
     return identity(out);
   }
 
@@ -1931,7 +1932,7 @@ export const str = (a: Readonly<Mat4>): string =>
  * @returns Frobenius norm
  */
 export const frob = (a: Readonly<Mat4>): number =>
-  Math.sqrt(
+  SQRT(
     a[0] * a[0] +
       a[1] * a[1] +
       a[2] * a[2] +
@@ -2131,22 +2132,22 @@ export const equals = (a: Readonly<Mat4>, b: Readonly<Mat4>): boolean => {
   const b15 = b[15];
 
   return (
-    Math.abs(a0 - b0) <= EPSILON * Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
-    Math.abs(a1 - b1) <= EPSILON * Math.max(1.0, Math.abs(a1), Math.abs(b1)) &&
-    Math.abs(a2 - b2) <= EPSILON * Math.max(1.0, Math.abs(a2), Math.abs(b2)) &&
-    Math.abs(a3 - b3) <= EPSILON * Math.max(1.0, Math.abs(a3), Math.abs(b3)) &&
-    Math.abs(a4 - b4) <= EPSILON * Math.max(1.0, Math.abs(a4), Math.abs(b4)) &&
-    Math.abs(a5 - b5) <= EPSILON * Math.max(1.0, Math.abs(a5), Math.abs(b5)) &&
-    Math.abs(a6 - b6) <= EPSILON * Math.max(1.0, Math.abs(a6), Math.abs(b6)) &&
-    Math.abs(a7 - b7) <= EPSILON * Math.max(1.0, Math.abs(a7), Math.abs(b7)) &&
-    Math.abs(a8 - b8) <= EPSILON * Math.max(1.0, Math.abs(a8), Math.abs(b8)) &&
-    Math.abs(a9 - b9) <= EPSILON * Math.max(1.0, Math.abs(a9), Math.abs(b9)) &&
-    Math.abs(a10 - b10) <= EPSILON * Math.max(1.0, Math.abs(a10), Math.abs(b10)) &&
-    Math.abs(a11 - b11) <= EPSILON * Math.max(1.0, Math.abs(a11), Math.abs(b11)) &&
-    Math.abs(a12 - b12) <= EPSILON * Math.max(1.0, Math.abs(a12), Math.abs(b12)) &&
-    Math.abs(a13 - b13) <= EPSILON * Math.max(1.0, Math.abs(a13), Math.abs(b13)) &&
-    Math.abs(a14 - b14) <= EPSILON * Math.max(1.0, Math.abs(a14), Math.abs(b14)) &&
-    Math.abs(a15 - b15) <= EPSILON * Math.max(1.0, Math.abs(a15), Math.abs(b15))
+    ABS(a0 - b0) <= EPSILON * MAX(1.0, ABS(a0), ABS(b0)) &&
+    ABS(a1 - b1) <= EPSILON * MAX(1.0, ABS(a1), ABS(b1)) &&
+    ABS(a2 - b2) <= EPSILON * MAX(1.0, ABS(a2), ABS(b2)) &&
+    ABS(a3 - b3) <= EPSILON * MAX(1.0, ABS(a3), ABS(b3)) &&
+    ABS(a4 - b4) <= EPSILON * MAX(1.0, ABS(a4), ABS(b4)) &&
+    ABS(a5 - b5) <= EPSILON * MAX(1.0, ABS(a5), ABS(b5)) &&
+    ABS(a6 - b6) <= EPSILON * MAX(1.0, ABS(a6), ABS(b6)) &&
+    ABS(a7 - b7) <= EPSILON * MAX(1.0, ABS(a7), ABS(b7)) &&
+    ABS(a8 - b8) <= EPSILON * MAX(1.0, ABS(a8), ABS(b8)) &&
+    ABS(a9 - b9) <= EPSILON * MAX(1.0, ABS(a9), ABS(b9)) &&
+    ABS(a10 - b10) <= EPSILON * MAX(1.0, ABS(a10), ABS(b10)) &&
+    ABS(a11 - b11) <= EPSILON * MAX(1.0, ABS(a11), ABS(b11)) &&
+    ABS(a12 - b12) <= EPSILON * MAX(1.0, ABS(a12), ABS(b12)) &&
+    ABS(a13 - b13) <= EPSILON * MAX(1.0, ABS(a13), ABS(b13)) &&
+    ABS(a14 - b14) <= EPSILON * MAX(1.0, ABS(a14), ABS(b14)) &&
+    ABS(a15 - b15) <= EPSILON * MAX(1.0, ABS(a15), ABS(b15))
   );
 };
 

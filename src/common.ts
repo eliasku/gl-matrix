@@ -1,6 +1,4 @@
-// Configuration Constants
-export const EPSILON = 0.000001;
-export const RANDOM = Math.random;
+import { ABS, MAX, ROUND, FLOOR, SQRT, EPSILON } from "./builtin";
 
 /**
  * Creates zero-filled array with `len` float32 elements
@@ -22,8 +20,8 @@ export const createArray = (len: number) => new Float32Array(len);
  * @param tolerance  Absolute or relative tolerance (default EPSILON)
  * @returns True if the numbers are approximately equal, false otherwise.
  */
-export const equals = (a: number, b: number, tolerance: number = EPSILON): boolean =>
-  Math.abs(a - b) <= tolerance * Math.max(1, Math.abs(a), Math.abs(b));
+export const equals = (a: number, b: number, tolerance = EPSILON): boolean =>
+  ABS(a - b) <= tolerance * MAX(1, ABS(a), ABS(b));
 
 /**
  * Symmetric round
@@ -31,6 +29,6 @@ export const equals = (a: number, b: number, tolerance: number = EPSILON): boole
  *
  * @param a value to round
  */
-export const symround = (a: number): number => (a >= 0 || a % 0.5 !== 0 ? Math.round(a) : Math.floor(a));
+export const symround = (a: number): number => (a >= 0 || a % 0.5 !== 0 ? ROUND(a) : FLOOR(a));
 
-export const invSqrt = (x: number): number => 1 / Math.sqrt(x);
+export const invSqrt = (x: number): number => 1 / SQRT(x);

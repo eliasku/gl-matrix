@@ -1,4 +1,5 @@
-import { createArray, EPSILON } from "./common";
+import { ABS, COS, MAX, SIN, SQRT, EPSILON } from "./builtin";
+import { createArray } from "./common";
 import type { Mat2, Vec2 } from "./types";
 
 /**
@@ -214,8 +215,8 @@ export const rotate = (out: Mat2, a: Readonly<Mat2>, rad: number): Mat2 => {
   const a1 = a[1];
   const a2 = a[2];
   const a3 = a[3];
-  const s = Math.sin(rad);
-  const c = Math.cos(rad);
+  const s = SIN(rad);
+  const c = COS(rad);
   out[0] = a0 * c + a2 * s;
   out[1] = a1 * c + a3 * s;
   out[2] = a0 * -s + a2 * c;
@@ -257,8 +258,8 @@ export const scale = (out: Mat2, a: Readonly<Mat2>, v: Readonly<Mat2>): Mat2 => 
  * @returns out
  */
 export const fromRotation = (out: Mat2, rad: number): Mat2 => {
-  const s = Math.sin(rad);
-  const c = Math.cos(rad);
+  const s = SIN(rad);
+  const c = COS(rad);
   out[0] = c;
   out[1] = s;
   out[2] = -s;
@@ -299,7 +300,7 @@ export const str = (a: Readonly<Mat2>): string => "mat2(" + a[0] + ", " + a[1] +
  * @param a the matrix to calculate Frobenius norm of
  * @returns Frobenius norm
  */
-export const frob = (a: Readonly<Mat2>): number => Math.sqrt(a[0] * a[0] + a[1] * a[1] + a[2] * a[2] + a[3] * a[3]);
+export const frob = (a: Readonly<Mat2>): number => SQRT(a[0] * a[0] + a[1] * a[1] + a[2] * a[2] + a[3] * a[3]);
 
 /**
  * Returns L, D and U matrices (Lower triangular, Diagonal and Upper triangular) by factorizing the input matrix
@@ -375,10 +376,10 @@ export const equals = (a: Readonly<Mat2>, b: Readonly<Mat2>): boolean => {
   const b2 = b[2];
   const b3 = b[3];
   return (
-    Math.abs(a0 - b0) <= EPSILON * Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
-    Math.abs(a1 - b1) <= EPSILON * Math.max(1.0, Math.abs(a1), Math.abs(b1)) &&
-    Math.abs(a2 - b2) <= EPSILON * Math.max(1.0, Math.abs(a2), Math.abs(b2)) &&
-    Math.abs(a3 - b3) <= EPSILON * Math.max(1.0, Math.abs(a3), Math.abs(b3))
+    ABS(a0 - b0) <= EPSILON * MAX(1.0, ABS(a0), ABS(b0)) &&
+    ABS(a1 - b1) <= EPSILON * MAX(1.0, ABS(a1), ABS(b1)) &&
+    ABS(a2 - b2) <= EPSILON * MAX(1.0, ABS(a2), ABS(b2)) &&
+    ABS(a3 - b3) <= EPSILON * MAX(1.0, ABS(a3), ABS(b3))
   );
 };
 

@@ -1,4 +1,5 @@
-import { createArray, EPSILON, invSqrt, RANDOM, symround } from "./common";
+import { EPSILON, MIN, MAX, SQRT, RANDOM, ABS, CEIL, FLOOR } from "./builtin";
+import { createArray, invSqrt, symround } from "./common";
 import type { Mat4, Quat, Vec4 } from "./types";
 
 /**
@@ -144,32 +145,32 @@ export const divide = (out: Vec4, a: Readonly<Vec4>, b: Readonly<Vec4>): Vec4 =>
 };
 
 /**
- * Math.ceil components of a vec4
+ * `ceil` components of a vec4
  *
  * @param out receiving vector
  * @param a vector to ceil
  * @returns out
  */
 export const ceil = (out: Vec4, a: Readonly<Vec4>): Vec4 => {
-  out[0] = Math.ceil(a[0]);
-  out[1] = Math.ceil(a[1]);
-  out[2] = Math.ceil(a[2]);
-  out[3] = Math.ceil(a[3]);
+  out[0] = CEIL(a[0]);
+  out[1] = CEIL(a[1]);
+  out[2] = CEIL(a[2]);
+  out[3] = CEIL(a[3]);
   return out;
 };
 
 /**
- * Math.floor components of a vec4
+ * `floor` components of a vec4
  *
  * @param out receiving vector
  * @param a vector to floor
  * @returns out
  */
 export const floor = (out: Vec4, a: Readonly<Vec4>): Vec4 => {
-  out[0] = Math.floor(a[0]);
-  out[1] = Math.floor(a[1]);
-  out[2] = Math.floor(a[2]);
-  out[3] = Math.floor(a[3]);
+  out[0] = FLOOR(a[0]);
+  out[1] = FLOOR(a[1]);
+  out[2] = FLOOR(a[2]);
+  out[3] = FLOOR(a[3]);
   return out;
 };
 
@@ -182,10 +183,10 @@ export const floor = (out: Vec4, a: Readonly<Vec4>): Vec4 => {
  * @returns out
  */
 export const min = (out: Vec4, a: Readonly<Vec4>, b: Readonly<Vec4>): Vec4 => {
-  out[0] = Math.min(a[0], b[0]);
-  out[1] = Math.min(a[1], b[1]);
-  out[2] = Math.min(a[2], b[2]);
-  out[3] = Math.min(a[3], b[3]);
+  out[0] = MIN(a[0], b[0]);
+  out[1] = MIN(a[1], b[1]);
+  out[2] = MIN(a[2], b[2]);
+  out[3] = MIN(a[3], b[3]);
   return out;
 };
 
@@ -198,10 +199,10 @@ export const min = (out: Vec4, a: Readonly<Vec4>, b: Readonly<Vec4>): Vec4 => {
  * @returns out
  */
 export const max = (out: Vec4, a: Readonly<Vec4>, b: Readonly<Vec4>): Vec4 => {
-  out[0] = Math.max(a[0], b[0]);
-  out[1] = Math.max(a[1], b[1]);
-  out[2] = Math.max(a[2], b[2]);
-  out[3] = Math.max(a[3], b[3]);
+  out[0] = MAX(a[0], b[0]);
+  out[1] = MAX(a[1], b[1]);
+  out[2] = MAX(a[2], b[2]);
+  out[3] = MAX(a[3], b[3]);
   return out;
 };
 
@@ -265,7 +266,7 @@ export const distance = (a: Readonly<Vec4>, b: Readonly<Vec4>): number => {
   const y = b[1] - a[1];
   const z = b[2] - a[2];
   const w = b[3] - a[3];
-  return Math.sqrt(x * x + y * y + z * z + w * w);
+  return SQRT(x * x + y * y + z * z + w * w);
 };
 
 /**
@@ -294,7 +295,7 @@ export const length = (a: Readonly<Vec4>): number => {
   const y = a[1];
   const z = a[2];
   const w = a[3];
-  return Math.sqrt(x * x + y * y + z * z + w * w);
+  return SQRT(x * x + y * y + z * z + w * w);
 };
 
 /**
@@ -438,15 +439,15 @@ export const random = (out: Vec4, scale = 1): Vec4 => {
 
   let rand = RANDOM();
   const v1 = rand * 2 - 1;
-  const v2 = (4 * RANDOM() - 2) * Math.sqrt(rand * -rand + rand);
+  const v2 = (4 * RANDOM() - 2) * SQRT(rand * -rand + rand);
   const s1 = v1 * v1 + v2 * v2;
 
   rand = RANDOM();
   const v3 = rand * 2 - 1;
-  const v4 = (4 * RANDOM() - 2) * Math.sqrt(rand * -rand + rand);
+  const v4 = (4 * RANDOM() - 2) * SQRT(rand * -rand + rand);
   const s2 = v3 * v3 + v4 * v4;
 
-  const d = Math.sqrt((1 - s1) / s2);
+  const d = SQRT((1 - s1) / s2);
   out[0] = scale * v1;
   out[1] = scale * v2;
   out[2] = scale * v3 * d;
@@ -562,10 +563,10 @@ export const equals = (a: Readonly<Vec4>, b: Readonly<Vec4>): boolean => {
   const b2 = b[2];
   const b3 = b[3];
   return (
-    Math.abs(a0 - b0) <= EPSILON * Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
-    Math.abs(a1 - b1) <= EPSILON * Math.max(1.0, Math.abs(a1), Math.abs(b1)) &&
-    Math.abs(a2 - b2) <= EPSILON * Math.max(1.0, Math.abs(a2), Math.abs(b2)) &&
-    Math.abs(a3 - b3) <= EPSILON * Math.max(1.0, Math.abs(a3), Math.abs(b3))
+    ABS(a0 - b0) <= EPSILON * MAX(1.0, ABS(a0), ABS(b0)) &&
+    ABS(a1 - b1) <= EPSILON * MAX(1.0, ABS(a1), ABS(b1)) &&
+    ABS(a2 - b2) <= EPSILON * MAX(1.0, ABS(a2), ABS(b2)) &&
+    ABS(a3 - b3) <= EPSILON * MAX(1.0, ABS(a3), ABS(b3))
   );
 };
 
@@ -633,7 +634,7 @@ export const forEach = <T>(
     offset = 0;
   }
 
-  const end = count ? Math.min(count * stride + offset, a.length) : a.length;
+  const end = count ? MIN(count * stride + offset, a.length) : a.length;
 
   for (let i = offset; i < end; i += stride) {
     tmp[0] = a[i];
