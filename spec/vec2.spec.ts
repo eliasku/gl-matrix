@@ -1021,7 +1021,9 @@ describe("vec2", () => {
 
     describe("when calling a function that does not modify the out variable", () => {
       beforeEach(() => {
-        result = vec2.forEach(vecArray, 0, 0, 0, function (out, vec) {});
+        result = vec2.forEach(vecArray, 0, 0, 0, () => {
+          /* ignored */
+        });
       });
 
       it("values should remain unchanged", () => {
@@ -1064,7 +1066,7 @@ describe("vec2", () => {
       expect(vec2.angle([1, 2], [-1, 0])).toBeEqualish(2.03445);
     });
     it("should not modify the arguments", () => {
-      let a = [1, 0],
+      const a = [1, 0],
         b = [1, 2];
       vec2.angle(a, b);
       expect(a).toBeEqualish([1, 0]);
@@ -1080,7 +1082,7 @@ describe("vec2", () => {
       expect(vec2.signedAngle([1, 2], [-1, 0])).toBeEqualish(2.03445);
     });
     it("should not modify the arguments", () => {
-      let a = [1, 0],
+      const a = [1, 0],
         b = [1, 2];
       vec2.signedAngle(a, b);
       expect(a).toBeEqualish([1, 0]);

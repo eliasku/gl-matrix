@@ -549,7 +549,7 @@ describe("mat2", () => {
   });
 
   describe("exactEquals", () => {
-    let matC, r0, r1, r2;
+    let matC, r0, r1;
     beforeEach(() => {
       matA = [0, 1, 2, 3];
       matB = [0, 1, 2, 3];

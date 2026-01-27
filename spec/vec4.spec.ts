@@ -1,11 +1,15 @@
-import * as vec3 from "../src/vec3";
-import * as vec4 from "../src/vec4";
-
 import { describe, beforeEach, it, expect } from "bun:test";
 import "./helpers";
 
+import * as vec3 from "../src/vec3";
+import * as vec4 from "../src/vec4";
+import type { Vec4 } from "../src/types";
+
 describe("vec4", () => {
-  let out, vecA, vecB, result;
+  let out: Vec4;
+  let vecA: Vec4;
+  let vecB: Vec4;
+  let result: Vec4;
 
   beforeEach(() => {
     vecA = [1, 2, 3, 4];
@@ -604,11 +608,8 @@ describe("vec4", () => {
       expect(vec4.dist).toEqual(vec4.distance);
     });
 
-    beforeEach(() => {
-      result = vec4.distance(vecA, vecB);
-    });
-
     it("should return the distance", () => {
+      const result = vec4.distance(vecA, vecB);
       expect(result).toBeEqualish(8);
     });
   });
@@ -617,12 +618,8 @@ describe("vec4", () => {
     it("should have an alias called 'sqrDist'", () => {
       expect(vec4.sqrDist).toEqual(vec4.squaredDistance);
     });
-
-    beforeEach(() => {
-      result = vec4.squaredDistance(vecA, vecB);
-    });
-
     it("should return the squared distance", () => {
+      const result = vec4.squaredDistance(vecA, vecB);
       expect(result).toEqual(64);
     });
   });
@@ -631,12 +628,8 @@ describe("vec4", () => {
     it("should have an alias called 'len'", () => {
       expect(vec4.len).toEqual(vec4.length);
     });
-
-    beforeEach(() => {
-      result = vec4.len(vecA);
-    });
-
     it("should return the length", () => {
+      const result = vec4.len(vecA);
       expect(result).toBeEqualish(5.477225);
     });
   });
@@ -645,12 +638,8 @@ describe("vec4", () => {
     it("should have an alias called 'sqrLen'", () => {
       expect(vec4.sqrLen).toEqual(vec4.squaredLength);
     });
-
-    beforeEach(() => {
-      result = vec4.squaredLength(vecA);
-    });
-
     it("should return the squared length", () => {
+      const result = vec4.squaredLength(vecA);
       expect(result).toEqual(30);
     });
   });
@@ -722,10 +711,10 @@ describe("vec4", () => {
   });
 
   describe("dot", () => {
+    let result: number;
     beforeEach(() => {
       result = vec4.dot(vecA, vecB);
     });
-
     it("should return the dot product", () => {
       expect(result).toEqual(70);
     });
@@ -742,7 +731,6 @@ describe("vec4", () => {
       beforeEach(() => {
         result = vec4.lerp(out, vecA, vecB, 0.5);
       });
-
       it("should place values into out", () => {
         expect(out).toBeEqualish([3, 4, 5, 6]);
       });
@@ -918,7 +906,8 @@ describe("vec4", () => {
   });
 
   describe("forEach", () => {
-    let vecArray;
+    let vecArray: number[];
+    let result: number[];
 
     beforeEach(() => {
       vecArray = [1, 2, 3, 4, 5, 6, 7, 8, 0, 0, 0, 0];
@@ -1005,7 +994,9 @@ describe("vec4", () => {
 
     describe("when calling a function that does not modify the out variable", () => {
       beforeEach(() => {
-        result = vec3.forEach(vecArray, 0, 0, 0, function (out, vec) {});
+        result = vec3.forEach(vecArray, 0, 0, 0, () => {
+          /* ignored */
+        });
       });
 
       it("values should remain unchanged", () => {
@@ -1018,6 +1009,8 @@ describe("vec4", () => {
   });
 
   describe("str", () => {
+    let result: string;
+
     beforeEach(() => {
       result = vec4.str(vecA);
     });

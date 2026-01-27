@@ -639,7 +639,7 @@ export const forEach = (
     tmp[1] = a[i + 1];
     tmp[2] = a[i + 2];
     tmp[3] = a[i + 3];
-    fn(tmp, tmp, arg);
+    fn?.(tmp, tmp, arg);
     a[i] = tmp[0];
     a[i + 1] = tmp[1];
     a[i + 2] = tmp[2];

@@ -597,11 +597,11 @@ export const scale = (out: Mat4, a: Readonly<Mat4>, v: Readonly<Vec3>): Mat4 => 
  * @param axis the axis to rotate around
  * @returns out
  */
-export const rotate = (out: Mat4, a: Readonly<Mat4>, rad: number, axis: Readonly<Vec3>): Mat4 => {
+export const rotate = (out: Mat4, a: Readonly<Mat4>, rad: number, axis: Readonly<Vec3>): Mat4 | null => {
   let x = axis[0];
   let y = axis[1];
   let z = axis[2];
-  let len = Math.sqrt(x * x + y * y + z * z);
+  let len = x * x + y * y + z * z;
   // const s, c, t;
   // const a00, a01, a02, a03;
   // const a10, a11, a12, a13;
@@ -614,9 +614,7 @@ export const rotate = (out: Mat4, a: Readonly<Mat4>, rad: number, axis: Readonly
     return null;
   }
 
-  if (len > 0) {
-    len = 1 / len;
-  }
+  len = invSqrt(len);
   x *= len;
   y *= len;
   z *= len;

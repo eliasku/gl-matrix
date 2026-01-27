@@ -184,7 +184,7 @@ describe("vec3", () => {
     describe("with a lookAt normal matrix", () => {
       beforeEach(() => {
         matr = mat4.lookAt(mat4.create(), [5, 6, 7], [2, 6, 7], [0, 1, 0]);
-        let n = mat3.create();
+        const n = mat3.create();
         matr = mat3.transpose(n, mat3.invert(n, mat3.fromMat4(n, matr)));
       });
 
@@ -1050,15 +1050,15 @@ describe("vec3", () => {
 
   describe("slerp", () => {
     it("should compute the correct value at 0", () => {
-      let result = vec3.slerp([], [1, 0, 0], [0, 1, 0], 0);
+      const result = vec3.slerp([], [1, 0, 0], [0, 1, 0], 0);
       expect(result).toBeEqualish([1, 0, 0]);
     });
     it("should compute the correct value at 1", () => {
-      let result = vec3.slerp([], [1, 0, 0], [0, 1, 0], 1);
+      const result = vec3.slerp([], [1, 0, 0], [0, 1, 0], 1);
       expect(result).toBeEqualish([0, 1, 0]);
     });
     it("should compute the correct value at 0.5", () => {
-      let result = vec3.slerp([], [1, 0, 0], [0, 1, 0], 0.5);
+      const result = vec3.slerp([], [1, 0, 0], [0, 1, 0], 0.5);
       expect(result).toBeEqualish([0.7071067811865475, 0.7071067811865475, 0]);
     });
   });
@@ -1190,7 +1190,9 @@ describe("vec3", () => {
 
     describe("when calling a function that does not modify the out variable", () => {
       beforeEach(() => {
-        result = vec3.forEach(vecArray, 0, 0, 0, function (out, vec) {});
+        result = vec3.forEach(vecArray, 0, 0, 0, () => {
+          /* ignored */
+        });
       });
 
       it("values should remain unchanged", () => {

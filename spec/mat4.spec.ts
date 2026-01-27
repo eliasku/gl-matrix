@@ -291,8 +291,8 @@ describe("mat4", () => {
   });
 
   describe("rotate", () => {
-    let rad = Math.PI * 0.5;
-    let axis = [1, 0, 0];
+    const rad = Math.PI * 0.5;
+    const axis = [1, 0, 0];
 
     describe("with a separate output matrix", () => {
       beforeEach(() => {
@@ -359,7 +359,7 @@ describe("mat4", () => {
   });
 
   describe("rotateX", () => {
-    let rad = Math.PI * 0.5;
+    const rad = Math.PI * 0.5;
 
     describe("with a separate output matrix", () => {
       beforeEach(() => {
@@ -426,7 +426,7 @@ describe("mat4", () => {
   });
 
   describe("rotateY", () => {
-    let rad = Math.PI * 0.5;
+    const rad = Math.PI * 0.5;
 
     describe("with a separate output matrix", () => {
       beforeEach(() => {
@@ -493,7 +493,7 @@ describe("mat4", () => {
   });
 
   describe("rotateZ", () => {
-    let rad = Math.PI * 0.5;
+    const rad = Math.PI * 0.5;
 
     describe("with a separate output matrix", () => {
       beforeEach(() => {
@@ -590,7 +590,7 @@ describe("mat4", () => {
     describe("from a translation and rotation matrix", () => {
       beforeEach(() => {
         let q = quat.create();
-        let v = vec3.fromValues(5, 6, 7);
+        const v = vec3.fromValues(5, 6, 7);
         q = quat.setAxisAngle(q, [0.26726124, 0.534522474, 0.8017837], 0.55);
         mat4.fromRotationTranslation(out, q, v);
 
@@ -620,7 +620,7 @@ describe("mat4", () => {
 
     describe("from a scale-only matrix", () => {
       beforeEach(() => {
-        let v = vec3.fromValues(4, 5, 6);
+        const v = vec3.fromValues(4, 5, 6);
         result = vec3.fromValues(1, 2, 3);
         out = vec3.fromValues(1, 2, 3);
         mat4.fromScaling(matA, v);
@@ -634,7 +634,7 @@ describe("mat4", () => {
     describe("from a translation and rotation matrix", () => {
       beforeEach(() => {
         let q = quat.create();
-        let v = vec3.fromValues(5, 6, 7);
+        const v = vec3.fromValues(5, 6, 7);
         q = quat.setAxisAngle(q, [1, 0, 0], 0.5);
         mat4.fromRotationTranslation(out, q, v);
 
@@ -649,8 +649,8 @@ describe("mat4", () => {
     describe("from a translation, rotation and scale matrix", () => {
       beforeEach(() => {
         let q = quat.create();
-        let t = vec3.fromValues(1, 2, 3);
-        let s = vec3.fromValues(5, 6, 7);
+        const t = vec3.fromValues(1, 2, 3);
+        const s = vec3.fromValues(5, 6, 7);
         q = quat.setAxisAngle(q, [0, 1, 0], 0.7);
         mat4.fromRotationTranslationScale(out, q, t, s);
         result = vec3.fromValues(5, 6, 7);
@@ -673,7 +673,7 @@ describe("mat4", () => {
         expect(result).toBe(out);
       });
       it("should return the unit quaternion", () => {
-        let unitQuat = quat.create();
+        const unitQuat = quat.create();
         quat.identity(unitQuat);
         expect(result).toBeEqualish(unitQuat);
       });
@@ -686,7 +686,7 @@ describe("mat4", () => {
         result = mat4.getRotation(out, matB);
       });
       it("should return the unit quaternion", () => {
-        let unitQuat = quat.create();
+        const unitQuat = quat.create();
         quat.identity(unitQuat);
         expect(result).toBeEqualish(unitQuat);
       });
@@ -695,9 +695,9 @@ describe("mat4", () => {
     describe("from a translation and rotation matrix", () => {
       it("should keep the same rotation as when created", () => {
         let q = quat.create();
-        let outVec = vec3.fromValues(5, 6, 7);
-        let testVec = vec3.fromValues(1, 5, 2);
-        let ang = 0.78972;
+        const outVec = vec3.fromValues(5, 6, 7);
+        const testVec = vec3.fromValues(1, 5, 2);
+        const ang = 0.78972;
 
         vec3.normalize(testVec, testVec);
         q = quat.setAxisAngle(q, testVec, ang);
@@ -705,8 +705,8 @@ describe("mat4", () => {
 
         result = quat.fromValues(2, 3, 4, 6);
         mat4.getRotation(result, out);
-        let outaxis = vec3.create();
-        let outangle = quat.getAxisAngle(outaxis, result);
+        const outaxis = vec3.create();
+        const outangle = quat.getAxisAngle(outaxis, result);
 
         expect(outaxis).toBeEqualish(testVec);
         expect(outangle).toBeEqualish(ang);
@@ -728,7 +728,7 @@ describe("mat4", () => {
         expect(result).toBe(out);
       });
       it("should return the unit quaternion", () => {
-        let unitQuat = quat.create();
+        const unitQuat = quat.create();
         quat.identity(unitQuat);
         expect(result).toBeEqualish(unitQuat);
       });
@@ -749,7 +749,7 @@ describe("mat4", () => {
         result = mat4.decompose(out, out_t, out_s, matB);
       });
       it("should return the unit quaternion", () => {
-        let unitQuat = quat.create();
+        const unitQuat = quat.create();
         quat.identity(unitQuat);
         expect(result).toBeEqualish(unitQuat);
       });
@@ -763,7 +763,7 @@ describe("mat4", () => {
 
     describe("from a scale-only matrix", () => {
       beforeEach(() => {
-        let v = vec3.fromValues(4, 5, 6);
+        const v = vec3.fromValues(4, 5, 6);
         result = vec3.fromValues(1, 2, 3);
         out_t = vec3.fromValues(7, 8, 9);
         out_s = vec3.fromValues(1, 2, 3);
@@ -779,9 +779,9 @@ describe("mat4", () => {
     describe("from a translation and rotation matrix", () => {
       it("should keep the same rotation and translation as when created", () => {
         let q = quat.create();
-        let outVec = vec3.fromValues(5, 6, 7);
-        let testVec = vec3.fromValues(1, 5, 2);
-        let ang = 0.78972;
+        const outVec = vec3.fromValues(5, 6, 7);
+        const testVec = vec3.fromValues(1, 5, 2);
+        const ang = 0.78972;
 
         vec3.normalize(testVec, testVec);
         q = quat.setAxisAngle(q, testVec, ang);
@@ -791,8 +791,8 @@ describe("mat4", () => {
         out_t = vec3.fromValues(7, 8, 9);
         out_s = vec3.fromValues(4, 5, 6);
         mat4.decompose(result, out_t, out_s, out);
-        let outaxis = vec3.create();
-        let outangle = quat.getAxisAngle(outaxis, result);
+        const outaxis = vec3.create();
+        const outangle = quat.getAxisAngle(outaxis, result);
 
         expect(outaxis).toBeEqualish(testVec);
         expect(outangle).toBeEqualish(ang);
@@ -803,8 +803,8 @@ describe("mat4", () => {
     describe("from a translation, rotation and scale matrix", () => {
       beforeEach(() => {
         let q = quat.create();
-        let t = vec3.fromValues(1, 2, 3);
-        let s = vec3.fromValues(5, 6, 7);
+        const t = vec3.fromValues(1, 2, 3);
+        const s = vec3.fromValues(5, 6, 7);
         q = quat.setAxisAngle(q, [0, 1, 0], 0.7);
         mat4.fromRotationTranslationScale(out, q, t, s);
         out_t = vec3.fromValues(7, 8, 9);
@@ -834,7 +834,7 @@ describe("mat4", () => {
   });
 
   describe("perspective", () => {
-    let fovy = Math.PI * 0.5;
+    const fovy = Math.PI * 0.5;
     beforeEach(() => {
       result = mat4.perspective(out, fovy, 1, 0, 1);
     });
@@ -955,10 +955,10 @@ describe("mat4", () => {
   });
 
   describe("targetTo", () => {
-    var eye = new Float32Array([0, 0, 1]);
-    var center = new Float32Array([0, 0, -1]);
-    var up = new Float32Array([0, 1, 0]);
-    var view, right;
+    let eye = new Float32Array([0, 0, 1]);
+    let center = new Float32Array([0, 0, -1]);
+    let up = new Float32Array([0, 1, 0]);
+    let view, right;
 
     describe("looking down", () => {
       beforeEach(() => {
@@ -988,7 +988,7 @@ describe("mat4", () => {
       });
 
       it("scaling should be [1, 1, 1]", () => {
-        var scaling = mat4.getScaling(new Float32Array(3), out);
+        const scaling = mat4.getScaling(new Float32Array(3), out);
         expect(scaling).toBeEqualish([1, 1, 1]);
       });
     });
@@ -1014,7 +1014,7 @@ describe("mat4", () => {
       });
 
       it("scaling should be [1, 1, 1]", () => {
-        var scaling = mat4.getScaling(new Float32Array(3), out);
+        const scaling = mat4.getScaling(new Float32Array(3), out);
         expect(scaling).toBeEqualish([1, 1, 1]);
       });
     });
@@ -1025,7 +1025,7 @@ describe("mat4", () => {
       });
 
       it("scaling should be [1, 1, 1]", () => {
-        var scaling = mat4.getScaling(new Float32Array(3), out);
+        const scaling = mat4.getScaling(new Float32Array(3), out);
         expect(scaling).toBeEqualish([1, 1, 1]);
       });
     });
@@ -1043,7 +1043,7 @@ describe("mat4", () => {
         expect(result).toBe(out);
       });
       it("scaling should be [1, 1, 1]", () => {
-        var scaling = mat4.getScaling(new Float32Array(3), out);
+        const scaling = mat4.getScaling(new Float32Array(3), out);
         expect(scaling).toBeEqualish([1, 1, 1]);
       });
     });

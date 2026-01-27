@@ -9,8 +9,8 @@ expect.extend({
    * This is a way to check for "equal enough" conditions, as a way
    * of working around floating point imprecision.
    */
-  toBeEqualish(a: any, e: number | number[] | Float32Array) {
-    if (typeof e == "number") {
+  toBeEqualish(a: unknown, e: number | number[] | Float32Array) {
+    if (typeof a === "number" && typeof e === "number") {
       if (isNaN(e) !== isNaN(a)) {
         return {
           pass: false,
@@ -28,7 +28,13 @@ expect.extend({
       };
     }
 
-    if (e.length != a.length) {
+    if (!e || !a || typeof e !== "object" || typeof a !== "object" || !("length" in a)) {
+      return {
+        pass: false,
+        message: "not arrays",
+      };
+    }
+    if (e.length !== a.length) {
       return {
         pass: false,
         message: e.length + " " + a.length + " length mismatch",
@@ -49,11 +55,18 @@ expect.extend({
         };
       }
     }
+
     return { pass: true };
   },
 
   // Dual quaternions are very special & unique snowflakes
-  toBeEqualishQuat2(a: any[], e: number[] | Float32Array, epsilon: number = EPSILON) {
+  toBeEqualishQuat2(a: unknown, e: number[] | Float32Array, epsilon: number = EPSILON) {
+    if (!e || !a || typeof e !== "object" || typeof a !== "object" || !("length" in a)) {
+      return {
+        pass: false,
+        message: "not arrays",
+      };
+    }
     let allSignsFlipped = false;
     if (e.length != a.length) {
       return {

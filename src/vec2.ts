@@ -602,7 +602,7 @@ export const forEach = (
   for (let i = offset; i < end; i += stride) {
     tmp[0] = a[i];
     tmp[1] = a[i + 1];
-    fn(tmp, tmp, arg);
+    fn?.(tmp, tmp, arg);
     a[i] = tmp[0];
     a[i + 1] = tmp[1];
   }

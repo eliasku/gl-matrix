@@ -18,7 +18,7 @@ describe("quat2", () => {
   });
 
   describe("translate", () => {
-    let matrixA = mat4.create(),
+    const matrixA = mat4.create(),
       matOut = mat4.create(),
       quatOut = quat2.create();
     beforeEach(() => {
@@ -68,7 +68,7 @@ describe("quat2", () => {
   });
 
   describe("rotateAroundAxis", () => {
-    let matrixA = mat4.create(),
+    const matrixA = mat4.create(),
       matOut = mat4.create(),
       ax = [1, 4, 2];
     beforeEach(() => {
@@ -126,8 +126,8 @@ describe("quat2", () => {
   });
 
   describe("rotateByQuatAppend", () => {
-    let correctResult = quat2.create();
-    let rotationQuat = quat2.create();
+    const correctResult = quat2.create();
+    const rotationQuat = quat2.create();
     beforeEach(() => {
       rotationQuat[0] = 2;
       rotationQuat[1] = 5;
@@ -172,8 +172,8 @@ describe("quat2", () => {
   });
 
   describe("rotateByQuatPrepend", () => {
-    let correctResult = quat2.create();
-    let rotationQuat = quat2.create();
+    const correctResult = quat2.create();
+    const rotationQuat = quat2.create();
     beforeEach(() => {
       rotationQuat[0] = 2;
       rotationQuat[1] = 5;
@@ -218,7 +218,7 @@ describe("quat2", () => {
   });
 
   describe("rotateX", () => {
-    let matrixA = mat4.create(),
+    const matrixA = mat4.create(),
       matOut = mat4.create(),
       quatOut = quat2.create();
     beforeEach(() => {
@@ -264,7 +264,7 @@ describe("quat2", () => {
   });
 
   describe("rotateY", () => {
-    let matrixA = mat4.create(),
+    const matrixA = mat4.create(),
       matOut = mat4.create(),
       quatOut = quat2.create();
     beforeEach(() => {
@@ -311,7 +311,7 @@ describe("quat2", () => {
   });
 
   describe("rotateZ", () => {
-    let matrixA = mat4.create(),
+    const matrixA = mat4.create(),
       matOut = mat4.create(),
       quatOut = quat2.create();
     beforeEach(() => {
@@ -357,9 +357,9 @@ describe("quat2", () => {
   });
 
   describe("from/toMat4", () => {
-    let matRes = mat4.create(),
-      matOut = mat4.create();
-    let rotationQuat = quat.create();
+    let matRes = mat4.create();
+    const matOut = mat4.create();
+    const rotationQuat = quat.create();
     describe("quat to matrix and back", () => {
       beforeEach(() => {
         quat.normalize(rotationQuat, [1, 2, 3, 4]);
@@ -561,9 +561,9 @@ describe("quat2", () => {
     });
 
     describe("same as matrix multiplication", () => {
-      let matrixA = mat4.create(),
+      const matrixA = mat4.create(),
         matrixB = mat4.create();
-      let matOut = mat4.create(),
+      const matOut = mat4.create(),
         quatOut = quat2.create();
       beforeEach(() => {
         //quat2A and quat2B only seem to work when created using this function?
@@ -576,7 +576,7 @@ describe("quat2", () => {
         mat4.fromQuat2(matrixB, quat2B);
       });
       it("the matrices should be equal to the dual quaternions", () => {
-        let testQuat = quat2.create();
+        const testQuat = quat2.create();
         quat2.fromMat4(testQuat, matrixA);
         expect(testQuat).toBeEqualishQuat2(quat2A);
 
@@ -700,7 +700,7 @@ describe("quat2", () => {
       expect(vec).toBeEqualish([1, 2, 3]);
     });
     it("should have a translation that can be retrieved with getTranslation", () => {
-      let t = [0, 0, 0];
+      const t = [0, 0, 0];
       quat2.normalize(out, out);
       quat2.getTranslation(t, out);
 
@@ -716,7 +716,7 @@ describe("quat2", () => {
       expect(result).toBeEqualishQuat2([1, 2, 3, 4, 2, 4, 6, -7]);
     });
     it("should have a translation that can be retrieved with getTranslation", () => {
-      let t = [0, 0, 0];
+      const t = [0, 0, 0];
       quat2.normalize(result, result);
       quat2.getTranslation(t, result);
       expect(t).toBeEqualish([1, 2, 3]);

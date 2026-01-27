@@ -5,7 +5,8 @@
     "test": "bun test",
     "format": "prettier --write **/*.{ts,json,md}",
     "check": "tsc -p .",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "build": "tsup ./src/index.ts --target esnext --format esm --minify terser --dts --sourcemap"
   },
   "devDependencies": {
     "@types/bun": "latest"
@@ -14,6 +15,9 @@
     "prettier": "latest",
     "eslint": "latest",
     "typescript-eslint": "latest",
-    "typescript": "latest"
+    "typescript": "latest",
+    "tsdown": "latest",
+    "tsup": "latest",
+    "terser": "latest"
   }
 }

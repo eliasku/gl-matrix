@@ -108,7 +108,7 @@ describe("quat", () => {
       });
 
       it("should be the square", () => {
-        let reference = quat.multiply(quat.create(), quatA, quatA);
+        const reference = quat.multiply(quat.create(), quatA, quatA);
         expect(result).toBeEqualish(reference);
       });
       it("should be normalized", () => {
@@ -124,7 +124,7 @@ describe("quat", () => {
       });
 
       it("should be the conjugate", () => {
-        let reference = quat.conjugate(quat.create(), quatA);
+        const reference = quat.conjugate(quat.create(), quatA);
         expect(result).toBeEqualish(reference);
       });
       it("should be normalized", () => {
@@ -136,7 +136,7 @@ describe("quat", () => {
       beforeEach(() => {
         quat.normalize(quatA, quatA);
 
-        let b = 2.1; // random number
+        const b = 2.1; // random number
         result = quat.pow(out, quatA, b);
         result = quat.pow(out, result, 1 / b);
       });
@@ -664,10 +664,10 @@ describe("quat", () => {
 
       it("should be equalish", () => {
         // compute reference value as axisAngle of quatA^{-1} * quatB
-        let quatAInv = quat.conjugate(quat.create(), quatA);
-        let quatAB = quat.multiply(quatAInv, quatAInv, quatB);
-        let dummy = vec3.create();
-        let reference = quat.getAxisAngle(dummy, quatAB);
+        const quatAInv = quat.conjugate(quat.create(), quatA);
+        const quatAB = quat.multiply(quatAInv, quatAInv, quatB);
+        const dummy = vec3.create();
+        const reference = quat.getAxisAngle(dummy, quatAB);
 
         expect(quat.getAngle(quatA, quatB)).toBeEqualish(reference);
       });
@@ -990,7 +990,7 @@ describe("quat", () => {
     });
 
     it("should result in a normalized quaternion", () => {
-      let copy = quat.clone(out);
+      const copy = quat.clone(out);
       expect(quat.normalize(out, out)).toBeEqualish(copy);
     });
     it("should return out", () => {
