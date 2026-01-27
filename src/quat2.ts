@@ -120,7 +120,7 @@ export const fromRotationTranslationValues = (
 /**
  * Creates a dual quat from a quaternion and a translation
  *
- * @param dual quaternion receiving operation result
+ * @param out quaternion receiving operation result
  * @param q a normalized quaternion
  * @param t translation vector
  * @returns dual quaternion receiving operation result
@@ -147,7 +147,7 @@ export const fromRotationTranslation = (out: Quat2, q: Readonly<Quat>, t: Readon
 /**
  * Creates a dual quat from a translation
  *
- * @param dual quaternion receiving operation result
+ * @param out quaternion receiving operation result
  * @param t translation vector
  * @returns dual quaternion receiving operation result
  */
@@ -166,7 +166,7 @@ export const fromTranslation = (out: Quat2, t: Readonly<Vec3>): Quat2 => {
 /**
  * Creates a dual quat from a quaternion
  *
- * @param dual quaternion receiving operation result
+ * @param out quaternion receiving operation result
  * @param q the quaternion
  * @returns dual quaternion receiving operation result
  */
@@ -636,7 +636,7 @@ export const multiply = (out: Quat2, a: Readonly<Quat2>, b: Readonly<Quat2>): Qu
 };
 
 /**
- * Alias for {@link Quat2.multiply}
+ * Alias for {@link quat2.multiply}
  */
 export const mul = multiply;
 
@@ -750,7 +750,7 @@ export const conjugate = (out: Quat2, a: Readonly<Quat2>): Quat2 => {
 export const length = quat.length;
 
 /**
- * Alias for {@link Quat2.length}
+ * Alias for {@link quat2.length}
  */
 export const len = length;
 
@@ -763,7 +763,7 @@ export const len = length;
 export const squaredLength = quat.squaredLength;
 
 /**
- * Alias for {@link Quat2.squaredLength}
+ * Alias for {@link quat2.squaredLength}
  */
 export const sqrLen = squaredLength;
 

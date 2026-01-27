@@ -1,5 +1,5 @@
 import { EPSILON, createArray } from "./common";
-import { Mat3, Mat2d, Mat4, Quat, Vec2 } from "./types";
+import type { Mat3, Mat2d, Mat4, Quat, Vec2 } from "./types";
 
 /**
  * 3x3 Matrix

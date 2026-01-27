@@ -1564,7 +1564,7 @@ export const perspectiveNO = (out: Mat4, fovy: number, aspect: number, near: num
 };
 
 /**
- * Alias for {@link Mat4.perspectiveNO}
+ * Alias for {@link mat4.perspectiveNO}
  */
 export const perspective = perspectiveNO;
 
@@ -1608,12 +1608,13 @@ export const perspectiveZO = (out: Mat4, fovy: number, aspect: number, near: num
   return out;
 };
 
-interface FovObject {
+export interface FovParams {
   upDegrees: number;
   downDegrees: number;
   leftDegrees: number;
   rightDegrees: number;
 }
+
 /**
  * Generates a perspective projection matrix with the given field of view.
  * This is primarily useful for generating projection matrices to be used
@@ -1625,7 +1626,7 @@ interface FovObject {
  * @param far Far bound of the frustum
  * @returns out
  */
-export const perspectiveFromFieldOfView = (out: Mat4, fov: FovObject, near: number, far: number): Mat4 => {
+export const perspectiveFromFieldOfView = (out: Mat4, fov: FovParams, near: number, far: number): Mat4 => {
   const upTan = Math.tan(fov.upDegrees * TO_DEGREE);
   const downTan = Math.tan(fov.downDegrees * TO_DEGREE);
   const leftTan = Math.tan(fov.leftDegrees * TO_DEGREE);
@@ -1698,7 +1699,7 @@ export const orthoNO = (
 };
 
 /**
- * Alias for {@link Mat4.orthoNO}
+ * Alias for {@link mat4.orthoNO}
  */
 export const ortho = orthoNO;
 
@@ -2157,11 +2158,11 @@ export const equals = (a: Readonly<Mat4>, b: Readonly<Mat4>): boolean => {
 };
 
 /**
- * Alias for {@link Mat4.multiply}
+ * Alias for {@link mat4.multiply}
  */
 export const mul = multiply;
 
 /**
- * Alias for {@link Mat4.subtract}
+ * Alias for {@link mat4.subtract}
  */
 export const sub = subtract;

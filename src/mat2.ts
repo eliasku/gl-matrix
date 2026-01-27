@@ -416,11 +416,11 @@ export const multiplyScalarAndAdd = (out: Mat2, a: Readonly<Mat2>, b: Readonly<M
 };
 
 /**
- * Alias for {@link Mat2.multiply}
+ * Alias for {@link mat2.multiply}
  */
 export const mul = multiply;
 
 /**
- * Alias for {@link Mat2.subtract}
+ * Alias for {@link mat2.subtract}
  */
 export const sub = subtract;

@@ -583,7 +583,7 @@ export const set = vec4.set;
 export const add = vec4.add;
 
 /**
- * Alias for {@link Quat.multiply}
+ * Alias for {@link quat.multiply}
  */
 export const mul = multiply;
 
@@ -626,7 +626,7 @@ export const lerp = vec4.lerp;
 export const length = vec4.length;
 
 /**
- * Alias for {@link Quat.length}
+ * Alias for {@link quat.length}
  */
 export const len = length;
 
@@ -639,7 +639,7 @@ export const len = length;
 export const squaredLength = vec4.squaredLength;
 
 /**
- * Alias for {@link Quat.squaredLength}
+ * Alias for {@link quat.squaredLength}
  */
 export const sqrLen = squaredLength;
 

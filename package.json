@@ -14,7 +14,8 @@
     "format": "prettier --write **/*.{ts,json,md}",
     "check": "tsc -p .",
     "lint": "eslint .",
-    "build": "tsup ./src/index.ts --target esnext --format esm --minify terser --dts --sourcemap"
+    "build": "tsup ./src/index.ts --target esnext --format esm --minify terser --dts --sourcemap",
+    "doc": "typedoc --out doc"
   },
   "devDependencies": {
     "@types/bun": "latest"
@@ -26,6 +27,10 @@
     "typescript": "latest",
     "tsdown": "latest",
     "tsup": "latest",
-    "terser": "latest"
+    "terser": "latest",
+    "typedoc": "latest"
+  },
+  "exports": {
+    ".": "./src/index.ts"
   }
 }

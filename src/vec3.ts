@@ -732,37 +732,37 @@ export const equals = (a: Readonly<Vec3>, b: Readonly<Vec3>): boolean => {
 };
 
 /**
- * Alias for {@link Vec3.subtract}
+ * Alias for {@link vec3.subtract}
  */
 export const sub = subtract;
 
 /**
- * Alias for {@link Vec3.multiply}
+ * Alias for {@link vec3.multiply}
  */
 export const mul = multiply;
 
 /**
- * Alias for {@link Vec3.divide}
+ * Alias for {@link vec3.divide}
  */
 export const div = divide;
 
 /**
- * Alias for {@link Vec3.distance}
+ * Alias for {@link vec3.distance}
  */
 export const dist = distance;
 
 /**
- * Alias for {@link Vec3.squaredDistance}
+ * Alias for {@link vec3.squaredDistance}
  */
 export const sqrDist = squaredDistance;
 
 /**
- * Alias for {@link Vec3.length}
+ * Alias for {@link vec3.length}
  */
 export const len = length;
 
 /**
- * Alias for {@link Vec3.squaredLength}
+ * Alias for {@link vec3.squaredLength}
  */
 export const sqrLen = squaredLength;
 

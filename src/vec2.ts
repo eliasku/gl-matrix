@@ -536,37 +536,37 @@ export const equals = (a: Readonly<Vec2>, b: Readonly<Vec2>): boolean => {
 };
 
 /**
- * Alias for {@link Vec2.length}
+ * Alias for {@link vec2.length}
  */
 export const len = length;
 
 /**
- * Alias for {@link Vec2.subtract}
+ * Alias for {@link vec2.subtract}
  */
 export const sub = subtract;
 
 /**
- * Alias for {@link Vec2.multiply}
+ * Alias for {@link vec2.multiply}
  */
 export const mul = multiply;
 
 /**
- * Alias for {@link Vec2.divide}
+ * Alias for {@link vec2.divide}
  */
 export const div = divide;
 
 /**
- * Alias for {@link Vec2.distance}
+ * Alias for {@link vec2.distance}
  */
 export const dist = distance;
 
 /**
- * Alias for {@link Vec2.squaredDistance}
+ * Alias for {@link vec2.squaredDistance}
  */
 export const sqrDist = squaredDistance;
 
 /**
- * Alias for {@link Vec2.squaredLength}
+ * Alias for {@link vec2.squaredLength}
  */
 export const sqrLen = squaredLength;
 
