@@ -1,4 +1,5 @@
 import { createArray, EPSILON, RANDOM, symround } from "./common";
+import type { Mat2, Mat2d, Mat3, Mat4, Vec2, Vec3 } from "./types";
 
 /**
  * 2 Dimensional Vector
@@ -10,7 +11,7 @@ import { createArray, EPSILON, RANDOM, symround } from "./common";
  *
  * @returns a new 2D vector
  */
-export const create = (): vec2 => createArray(2);
+export const create = (): Vec2 => createArray(2);
 
 /**
  * Creates a new vec2 initialized with values from an existing vector
@@ -18,7 +19,7 @@ export const create = (): vec2 => createArray(2);
  * @param a vector to clone
  * @returns a new 2D vector
  */
-export const clone = (a: ReadonlyVec2): vec2 => {
+export const clone = (a: Readonly<Vec2>): Vec2 => {
   const out = createArray(2);
   out[0] = a[0];
   out[1] = a[1];
@@ -32,7 +33,7 @@ export const clone = (a: ReadonlyVec2): vec2 => {
  * @param y Y component
  * @returns a new 2D vector
  */
-export const fromValues = (x: number, y: number): vec2 => {
+export const fromValues = (x: number, y: number): Vec2 => {
   const out = createArray(2);
   out[0] = x;
   out[1] = y;
@@ -46,7 +47,7 @@ export const fromValues = (x: number, y: number): vec2 => {
  * @param a the source vector
  * @returns out
  */
-export const copy = (out: vec2, a: ReadonlyVec2): vec2 => {
+export const copy = (out: Vec2, a: Readonly<Vec2>): Vec2 => {
   out[0] = a[0];
   out[1] = a[1];
   return out;
@@ -60,7 +61,7 @@ export const copy = (out: vec2, a: ReadonlyVec2): vec2 => {
  * @param y Y component
  * @returns out
  */
-export const set = (out: vec2, x: number, y: number): vec2 => {
+export const set = (out: Vec2, x: number, y: number): Vec2 => {
   out[0] = x;
   out[1] = y;
   return out;
@@ -74,7 +75,7 @@ export const set = (out: vec2, x: number, y: number): vec2 => {
  * @param b the second operand
  * @returns out
  */
-export const add = (out: vec2, a: ReadonlyVec2, b: ReadonlyVec2): vec2 => {
+export const add = (out: Vec2, a: Readonly<Vec2>, b: Readonly<Vec2>): Vec2 => {
   out[0] = a[0] + b[0];
   out[1] = a[1] + b[1];
   return out;
@@ -88,7 +89,7 @@ export const add = (out: vec2, a: ReadonlyVec2, b: ReadonlyVec2): vec2 => {
  * @param b the second operand
  * @returns out
  */
-export const subtract = (out: vec2, a: ReadonlyVec2, b: ReadonlyVec2): vec2 => {
+export const subtract = (out: Vec2, a: Readonly<Vec2>, b: Readonly<Vec2>): Vec2 => {
   out[0] = a[0] - b[0];
   out[1] = a[1] - b[1];
   return out;
@@ -102,7 +103,7 @@ export const subtract = (out: vec2, a: ReadonlyVec2, b: ReadonlyVec2): vec2 => {
  * @param b the second operand
  * @returns out
  */
-export const multiply = (out: vec2, a: ReadonlyVec2, b: ReadonlyVec2): vec2 => {
+export const multiply = (out: Vec2, a: Readonly<Vec2>, b: Readonly<Vec2>): Vec2 => {
   out[0] = a[0] * b[0];
   out[1] = a[1] * b[1];
   return out;
@@ -116,7 +117,7 @@ export const multiply = (out: vec2, a: ReadonlyVec2, b: ReadonlyVec2): vec2 => {
  * @param b the second operand
  * @returns out
  */
-export const divide = (out: vec2, a: ReadonlyVec2, b: ReadonlyVec2): vec2 => {
+export const divide = (out: Vec2, a: Readonly<Vec2>, b: Readonly<Vec2>): Vec2 => {
   out[0] = a[0] / b[0];
   out[1] = a[1] / b[1];
   return out;
@@ -129,7 +130,7 @@ export const divide = (out: vec2, a: ReadonlyVec2, b: ReadonlyVec2): vec2 => {
  * @param a vector to ceil
  * @returns out
  */
-export const ceil = (out: vec2, a: ReadonlyVec2): vec2 => {
+export const ceil = (out: Vec2, a: Readonly<Vec2>): Vec2 => {
   out[0] = Math.ceil(a[0]);
   out[1] = Math.ceil(a[1]);
   return out;
@@ -142,7 +143,7 @@ export const ceil = (out: vec2, a: ReadonlyVec2): vec2 => {
  * @param a vector to floor
  * @returns out
  */
-export const floor = (out: vec2, a: ReadonlyVec2): vec2 => {
+export const floor = (out: Vec2, a: Readonly<Vec2>): Vec2 => {
   out[0] = Math.floor(a[0]);
   out[1] = Math.floor(a[1]);
   return out;
@@ -156,7 +157,7 @@ export const floor = (out: vec2, a: ReadonlyVec2): vec2 => {
  * @param b the second operand
  * @returns out
  */
-export const min = (out: vec2, a: ReadonlyVec2, b: ReadonlyVec2): vec2 => {
+export const min = (out: Vec2, a: Readonly<Vec2>, b: Readonly<Vec2>): Vec2 => {
   out[0] = Math.min(a[0], b[0]);
   out[1] = Math.min(a[1], b[1]);
   return out;
@@ -170,7 +171,7 @@ export const min = (out: vec2, a: ReadonlyVec2, b: ReadonlyVec2): vec2 => {
  * @param b the second operand
  * @returns out
  */
-export const max = (out: vec2, a: ReadonlyVec2, b: ReadonlyVec2): vec2 => {
+export const max = (out: Vec2, a: Readonly<Vec2>, b: Readonly<Vec2>): Vec2 => {
   out[0] = Math.max(a[0], b[0]);
   out[1] = Math.max(a[1], b[1]);
   return out;
@@ -183,7 +184,7 @@ export const max = (out: vec2, a: ReadonlyVec2, b: ReadonlyVec2): vec2 => {
  * @param a vector to round
  * @returns out
  */
-export const round = (out: vec2, a: ReadonlyVec2): vec2 => {
+export const round = (out: Vec2, a: Readonly<Vec2>): Vec2 => {
   out[0] = symround(a[0]);
   out[1] = symround(a[1]);
   return out;
@@ -197,7 +198,7 @@ export const round = (out: vec2, a: ReadonlyVec2): vec2 => {
  * @param b amount to scale the vector by
  * @returns out
  */
-export const scale = (out: vec2, a: ReadonlyVec2, b: number): vec2 => {
+export const scale = (out: Vec2, a: Readonly<Vec2>, b: number): Vec2 => {
   out[0] = a[0] * b;
   out[1] = a[1] * b;
   return out;
@@ -212,7 +213,7 @@ export const scale = (out: vec2, a: ReadonlyVec2, b: number): vec2 => {
  * @param scale the amount to scale b by before adding
  * @returns out
  */
-export const scaleAndAdd = (out: vec2, a: ReadonlyVec2, b: ReadonlyVec2, scale: number): vec2 => {
+export const scaleAndAdd = (out: Vec2, a: Readonly<Vec2>, b: Readonly<Vec2>, scale: number): Vec2 => {
   out[0] = a[0] + b[0] * scale;
   out[1] = a[1] + b[1] * scale;
   return out;
@@ -225,7 +226,7 @@ export const scaleAndAdd = (out: vec2, a: ReadonlyVec2, b: ReadonlyVec2, scale: 
  * @param b the second operand
  * @returns distance between a and b
  */
-export const distance = (a: ReadonlyVec2, b: ReadonlyVec2): number => {
+export const distance = (a: Readonly<Vec2>, b: Readonly<Vec2>): number => {
   const x = b[0] - a[0];
   const y = b[1] - a[1];
   return Math.sqrt(x * x + y * y);
@@ -238,7 +239,7 @@ export const distance = (a: ReadonlyVec2, b: ReadonlyVec2): number => {
  * @param b the second operand
  * @returns squared distance between a and b
  */
-export const squaredDistance = (a: ReadonlyVec2, b: ReadonlyVec2): number => {
+export const squaredDistance = (a: Readonly<Vec2>, b: Readonly<Vec2>): number => {
   const x = b[0] - a[0];
   const y = b[1] - a[1];
   return x * x + y * y;
@@ -250,7 +251,7 @@ export const squaredDistance = (a: ReadonlyVec2, b: ReadonlyVec2): number => {
  * @param a vector to calculate length of
  * @returns length of a
  */
-export const length = (a: ReadonlyVec2): number => {
+export const length = (a: Readonly<Vec2>): number => {
   const x = a[0];
   const y = a[1];
   return Math.sqrt(x * x + y * y);
@@ -262,7 +263,7 @@ export const length = (a: ReadonlyVec2): number => {
  * @param a vector to calculate squared length of
  * @returns squared length of a
  */
-export const squaredLength = (a: ReadonlyVec2): number => {
+export const squaredLength = (a: Readonly<Vec2>): number => {
   const x = a[0];
   const y = a[1];
   return x * x + y * y;
@@ -275,7 +276,7 @@ export const squaredLength = (a: ReadonlyVec2): number => {
  * @param a vector to negate
  * @returns out
  */
-export const negate = (out: vec2, a: ReadonlyVec2): vec2 => {
+export const negate = (out: Vec2, a: Readonly<Vec2>): Vec2 => {
   out[0] = -a[0];
   out[1] = -a[1];
   return out;
@@ -288,7 +289,7 @@ export const negate = (out: vec2, a: ReadonlyVec2): vec2 => {
  * @param a vector to invert
  * @returns out
  */
-export const inverse = (out: vec2, a: ReadonlyVec2): vec2 => {
+export const inverse = (out: Vec2, a: Readonly<Vec2>): Vec2 => {
   out[0] = 1.0 / a[0];
   out[1] = 1.0 / a[1];
   return out;
@@ -301,7 +302,7 @@ export const inverse = (out: vec2, a: ReadonlyVec2): vec2 => {
  * @param a vector to normalize
  * @returns out
  */
-export const normalize = (out: vec2, a: ReadonlyVec2): vec2 => {
+export const normalize = (out: Vec2, a: Readonly<Vec2>): Vec2 => {
   const x = a[0];
   const y = a[1];
   let len = x * x + y * y;
@@ -321,7 +322,7 @@ export const normalize = (out: vec2, a: ReadonlyVec2): vec2 => {
  * @param b the second operand
  * @returns dot product of a and b
  */
-export const dot = (a: ReadonlyVec2, b: ReadonlyVec2): number => {
+export const dot = (a: Readonly<Vec2>, b: Readonly<Vec2>): number => {
   return a[0] * b[0] + a[1] * b[1];
 };
 
@@ -334,7 +335,7 @@ export const dot = (a: ReadonlyVec2, b: ReadonlyVec2): number => {
  * @param b the second operand
  * @returns out
  */
-export const cross = (out: vec3, a: ReadonlyVec2, b: ReadonlyVec2): vec3 => {
+export const cross = (out: Vec3, a: Readonly<Vec2>, b: Readonly<Vec2>): Vec3 => {
   const z = a[0] * b[1] - a[1] * b[0];
   out[0] = out[1] = 0;
   out[2] = z;
@@ -350,7 +351,7 @@ export const cross = (out: vec3, a: ReadonlyVec2, b: ReadonlyVec2): vec3 => {
  * @param t interpolation amount, in the range [0-1], between the two inputs
  * @returns out
  */
-export const lerp = (out: vec2, a: ReadonlyVec2, b: ReadonlyVec2, t: number): vec2 => {
+export const lerp = (out: Vec2, a: Readonly<Vec2>, b: Readonly<Vec2>, t: number): Vec2 => {
   const ax = a[0];
   const ay = a[1];
   out[0] = ax + t * (b[0] - ax);
@@ -365,7 +366,7 @@ export const lerp = (out: vec2, a: ReadonlyVec2, b: ReadonlyVec2, t: number): ve
  * @param scale Length of the resulting vector. If omitted, a unit vector will be returned
  * @returns out
  */
-export const random = (out: vec2, scale: number = 1): vec2 => {
+export const random = (out: Vec2, scale: number = 1): Vec2 => {
   const r = RANDOM() * 2.0 * Math.PI;
   out[0] = Math.cos(r) * scale;
   out[1] = Math.sin(r) * scale;
@@ -380,7 +381,7 @@ export const random = (out: vec2, scale: number = 1): vec2 => {
  * @param m matrix to transform with
  * @returns out
  */
-export const transformMat2 = (out: vec2, a: ReadonlyVec2, m: ReadonlyMat2): vec2 => {
+export const transformMat2 = (out: Vec2, a: Readonly<Vec2>, m: Readonly<Mat2>): Vec2 => {
   const x = a[0];
   const y = a[1];
   out[0] = m[0] * x + m[2] * y;
@@ -396,7 +397,7 @@ export const transformMat2 = (out: vec2, a: ReadonlyVec2, m: ReadonlyMat2): vec2
  * @param m matrix to transform with
  * @returns out
  */
-export const transformMat2d = (out: vec2, a: ReadonlyVec2, m: ReadonlyMat2d): vec2 => {
+export const transformMat2d = (out: Vec2, a: Readonly<Vec2>, m: Readonly<Mat2d>): Vec2 => {
   const x = a[0];
   const y = a[1];
   out[0] = m[0] * x + m[2] * y + m[4];
@@ -413,7 +414,7 @@ export const transformMat2d = (out: vec2, a: ReadonlyVec2, m: ReadonlyMat2d): ve
  * @param m matrix to transform with
  * @returns out
  */
-export const transformMat3 = (out: vec2, a: ReadonlyVec2, m: ReadonlyMat3): vec2 => {
+export const transformMat3 = (out: Vec2, a: Readonly<Vec2>, m: Readonly<Mat3>): Vec2 => {
   const x = a[0];
   const y = a[1];
   out[0] = m[0] * x + m[3] * y + m[6];
@@ -431,7 +432,7 @@ export const transformMat3 = (out: vec2, a: ReadonlyVec2, m: ReadonlyMat3): vec2
  * @param m matrix to transform with
  * @returns out
  */
-export const transformMat4 = (out: vec2, a: ReadonlyVec2, m: ReadonlyMat4): vec2 => {
+export const transformMat4 = (out: Vec2, a: Readonly<Vec2>, m: Readonly<Mat4>): Vec2 => {
   const x = a[0];
   const y = a[1];
   out[0] = m[0] * x + m[4] * y + m[12];
@@ -447,7 +448,7 @@ export const transformMat4 = (out: vec2, a: ReadonlyVec2, m: ReadonlyMat4): vec2
  * @param rad The angle of rotation in radians
  * @returns out
  */
-export const rotate = (out: vec2, a: ReadonlyVec2, b: ReadonlyVec2, rad: number): vec2 => {
+export const rotate = (out: Vec2, a: Readonly<Vec2>, b: Readonly<Vec2>, rad: number): Vec2 => {
   //Translate point to the origin
   const p0 = a[0] - b[0];
   const p1 = a[1] - b[1];
@@ -467,7 +468,7 @@ export const rotate = (out: vec2, a: ReadonlyVec2, b: ReadonlyVec2, rad: number)
  * @param b The second operand
  * @returns The angle in radians
  */
-export const angle = (a: ReadonlyVec2, b: ReadonlyVec2): number => {
+export const angle = (a: Readonly<Vec2>, b: Readonly<Vec2>): number => {
   const ax = a[0];
   const ay = a[1];
   const bx = b[0];
@@ -482,7 +483,7 @@ export const angle = (a: ReadonlyVec2, b: ReadonlyVec2): number => {
  * @param b The second vector
  * @returns The signed angle in radians
  */
-export const signedAngle = (a: ReadonlyVec2, b: ReadonlyVec2): number => {
+export const signedAngle = (a: Readonly<Vec2>, b: Readonly<Vec2>): number => {
   const ax = a[0];
   const ay = a[1];
   const bx = b[0];
@@ -496,7 +497,7 @@ export const signedAngle = (a: ReadonlyVec2, b: ReadonlyVec2): number => {
  * @param out the receiving vector
  * @returns out
  */
-export const zero = (out: vec2): vec2 => {
+export const zero = (out: Vec2): Vec2 => {
   out[0] = 0.0;
   out[1] = 0.0;
   return out;
@@ -508,7 +509,7 @@ export const zero = (out: vec2): vec2 => {
  * @param a vector to represent as a string
  * @returns string representation of the vector
  */
-export const str = (a: ReadonlyVec2): string => {
+export const str = (a: Readonly<Vec2>): string => {
   return "vec2(" + a[0] + ", " + a[1] + ")";
 };
 
@@ -519,7 +520,7 @@ export const str = (a: ReadonlyVec2): string => {
  * @param b The second vector.
  * @returns True if the vectors are equal, false otherwise.
  */
-export const exactEquals = (a: ReadonlyVec2, b: ReadonlyVec2): boolean => {
+export const exactEquals = (a: Readonly<Vec2>, b: Readonly<Vec2>): boolean => {
   return a[0] === b[0] && a[1] === b[1];
 };
 
@@ -530,7 +531,7 @@ export const exactEquals = (a: ReadonlyVec2, b: ReadonlyVec2): boolean => {
  * @param b The second vector.
  * @returns True if the vectors are equal, false otherwise.
  */
-export const equals = (a: ReadonlyVec2, b: ReadonlyVec2): boolean => {
+export const equals = (a: Readonly<Vec2>, b: Readonly<Vec2>): boolean => {
   const a0 = a[0];
   const a1 = a[1];
   const b0 = b[0];
@@ -542,37 +543,37 @@ export const equals = (a: ReadonlyVec2, b: ReadonlyVec2): boolean => {
 };
 
 /**
- * Alias for {@link vec2.length}
+ * Alias for {@link Vec2.length}
  */
 export const len = length;
 
 /**
- * Alias for {@link vec2.subtract}
+ * Alias for {@link Vec2.subtract}
  */
 export const sub = subtract;
 
 /**
- * Alias for {@link vec2.multiply}
+ * Alias for {@link Vec2.multiply}
  */
 export const mul = multiply;
 
 /**
- * Alias for {@link vec2.divide}
+ * Alias for {@link Vec2.divide}
  */
 export const div = divide;
 
 /**
- * Alias for {@link vec2.distance}
+ * Alias for {@link Vec2.distance}
  */
 export const dist = distance;
 
 /**
- * Alias for {@link vec2.squaredDistance}
+ * Alias for {@link Vec2.squaredDistance}
  */
 export const sqrDist = squaredDistance;
 
 /**
- * Alias for {@link vec2.squaredLength}
+ * Alias for {@link Vec2.squaredLength}
  */
 export const sqrLen = squaredLength;
 
@@ -593,7 +594,7 @@ export const forEach = (
   stride?: number,
   offset?: number,
   count?: number,
-  fn?: (out: vec2, vec: vec2, arg?: any) => void,
+  fn?: (out: Vec2, vec: Vec2, arg?: any) => void,
   arg?: any,
 ): number[] => {
   if (!stride) {

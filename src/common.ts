@@ -1,7 +1,8 @@
 // Configuration Constants
-export const createArray = (len: number) => new Float32Array(len);
 export const EPSILON = 0.000001;
 export const RANDOM = Math.random;
+
+export const createArray = (len: number) => new Float32Array(len);
 
 export const TO_RADIAN = Math.PI / 180;
 export const TO_DEGREE = 180 / Math.PI;

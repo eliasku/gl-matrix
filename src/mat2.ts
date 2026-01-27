@@ -1,4 +1,5 @@
 import { createArray, EPSILON } from "./common";
+import type { Mat2, Vec2 } from "./types";
 
 /**
  * 2x2 Matrix
@@ -10,7 +11,7 @@ import { createArray, EPSILON } from "./common";
  *
  * @returns a new 2x2 matrix
  */
-export const create = (): mat2 => {
+export const create = (): Mat2 => {
   const out = createArray(4);
   out[0] = 1;
   out[3] = 1;
@@ -23,7 +24,7 @@ export const create = (): mat2 => {
  * @param a matrix to clone
  * @returns a new 2x2 matrix
  */
-export const clone = (a: ReadonlyMat2): mat2 => {
+export const clone = (a: Readonly<Mat2>): Mat2 => {
   const out = createArray(4);
   out[0] = a[0];
   out[1] = a[1];
@@ -39,7 +40,7 @@ export const clone = (a: ReadonlyMat2): mat2 => {
  * @param a the source matrix
  * @returns out
  */
-export const copy = (out: mat2, a: ReadonlyMat2): mat2 => {
+export const copy = (out: Mat2, a: Readonly<Mat2>): Mat2 => {
   out[0] = a[0];
   out[1] = a[1];
   out[2] = a[2];
@@ -53,7 +54,7 @@ export const copy = (out: mat2, a: ReadonlyMat2): mat2 => {
  * @param out the receiving matrix
  * @returns out
  */
-export const identity = (out: mat2): mat2 => {
+export const identity = (out: Mat2): Mat2 => {
   out[0] = 1;
   out[1] = 0;
   out[2] = 0;
@@ -70,7 +71,7 @@ export const identity = (out: mat2): mat2 => {
  * @param m11 Component in column 1, row 1 position (index 3)
  * @returns out A new 2x2 matrix
  */
-export const fromValues = (m00: number, m01: number, m10: number, m11: number): mat2 => {
+export const fromValues = (m00: number, m01: number, m10: number, m11: number): Mat2 => {
   const out = createArray(4);
   out[0] = m00;
   out[1] = m01;
@@ -89,7 +90,7 @@ export const fromValues = (m00: number, m01: number, m10: number, m11: number): 
  * @param m11 Component in column 1, row 1 position (index 3)
  * @returns out
  */
-export const set = (out: mat2, m00: number, m01: number, m10: number, m11: number): mat2 => {
+export const set = (out: Mat2, m00: number, m01: number, m10: number, m11: number): Mat2 => {
   out[0] = m00;
   out[1] = m01;
   out[2] = m10;
@@ -104,7 +105,7 @@ export const set = (out: mat2, m00: number, m01: number, m10: number, m11: numbe
  * @param a the source matrix
  * @returns out
  */
-export const transpose = (out: mat2, a: ReadonlyMat2): mat2 => {
+export const transpose = (out: Mat2, a: Readonly<Mat2>): Mat2 => {
   // If we are transposing ourselves we can skip a few steps but have to cache
   // some values
   if (out === a) {
@@ -128,7 +129,7 @@ export const transpose = (out: mat2, a: ReadonlyMat2): mat2 => {
  * @param a the source matrix
  * @returns out, or null if source matrix is not invertible
  */
-export const invert = (out: mat2, a: ReadonlyMat2): mat2 | null => {
+export const invert = (out: Mat2, a: Readonly<Mat2>): Mat2 | null => {
   let a0 = a[0],
     a1 = a[1],
     a2 = a[2],
@@ -157,7 +158,7 @@ export const invert = (out: mat2, a: ReadonlyMat2): mat2 | null => {
  * @param a the source matrix
  * @returns out
  */
-export const adjoint = (out: mat2, a: ReadonlyMat2): mat2 => {
+export const adjoint = (out: Mat2, a: Readonly<Mat2>): Mat2 => {
   // Caching this value is necessary if out == a
   let a0 = a[0];
   out[0] = a[3];
@@ -174,7 +175,7 @@ export const adjoint = (out: mat2, a: ReadonlyMat2): mat2 => {
  * @param a the source matrix
  * @returns determinant of a
  */
-export const determinant = (a: ReadonlyMat2): number => {
+export const determinant = (a: Readonly<Mat2>): number => {
   return a[0] * a[3] - a[2] * a[1];
 };
 
@@ -186,7 +187,7 @@ export const determinant = (a: ReadonlyMat2): number => {
  * @param b the second operand
  * @returns out
  */
-export const multiply = (out: mat2, a: ReadonlyMat2, b: ReadonlyMat2): mat2 => {
+export const multiply = (out: Mat2, a: Readonly<Mat2>, b: Readonly<Mat2>): Mat2 => {
   let a0 = a[0],
     a1 = a[1],
     a2 = a[2],
@@ -210,7 +211,7 @@ export const multiply = (out: mat2, a: ReadonlyMat2, b: ReadonlyMat2): mat2 => {
  * @param rad the angle to rotate the matrix by
  * @returns out
  */
-export const rotate = (out: mat2, a: ReadonlyMat2, rad: number): mat2 => {
+export const rotate = (out: Mat2, a: Readonly<Mat2>, rad: number): Mat2 => {
   let a0 = a[0],
     a1 = a[1],
     a2 = a[2],
@@ -232,7 +233,7 @@ export const rotate = (out: mat2, a: ReadonlyMat2, rad: number): mat2 => {
  * @param v the vec2 to scale the matrix by
  * @returns out
  **/
-export const scale = (out: mat2, a: ReadonlyMat2, v: ReadonlyMat2): mat2 => {
+export const scale = (out: Mat2, a: Readonly<Mat2>, v: Readonly<Mat2>): Mat2 => {
   let a0 = a[0],
     a1 = a[1],
     a2 = a[2],
@@ -257,7 +258,7 @@ export const scale = (out: mat2, a: ReadonlyMat2, v: ReadonlyMat2): mat2 => {
  * @param rad the angle to rotate the matrix by
  * @returns out
  */
-export const fromRotation = (out: mat2, rad: number): mat2 => {
+export const fromRotation = (out: Mat2, rad: number): Mat2 => {
   let s = Math.sin(rad);
   let c = Math.cos(rad);
   out[0] = c;
@@ -278,7 +279,7 @@ export const fromRotation = (out: mat2, rad: number): mat2 => {
  * @param v Scaling vector
  * @returns out
  */
-export const fromScaling = (out: mat2, v: ReadonlyVec2): mat2 => {
+export const fromScaling = (out: Mat2, v: Readonly<Vec2>): Mat2 => {
   out[0] = v[0];
   out[1] = 0;
   out[2] = 0;
@@ -292,7 +293,7 @@ export const fromScaling = (out: mat2, v: ReadonlyVec2): mat2 => {
  * @param a matrix to represent as a string
  * @returns string representation of the matrix
  */
-export const str = (a: ReadonlyMat2): string => {
+export const str = (a: Readonly<Mat2>): string => {
   return "mat2(" + a[0] + ", " + a[1] + ", " + a[2] + ", " + a[3] + ")";
 };
 
@@ -302,7 +303,7 @@ export const str = (a: ReadonlyMat2): string => {
  * @param a the matrix to calculate Frobenius norm of
  * @returns Frobenius norm
  */
-export const frob = (a: ReadonlyMat2): number => {
+export const frob = (a: Readonly<Mat2>): number => {
   return Math.sqrt(a[0] * a[0] + a[1] * a[1] + a[2] * a[2] + a[3] * a[3]);
 };
 
@@ -313,7 +314,7 @@ export const frob = (a: ReadonlyMat2): number => {
  * @param U the upper triangular matrix
  * @param a the input matrix to factorize
  */
-export const LDU = (L: mat2, D: ReadonlyMat2, U: mat2, a: ReadonlyMat2) => {
+export const LDU = (L: Mat2, D: Readonly<Mat2>, U: Mat2, a: Readonly<Mat2>) => {
   L[2] = a[2] / a[0];
   U[0] = a[0];
   U[1] = a[1];
@@ -329,7 +330,7 @@ export const LDU = (L: mat2, D: ReadonlyMat2, U: mat2, a: ReadonlyMat2) => {
  * @param b the second operand
  * @returns out
  */
-export const add = (out: mat2, a: ReadonlyMat2, b: ReadonlyMat2): mat2 => {
+export const add = (out: Mat2, a: Readonly<Mat2>, b: Readonly<Mat2>): Mat2 => {
   out[0] = a[0] + b[0];
   out[1] = a[1] + b[1];
   out[2] = a[2] + b[2];
@@ -345,7 +346,7 @@ export const add = (out: mat2, a: ReadonlyMat2, b: ReadonlyMat2): mat2 => {
  * @param b the second operand
  * @returns out
  */
-export const subtract = (out: mat2, a: ReadonlyMat2, b: ReadonlyMat2): mat2 => {
+export const subtract = (out: Mat2, a: Readonly<Mat2>, b: Readonly<Mat2>): Mat2 => {
   out[0] = a[0] - b[0];
   out[1] = a[1] - b[1];
   out[2] = a[2] - b[2];
@@ -360,7 +361,7 @@ export const subtract = (out: mat2, a: ReadonlyMat2, b: ReadonlyMat2): mat2 => {
  * @param b The second matrix.
  * @returns True if the matrices are equal, false otherwise.
  */
-export const exactEquals = (a: ReadonlyMat2, b: ReadonlyMat2): boolean => {
+export const exactEquals = (a: Readonly<Mat2>, b: Readonly<Mat2>): boolean => {
   return a[0] === b[0] && a[1] === b[1] && a[2] === b[2] && a[3] === b[3];
 };
 
@@ -371,7 +372,7 @@ export const exactEquals = (a: ReadonlyMat2, b: ReadonlyMat2): boolean => {
  * @param b The second matrix.
  * @returns True if the matrices are equal, false otherwise.
  */
-export const equals = (a: ReadonlyMat2, b: ReadonlyMat2): boolean => {
+export const equals = (a: Readonly<Mat2>, b: Readonly<Mat2>): boolean => {
   let a0 = a[0],
     a1 = a[1],
     a2 = a[2],
@@ -396,7 +397,7 @@ export const equals = (a: ReadonlyMat2, b: ReadonlyMat2): boolean => {
  * @param b amount to scale the matrix's elements by
  * @returns out
  */
-export const multiplyScalar = (out: mat2, a: ReadonlyMat2, b: number): mat2 => {
+export const multiplyScalar = (out: Mat2, a: Readonly<Mat2>, b: number): Mat2 => {
   out[0] = a[0] * b;
   out[1] = a[1] * b;
   out[2] = a[2] * b;
@@ -413,7 +414,7 @@ export const multiplyScalar = (out: mat2, a: ReadonlyMat2, b: number): mat2 => {
  * @param scale the amount to scale b's elements by before adding
  * @returns out
  */
-export const multiplyScalarAndAdd = (out: mat2, a: ReadonlyMat2, b: ReadonlyMat2, scale: number): mat2 => {
+export const multiplyScalarAndAdd = (out: Mat2, a: Readonly<Mat2>, b: Readonly<Mat2>, scale: number): Mat2 => {
   out[0] = a[0] + b[0] * scale;
   out[1] = a[1] + b[1] * scale;
   out[2] = a[2] + b[2] * scale;
@@ -422,11 +423,11 @@ export const multiplyScalarAndAdd = (out: mat2, a: ReadonlyMat2, b: ReadonlyMat2
 };
 
 /**
- * Alias for {@link mat2.multiply}
+ * Alias for {@link Mat2.multiply}
  */
 export const mul = multiply;
 
 /**
- * Alias for {@link mat2.subtract}
+ * Alias for {@link Mat2.subtract}
  */
 export const sub = subtract;

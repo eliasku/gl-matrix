@@ -1,4 +1,5 @@
 import { createArray, EPSILON, RANDOM, symround } from "./common";
+import type { Mat4, Quat, Vec4 } from "./types";
 
 /**
  * 4 Dimensional Vector
@@ -10,7 +11,7 @@ import { createArray, EPSILON, RANDOM, symround } from "./common";
  *
  * @returns a new 4D vector
  */
-export const create = (): vec4 => createArray(4);
+export const create = (): Vec4 => createArray(4);
 
 /**
  * Creates a new vec4 initialized with values from an existing vector
@@ -18,7 +19,7 @@ export const create = (): vec4 => createArray(4);
  * @param a vector to clone
  * @returns a new 4D vector
  */
-export const clone = (a: ReadonlyVec4): vec4 => {
+export const clone = (a: Readonly<Vec4>): Vec4 => {
   const out = createArray(4);
   out[0] = a[0];
   out[1] = a[1];
@@ -36,7 +37,7 @@ export const clone = (a: ReadonlyVec4): vec4 => {
  * @param w W component
  * @returns a new 4D vector
  */
-export const fromValues = (x: number, y: number, z: number, w: number): vec4 => {
+export const fromValues = (x: number, y: number, z: number, w: number): Vec4 => {
   const out = createArray(4);
   out[0] = x;
   out[1] = y;
@@ -52,7 +53,7 @@ export const fromValues = (x: number, y: number, z: number, w: number): vec4 => 
  * @param a source vector
  * @returns out
  */
-export const copy = (out: vec4, a: ReadonlyVec4): vec4 => {
+export const copy = (out: Vec4, a: Readonly<Vec4>): Vec4 => {
   out[0] = a[0];
   out[1] = a[1];
   out[2] = a[2];
@@ -70,7 +71,7 @@ export const copy = (out: vec4, a: ReadonlyVec4): vec4 => {
  * @param w W component
  * @returns out
  */
-export const set = (out: vec4, x: number, y: number, z: number, w: number): vec4 => {
+export const set = (out: Vec4, x: number, y: number, z: number, w: number): Vec4 => {
   out[0] = x;
   out[1] = y;
   out[2] = z;
@@ -86,7 +87,7 @@ export const set = (out: vec4, x: number, y: number, z: number, w: number): vec4
  * @param b second operand
  * @returns out
  */
-export const add = (out: vec4, a: ReadonlyVec4, b: ReadonlyVec4): vec4 => {
+export const add = (out: Vec4, a: Readonly<Vec4>, b: Readonly<Vec4>): Vec4 => {
   out[0] = a[0] + b[0];
   out[1] = a[1] + b[1];
   out[2] = a[2] + b[2];
@@ -102,7 +103,7 @@ export const add = (out: vec4, a: ReadonlyVec4, b: ReadonlyVec4): vec4 => {
  * @param b second operand
  * @returns out
  */
-export const subtract = (out: vec4, a: ReadonlyVec4, b: ReadonlyVec4): vec4 => {
+export const subtract = (out: Vec4, a: Readonly<Vec4>, b: Readonly<Vec4>): Vec4 => {
   out[0] = a[0] - b[0];
   out[1] = a[1] - b[1];
   out[2] = a[2] - b[2];
@@ -118,7 +119,7 @@ export const subtract = (out: vec4, a: ReadonlyVec4, b: ReadonlyVec4): vec4 => {
  * @param b second operand
  * @returns out
  */
-export const multiply = (out: vec4, a: ReadonlyVec4, b: ReadonlyVec4): vec4 => {
+export const multiply = (out: Vec4, a: Readonly<Vec4>, b: Readonly<Vec4>): Vec4 => {
   out[0] = a[0] * b[0];
   out[1] = a[1] * b[1];
   out[2] = a[2] * b[2];
@@ -134,7 +135,7 @@ export const multiply = (out: vec4, a: ReadonlyVec4, b: ReadonlyVec4): vec4 => {
  * @param b second operand
  * @returns out
  */
-export const divide = (out: vec4, a: ReadonlyVec4, b: ReadonlyVec4): vec4 => {
+export const divide = (out: Vec4, a: Readonly<Vec4>, b: Readonly<Vec4>): Vec4 => {
   out[0] = a[0] / b[0];
   out[1] = a[1] / b[1];
   out[2] = a[2] / b[2];
@@ -149,7 +150,7 @@ export const divide = (out: vec4, a: ReadonlyVec4, b: ReadonlyVec4): vec4 => {
  * @param a vector to ceil
  * @returns out
  */
-export const ceil = (out: vec4, a: ReadonlyVec4): vec4 => {
+export const ceil = (out: Vec4, a: Readonly<Vec4>): Vec4 => {
   out[0] = Math.ceil(a[0]);
   out[1] = Math.ceil(a[1]);
   out[2] = Math.ceil(a[2]);
@@ -164,7 +165,7 @@ export const ceil = (out: vec4, a: ReadonlyVec4): vec4 => {
  * @param a vector to floor
  * @returns out
  */
-export const floor = (out: vec4, a: ReadonlyVec4): vec4 => {
+export const floor = (out: Vec4, a: Readonly<Vec4>): Vec4 => {
   out[0] = Math.floor(a[0]);
   out[1] = Math.floor(a[1]);
   out[2] = Math.floor(a[2]);
@@ -180,7 +181,7 @@ export const floor = (out: vec4, a: ReadonlyVec4): vec4 => {
  * @param b second operand
  * @returns out
  */
-export const min = (out: vec4, a: ReadonlyVec4, b: ReadonlyVec4): vec4 => {
+export const min = (out: Vec4, a: Readonly<Vec4>, b: Readonly<Vec4>): Vec4 => {
   out[0] = Math.min(a[0], b[0]);
   out[1] = Math.min(a[1], b[1]);
   out[2] = Math.min(a[2], b[2]);
@@ -196,7 +197,7 @@ export const min = (out: vec4, a: ReadonlyVec4, b: ReadonlyVec4): vec4 => {
  * @param b second operand
  * @returns out
  */
-export const max = (out: vec4, a: ReadonlyVec4, b: ReadonlyVec4): vec4 => {
+export const max = (out: Vec4, a: Readonly<Vec4>, b: Readonly<Vec4>): Vec4 => {
   out[0] = Math.max(a[0], b[0]);
   out[1] = Math.max(a[1], b[1]);
   out[2] = Math.max(a[2], b[2]);
@@ -211,7 +212,7 @@ export const max = (out: vec4, a: ReadonlyVec4, b: ReadonlyVec4): vec4 => {
  * @param a vector to round
  * @returns out
  */
-export const round = (out: vec4, a: ReadonlyVec4): vec4 => {
+export const round = (out: Vec4, a: Readonly<Vec4>): Vec4 => {
   out[0] = symround(a[0]);
   out[1] = symround(a[1]);
   out[2] = symround(a[2]);
@@ -227,7 +228,7 @@ export const round = (out: vec4, a: ReadonlyVec4): vec4 => {
  * @param b amount to scale vector by
  * @returns out
  */
-export const scale = (out: vec4, a: ReadonlyVec4, b: number): vec4 => {
+export const scale = (out: Vec4, a: Readonly<Vec4>, b: number): Vec4 => {
   out[0] = a[0] * b;
   out[1] = a[1] * b;
   out[2] = a[2] * b;
@@ -244,7 +245,7 @@ export const scale = (out: vec4, a: ReadonlyVec4, b: number): vec4 => {
  * @param scale amount to scale b by before adding
  * @returns out
  */
-export const scaleAndAdd = (out: vec4, a: ReadonlyVec4, b: ReadonlyVec4, scale: number): vec4 => {
+export const scaleAndAdd = (out: Vec4, a: Readonly<Vec4>, b: Readonly<Vec4>, scale: number): Vec4 => {
   out[0] = a[0] + b[0] * scale;
   out[1] = a[1] + b[1] * scale;
   out[2] = a[2] + b[2] * scale;
@@ -259,7 +260,7 @@ export const scaleAndAdd = (out: vec4, a: ReadonlyVec4, b: ReadonlyVec4, scale: 
  * @param b second operand
  * @returns distance between a and b
  */
-export const distance = (a: ReadonlyVec4, b: ReadonlyVec4): number => {
+export const distance = (a: Readonly<Vec4>, b: Readonly<Vec4>): number => {
   const x = b[0] - a[0];
   const y = b[1] - a[1];
   const z = b[2] - a[2];
@@ -274,7 +275,7 @@ export const distance = (a: ReadonlyVec4, b: ReadonlyVec4): number => {
  * @param b second operand
  * @returns squared distance between a and b
  */
-export const squaredDistance = (a: ReadonlyVec4, b: ReadonlyVec4): number => {
+export const squaredDistance = (a: Readonly<Vec4>, b: Readonly<Vec4>): number => {
   const x = b[0] - a[0];
   const y = b[1] - a[1];
   const z = b[2] - a[2];
@@ -288,7 +289,7 @@ export const squaredDistance = (a: ReadonlyVec4, b: ReadonlyVec4): number => {
  * @param a vector to calculate length of
  * @returns length of a
  */
-export const length = (a: ReadonlyVec4): number => {
+export const length = (a: Readonly<Vec4>): number => {
   const x = a[0];
   const y = a[1];
   const z = a[2];
@@ -302,7 +303,7 @@ export const length = (a: ReadonlyVec4): number => {
  * @param a vector to calculate squared length of
  * @returns squared length of a
  */
-export const squaredLength = (a: ReadonlyVec4): number => {
+export const squaredLength = (a: Readonly<Vec4>): number => {
   const x = a[0];
   const y = a[1];
   const z = a[2];
@@ -317,7 +318,7 @@ export const squaredLength = (a: ReadonlyVec4): number => {
  * @param a vector to negate
  * @returns out
  */
-export const negate = (out: vec4, a: ReadonlyVec4): vec4 => {
+export const negate = (out: Vec4, a: Readonly<Vec4>): Vec4 => {
   out[0] = -a[0];
   out[1] = -a[1];
   out[2] = -a[2];
@@ -332,7 +333,7 @@ export const negate = (out: vec4, a: ReadonlyVec4): vec4 => {
  * @param a vector to invert
  * @returns out
  */
-export const inverse = (out: vec4, a: ReadonlyVec4): vec4 => {
+export const inverse = (out: Vec4, a: Readonly<Vec4>): Vec4 => {
   out[0] = 1.0 / a[0];
   out[1] = 1.0 / a[1];
   out[2] = 1.0 / a[2];
@@ -347,7 +348,7 @@ export const inverse = (out: vec4, a: ReadonlyVec4): vec4 => {
  * @param a vector to normalize
  * @returns out
  */
-export const normalize = (out: vec4, a: ReadonlyVec4): vec4 => {
+export const normalize = (out: Vec4, a: Readonly<Vec4>): Vec4 => {
   const x = a[0];
   const y = a[1];
   const z = a[2];
@@ -370,7 +371,7 @@ export const normalize = (out: vec4, a: ReadonlyVec4): vec4 => {
  * @param b second operand
  * @returns dot product of a and b
  */
-export const dot = (a: ReadonlyVec4, b: ReadonlyVec4): number => {
+export const dot = (a: Readonly<Vec4>, b: Readonly<Vec4>): number => {
   return a[0] * b[0] + a[1] * b[1] + a[2] * b[2] + a[3] * b[3];
 };
 
@@ -383,7 +384,7 @@ export const dot = (a: ReadonlyVec4, b: ReadonlyVec4): number => {
  * @param w third vector
  * @returns result
  */
-export const cross = (out: vec4, u: ReadonlyVec4, v: ReadonlyVec4, w: ReadonlyVec4): vec4 => {
+export const cross = (out: Vec4, u: Readonly<Vec4>, v: Readonly<Vec4>, w: Readonly<Vec4>): Vec4 => {
   const A = v[0] * w[1] - v[1] * w[0];
   const B = v[0] * w[2] - v[2] * w[0];
   const C = v[0] * w[3] - v[3] * w[0];
@@ -412,7 +413,7 @@ export const cross = (out: vec4, u: ReadonlyVec4, v: ReadonlyVec4, w: ReadonlyVe
  * @param t interpolation amount, in range [0-1], between two inputs
  * @returns out
  */
-export const lerp = (out: vec4, a: ReadonlyVec4, b: ReadonlyVec4, t: number): vec4 => {
+export const lerp = (out: Vec4, a: Readonly<Vec4>, b: Readonly<Vec4>, t: number): Vec4 => {
   const ax = a[0];
   const ay = a[1];
   const az = a[2];
@@ -431,7 +432,7 @@ export const lerp = (out: vec4, a: ReadonlyVec4, b: ReadonlyVec4, t: number): ve
  * @param scale Length of resulting vector. If omitted, a unit vector will be returned
  * @returns out
  */
-export const random = (out: vec4, scale: number = 1): vec4 => {
+export const random = (out: Vec4, scale: number = 1): Vec4 => {
   // Marsaglia, George. Choosing a Point from a Surface of a
   // Sphere. Ann. Math. Statist. 43 (1972), no. 2, 645--646.
   // http://projecteuclid.org/euclid.aos/1177692644;
@@ -462,7 +463,7 @@ export const random = (out: vec4, scale: number = 1): vec4 => {
  * @param m matrix to transform with
  * @returns out
  */
-export const transformMat4 = (out: vec4, a: ReadonlyVec4, m: ReadonlyMat4): vec4 => {
+export const transformMat4 = (out: Vec4, a: Readonly<Vec4>, m: Readonly<Mat4>): Vec4 => {
   const x = a[0];
   const y = a[1];
   const z = a[2];
@@ -482,7 +483,7 @@ export const transformMat4 = (out: vec4, a: ReadonlyVec4, m: ReadonlyMat4): vec4
  * @param q normalized quaternion to transform with
  * @returns out
  */
-export const transformQuat = (out: vec4, a: ReadonlyVec4, q: ReadonlyQuat): vec4 => {
+export const transformQuat = (out: Vec4, a: Readonly<Vec4>, q: Readonly<Quat>): Vec4 => {
   // Fast Vector Rotation using Quaternions by Robert Eisele
   // https://raw.org/proof/vector-rotation-using-quaternions/
 
@@ -519,7 +520,7 @@ export const transformQuat = (out: vec4, a: ReadonlyVec4, q: ReadonlyQuat): vec4
  * @param out receiving vector
  * @returns out
  */
-export const zero = (out: vec4): vec4 => {
+export const zero = (out: Vec4): Vec4 => {
   out[0] = 0.0;
   out[1] = 0.0;
   out[2] = 0.0;
@@ -533,7 +534,7 @@ export const zero = (out: vec4): vec4 => {
  * @param a vector to represent as a string
  * @returns string representation of vector
  */
-export const str = (a: ReadonlyVec4): string => {
+export const str = (a: Readonly<Vec4>): string => {
   return "vec4(" + a[0] + ", " + a[1] + ", " + a[2] + ", " + a[3] + ")";
 };
 
@@ -544,7 +545,7 @@ export const str = (a: ReadonlyVec4): string => {
  * @param b The second vector.
  * @returns True if vectors are equal, false otherwise.
  */
-export const exactEquals = (a: ReadonlyVec4, b: ReadonlyVec4): boolean => {
+export const exactEquals = (a: Readonly<Vec4>, b: Readonly<Vec4>): boolean => {
   return a[0] === b[0] && a[1] === b[1] && a[2] === b[2] && a[3] === b[3];
 };
 
@@ -555,7 +556,7 @@ export const exactEquals = (a: ReadonlyVec4, b: ReadonlyVec4): boolean => {
  * @param b The second vector.
  * @returns True if vectors are equal, false otherwise.
  */
-export const equals = (a: ReadonlyVec4, b: ReadonlyVec4): boolean => {
+export const equals = (a: Readonly<Vec4>, b: Readonly<Vec4>): boolean => {
   const a0 = a[0];
   const a1 = a[1];
   const a2 = a[2];
@@ -625,7 +626,7 @@ export const forEach = (
   stride?: number,
   offset?: number,
   count?: number,
-  fn?: (out: vec4, vec: vec4, arg?: any) => void,
+  fn?: (out: Vec4, vec: Vec4, arg?: any) => void,
   arg?: any,
 ): number[] => {
   if (!stride) {

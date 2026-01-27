@@ -3,13 +3,15 @@
   "type": "module",
   "scripts": {
     "test": "bun test",
-    "format": "prettier --write **/*.{ts,json,md}"
+    "format": "prettier --write **/*.{ts,json,md}",
+    "check": "tsc -p ."
   },
   "devDependencies": {
     "@types/bun": "latest"
   },
   "optionalDependencies": {
     "prettier": "latest",
-    "eslint": "latest"
+    "eslint": "latest",
+    "typescript": "latest"
   }
 }

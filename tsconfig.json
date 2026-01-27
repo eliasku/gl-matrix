@@ -6,6 +6,7 @@
     "moduleResolution": "bundler",
     "rootDir": ".",
     "types": ["bun-types"],
+    "noEmit": true,
   },
   "include": ["./src/**/*.ts", "./spec/**/*.ts"],
 }

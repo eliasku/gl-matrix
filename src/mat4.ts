@@ -1,4 +1,5 @@
 import { EPSILON, TO_DEGREE, createArray } from "./common";
+import type { Mat4, Quat, Quat2, Vec3 } from "./types";
 
 /**
  * 4x4 Matrix
@@ -12,7 +13,7 @@ import { EPSILON, TO_DEGREE, createArray } from "./common";
  *
  * @returns a new 4x4 matrix
  */
-export const create = (): mat4 => {
+export const create = (): Mat4 => {
   const out = createArray(16);
   out[0] = 1;
   out[5] = 1;
@@ -27,7 +28,7 @@ export const create = (): mat4 => {
  * @param a matrix to clone
  * @returns a new 4x4 matrix
  */
-export const clone = (a: ReadonlyMat4): mat4 => {
+export const clone = (a: Readonly<Mat4>): Mat4 => {
   const out = createArray(16);
   out[0] = a[0];
   out[1] = a[1];
@@ -55,7 +56,7 @@ export const clone = (a: ReadonlyMat4): mat4 => {
  * @param a the source matrix
  * @returns out
  */
-export const copy = (out: mat4, a: ReadonlyMat4): mat4 => {
+export const copy = (out: Mat4, a: Readonly<Mat4>): Mat4 => {
   out[0] = a[0];
   out[1] = a[1];
   out[2] = a[2];
@@ -113,7 +114,7 @@ export const fromValues = (
   m31: number,
   m32: number,
   m33: number,
-): mat4 => {
+): Mat4 => {
   const out = createArray(16);
   out[0] = m00;
   out[1] = m01;
@@ -157,7 +158,7 @@ export const fromValues = (
  * @returns out
  */
 export const set = (
-  out: mat4,
+  out: Mat4,
   m00: number,
   m01: number,
   m02: number,
@@ -174,7 +175,7 @@ export const set = (
   m31: number,
   m32: number,
   m33: number,
-): mat4 => {
+): Mat4 => {
   out[0] = m00;
   out[1] = m01;
   out[2] = m02;
@@ -200,7 +201,7 @@ export const set = (
  * @param out the receiving matrix
  * @returns out
  */
-export const identity = (out: mat4): mat4 => {
+export const identity = (out: Mat4): Mat4 => {
   out[0] = 1;
   out[1] = 0;
   out[2] = 0;
@@ -227,7 +228,7 @@ export const identity = (out: mat4): mat4 => {
  * @param a the source matrix
  * @returns out
  */
-export const transpose = (out: mat4, a: ReadonlyMat4): mat4 => {
+export const transpose = (out: Mat4, a: Readonly<Mat4>): Mat4 => {
   // If we are transposing ourselves we can skip a few steps but have to cache some values
   if (out === a) {
     let a01 = a[1],
@@ -278,7 +279,7 @@ export const transpose = (out: mat4, a: ReadonlyMat4): mat4 => {
  * @param a the source matrix
  * @returns out, or null if source matrix is not invertible
  */
-export const invert = (out: mat4, a: ReadonlyMat4): mat4 | null => {
+export const invert = (out: Mat4, a: Readonly<Mat4>): Mat4 | null => {
   let a00 = a[0],
     a01 = a[1],
     a02 = a[2],
@@ -344,7 +345,7 @@ export const invert = (out: mat4, a: ReadonlyMat4): mat4 | null => {
  * @param a the source matrix
  * @returns out
  */
-export const adjoint = (out: mat4, a: ReadonlyMat4): mat4 => {
+export const adjoint = (out: Mat4, a: Readonly<Mat4>): Mat4 => {
   let a00 = a[0],
     a01 = a[1],
     a02 = a[2],
@@ -400,7 +401,7 @@ export const adjoint = (out: mat4, a: ReadonlyMat4): mat4 => {
  * @param a the source matrix
  * @returns determinant of a
  */
-export const determinant = (a: mat4): number => {
+export const determinant = (a: Mat4): number => {
   let a00 = a[0],
     a01 = a[1],
     a02 = a[2],
@@ -441,7 +442,7 @@ export const determinant = (a: mat4): number => {
  * @param b the second operand
  * @returns out
  */
-export const multiply = (out: mat4, a: ReadonlyMat4, b: ReadonlyMat4): mat4 => {
+export const multiply = (out: Mat4, a: Readonly<Mat4>, b: Readonly<Mat4>): Mat4 => {
   let a00 = a[0],
     a01 = a[1],
     a02 = a[2],
@@ -506,7 +507,7 @@ export const multiply = (out: mat4, a: ReadonlyMat4, b: ReadonlyMat4): mat4 => {
  * @param v vector to translate by
  * @returns out
  */
-export const translate = (out: mat4, a: ReadonlyMat4, v: ReadonlyVec3): mat4 => {
+export const translate = (out: Mat4, a: Readonly<Mat4>, v: Readonly<Vec3>): Mat4 => {
   let x = v[0],
     y = v[1],
     z = v[2];
@@ -563,7 +564,7 @@ export const translate = (out: mat4, a: ReadonlyMat4, v: ReadonlyVec3): mat4 => 
  * @param v the vec3 to scale the matrix by
  * @returns out
  **/
-export const scale = (out: mat4, a: ReadonlyMat4, v: ReadonlyVec3): mat4 => {
+export const scale = (out: Mat4, a: Readonly<Mat4>, v: Readonly<Vec3>): Mat4 => {
   let x = v[0],
     y = v[1],
     z = v[2];
@@ -596,7 +597,7 @@ export const scale = (out: mat4, a: ReadonlyMat4, v: ReadonlyVec3): mat4 => {
  * @param axis the axis to rotate around
  * @returns out
  */
-export const rotate = (out: mat4, a: ReadonlyMat4, rad: number, axis: ReadonlyVec3): mat4 => {
+export const rotate = (out: Mat4, a: Readonly<Mat4>, rad: number, axis: Readonly<Vec3>): Mat4 => {
   let x = axis[0],
     y = axis[1],
     z = axis[2];
@@ -678,7 +679,7 @@ export const rotate = (out: mat4, a: ReadonlyMat4, rad: number, axis: ReadonlyVe
  * @param rad the angle to rotate the matrix by
  * @returns out
  */
-export const rotateX = (out: mat4, a: ReadonlyMat4, rad: number): mat4 => {
+export const rotateX = (out: Mat4, a: Readonly<Mat4>, rad: number): Mat4 => {
   let s = Math.sin(rad);
   let c = Math.cos(rad);
   let a10 = a[4];
@@ -722,7 +723,7 @@ export const rotateX = (out: mat4, a: ReadonlyMat4, rad: number): mat4 => {
  * @param rad the angle to rotate the matrix by
  * @returns out
  */
-export const rotateY = (out: mat4, a: ReadonlyMat4, rad: number): mat4 => {
+export const rotateY = (out: Mat4, a: Readonly<Mat4>, rad: number): Mat4 => {
   let s = Math.sin(rad);
   let c = Math.cos(rad);
   let a00 = a[0];
@@ -766,7 +767,7 @@ export const rotateY = (out: mat4, a: ReadonlyMat4, rad: number): mat4 => {
  * @param rad the angle to rotate the matrix by
  * @returns out
  */
-export const rotateZ = (out: mat4, a: ReadonlyMat4, rad: number): mat4 => {
+export const rotateZ = (out: Mat4, a: Readonly<Mat4>, rad: number): Mat4 => {
   let s = Math.sin(rad);
   let c = Math.cos(rad);
   let a00 = a[0];
@@ -813,7 +814,7 @@ export const rotateZ = (out: mat4, a: ReadonlyMat4, rad: number): mat4 => {
  * @param v Translation vector
  * @returns out
  */
-export const fromTranslation = (out: mat4, v: ReadonlyVec3): mat4 => {
+export const fromTranslation = (out: Mat4, v: Readonly<Vec3>): Mat4 => {
   out[0] = 1;
   out[1] = 0;
   out[2] = 0;
@@ -844,7 +845,7 @@ export const fromTranslation = (out: mat4, v: ReadonlyVec3): mat4 => {
  * @param v Scaling vector
  * @returns out
  */
-export const fromScaling = (out: mat4, v: ReadonlyVec3): mat4 => {
+export const fromScaling = (out: Mat4, v: Readonly<Vec3>): Mat4 => {
   out[0] = v[0];
   out[1] = 0;
   out[2] = 0;
@@ -876,7 +877,7 @@ export const fromScaling = (out: mat4, v: ReadonlyVec3): mat4 => {
  * @param axis the axis to rotate around
  * @returns out
  */
-export const fromRotation = (out: mat4, rad: number, axis: ReadonlyVec3): mat4 => {
+export const fromRotation = (out: Mat4, rad: number, axis: Readonly<Vec3>): Mat4 => {
   let x = axis[0],
     y = axis[1],
     z = axis[2];
@@ -927,7 +928,7 @@ export const fromRotation = (out: mat4, rad: number, axis: ReadonlyVec3): mat4 =
  * @param rad the angle to rotate the matrix by
  * @returns out
  */
-export const fromXRotation = (out: mat4, rad: number): mat4 => {
+export const fromXRotation = (out: Mat4, rad: number): Mat4 => {
   let s = Math.sin(rad);
   let c = Math.cos(rad);
 
@@ -962,7 +963,7 @@ export const fromXRotation = (out: mat4, rad: number): mat4 => {
  * @param rad the angle to rotate the matrix by
  * @returns out
  */
-export const fromYRotation = (out: mat4, rad: number): mat4 => {
+export const fromYRotation = (out: Mat4, rad: number): Mat4 => {
   let s = Math.sin(rad);
   let c = Math.cos(rad);
 
@@ -997,7 +998,7 @@ export const fromYRotation = (out: mat4, rad: number): mat4 => {
  * @param rad the angle to rotate the matrix by
  * @returns out
  */
-export const fromZRotation = (out: mat4, rad: number): mat4 => {
+export const fromZRotation = (out: Mat4, rad: number): Mat4 => {
   let s = Math.sin(rad);
   let c = Math.cos(rad);
 
@@ -1036,7 +1037,7 @@ export const fromZRotation = (out: mat4, rad: number): mat4 => {
  * @param v Translation vector
  * @returns out
  */
-export const fromRotationTranslation = (out: mat4, q: quat, v: ReadonlyVec3): mat4 => {
+export const fromRotationTranslation = (out: Mat4, q: Quat, v: Readonly<Vec3>): Mat4 => {
   // Quaternion math
   let x = q[0],
     y = q[1],
@@ -1083,7 +1084,7 @@ export const fromRotationTranslation = (out: mat4, q: quat, v: ReadonlyVec3): ma
  * @param a Dual Quaternion
  * @returns mat4 receiving operation result
  */
-export const fromQuat2 = (out: mat4, a: ReadonlyQuat2): mat4 => {
+export const fromQuat2 = (out: Mat4, a: Readonly<Quat2>): Mat4 => {
   const translation = createArray(3);
   const bx = -a[0],
     by = -a[1],
@@ -1118,7 +1119,7 @@ export const fromQuat2 = (out: mat4, a: ReadonlyQuat2): mat4 => {
  * @param mat Matrix to be decomposed (input)
  * @returns out
  */
-export const getTranslation = (out: vec3, mat: ReadonlyMat4): vec3 => {
+export const getTranslation = (out: Vec3, mat: Readonly<Mat4>): Vec3 => {
   out[0] = mat[12];
   out[1] = mat[13];
   out[2] = mat[14];
@@ -1136,7 +1137,7 @@ export const getTranslation = (out: vec3, mat: ReadonlyMat4): vec3 => {
  * @param mat Matrix to be decomposed (input)
  * @returns out
  */
-export const getScaling = (out: vec3, mat: ReadonlyMat4): vec3 => {
+export const getScaling = (out: Vec3, mat: Readonly<Mat4>): Vec3 => {
   let m11 = mat[0];
   let m12 = mat[1];
   let m13 = mat[2];
@@ -1163,7 +1164,7 @@ export const getScaling = (out: vec3, mat: ReadonlyMat4): vec3 => {
  * @param mat Matrix to be decomposed (input)
  * @returns out
  */
-export const getRotation = (out: quat, mat: ReadonlyMat4): quat => {
+export const getRotation = (out: Quat, mat: Readonly<Mat4>): Quat => {
   const scaling = createArray(3);
   getScaling(scaling, mat);
 
@@ -1222,7 +1223,7 @@ export const getRotation = (out: quat, mat: ReadonlyMat4): quat => {
  * @param mat Matrix to be decomposed (input)
  * @returns out_r
  */
-export const decompose = (out_r: quat, out_t: vec3, out_s: vec3, mat: ReadonlyMat4): quat => {
+export const decompose = (out_r: Quat, out_t: Vec3, out_s: Vec3, mat: Readonly<Mat4>): Quat => {
   out_t[0] = mat[12];
   out_t[1] = mat[13];
   out_t[2] = mat[14];
@@ -1304,7 +1305,7 @@ export const decompose = (out_r: quat, out_t: vec3, out_s: vec3, mat: ReadonlyMa
  * @param s Scaling vector
  * @returns out
  */
-export const fromRotationTranslationScale = (out: mat4, q: quat, v: ReadonlyVec3, s: ReadonlyVec3): mat4 => {
+export const fromRotationTranslationScale = (out: Mat4, q: Quat, v: Readonly<Vec3>, s: Readonly<Vec3>): Mat4 => {
   // Quaternion math
   let x = q[0],
     y = q[1],
@@ -1368,12 +1369,12 @@ export const fromRotationTranslationScale = (out: mat4, q: quat, v: ReadonlyVec3
  * @returns out
  */
 export const fromRotationTranslationScaleOrigin = (
-  out: mat4,
-  q: quat,
-  v: ReadonlyVec3,
-  s: ReadonlyVec3,
-  o: ReadonlyVec3,
-): mat4 => {
+  out: Mat4,
+  q: Quat,
+  v: Readonly<Vec3>,
+  s: Readonly<Vec3>,
+  o: Readonly<Vec3>,
+): Mat4 => {
   // Quaternion math
   let x = q[0],
     y = q[1],
@@ -1439,7 +1440,7 @@ export const fromRotationTranslationScaleOrigin = (
  *
  * @returns out
  */
-export const fromQuat = (out: mat4, q: ReadonlyQuat): mat4 => {
+export const fromQuat = (out: Mat4, q: Readonly<Quat>): Mat4 => {
   let x = q[0],
     y = q[1],
     z = q[2],
@@ -1494,14 +1495,14 @@ export const fromQuat = (out: mat4, q: ReadonlyQuat): mat4 => {
  * @returns out
  */
 export const frustum = (
-  out: mat4,
+  out: Mat4,
   left: number,
   right: number,
   bottom: number,
   top: number,
   near: number,
   far: number,
-): mat4 => {
+): Mat4 => {
   let rl = 1 / (right - left);
   let tb = 1 / (top - bottom);
   let nf = 1 / (near - far);
@@ -1537,7 +1538,7 @@ export const frustum = (
  * @param far Far bound of the frustum, can be null or Infinity
  * @returns out
  */
-export const perspectiveNO = (out: mat4, fovy: number, aspect: number, near: number, far?: number): mat4 => {
+export const perspectiveNO = (out: Mat4, fovy: number, aspect: number, near: number, far?: number): Mat4 => {
   const f = 1.0 / Math.tan(fovy / 2);
   out[0] = f / aspect;
   out[1] = 0;
@@ -1565,7 +1566,7 @@ export const perspectiveNO = (out: mat4, fovy: number, aspect: number, near: num
 };
 
 /**
- * Alias for {@link mat4.perspectiveNO}
+ * Alias for {@link Mat4.perspectiveNO}
  */
 export const perspective = perspectiveNO;
 
@@ -1582,7 +1583,7 @@ export const perspective = perspectiveNO;
  * @param far Far bound of the frustum, can be null or Infinity
  * @returns out
  */
-export const perspectiveZO = (out: mat4, fovy: number, aspect: number, near: number, far?: number): mat4 => {
+export const perspectiveZO = (out: Mat4, fovy: number, aspect: number, near: number, far?: number): Mat4 => {
   const f = 1.0 / Math.tan(fovy / 2);
   out[0] = f / aspect;
   out[1] = 0;
@@ -1626,7 +1627,7 @@ interface FovObject {
  * @param far Far bound of the frustum
  * @returns out
  */
-export const perspectiveFromFieldOfView = (out: mat4, fov: FovObject, near: number, far: number): mat4 => {
+export const perspectiveFromFieldOfView = (out: Mat4, fov: FovObject, near: number, far: number): Mat4 => {
   let upTan = Math.tan(fov.upDegrees * TO_DEGREE);
   let downTan = Math.tan(fov.downDegrees * TO_DEGREE);
   let leftTan = Math.tan(fov.leftDegrees * TO_DEGREE);
@@ -1668,14 +1669,14 @@ export const perspectiveFromFieldOfView = (out: mat4, fov: FovObject, near: numb
  * @returns out
  */
 export const orthoNO = (
-  out: mat4,
+  out: Mat4,
   left: number,
   right: number,
   bottom: number,
   top: number,
   near: number,
   far: number,
-): mat4 => {
+): Mat4 => {
   const lr = 1 / (left - right);
   const bt = 1 / (bottom - top);
   const nf = 1 / (near - far);
@@ -1699,7 +1700,7 @@ export const orthoNO = (
 };
 
 /**
- * Alias for {@link mat4.orthoNO}
+ * Alias for {@link Mat4.orthoNO}
  */
 export const ortho = orthoNO;
 
@@ -1718,14 +1719,14 @@ export const ortho = orthoNO;
  * @returns out
  */
 export const orthoZO = (
-  out: mat4,
+  out: Mat4,
   left: number,
   right: number,
   bottom: number,
   top: number,
   near: number,
   far: number,
-): mat4 => {
+): Mat4 => {
   const lr = 1 / (left - right);
   const bt = 1 / (bottom - top);
   const nf = 1 / (near - far);
@@ -1758,7 +1759,7 @@ export const orthoZO = (
  * @param up vec3 pointing up
  * @returns out
  */
-export const lookAt = (out: mat4, eye: ReadonlyVec3, center: ReadonlyVec3, up: ReadonlyVec3): mat4 => {
+export const lookAt = (out: Mat4, eye: Readonly<Vec3>, center: Readonly<Vec3>, up: Readonly<Vec3>): Mat4 => {
   let x0, x1, x2, y0, y1, y2, z0, z1, z2, len;
   let eyex = eye[0];
   let eyey = eye[1];
@@ -1843,7 +1844,7 @@ export const lookAt = (out: mat4, eye: ReadonlyVec3, center: ReadonlyVec3, up: R
  * @param up vec3 pointing up
  * @returns out
  */
-export const targetTo = (out: mat4, eye: ReadonlyVec3, target: ReadonlyVec3, up: ReadonlyVec3): mat4 => {
+export const targetTo = (out: Mat4, eye: Readonly<Vec3>, target: Readonly<Vec3>, up: Readonly<Vec3>): Mat4 => {
   let eyex = eye[0],
     eyey = eye[1],
     eyez = eye[2],
@@ -1900,7 +1901,7 @@ export const targetTo = (out: mat4, eye: ReadonlyVec3, target: ReadonlyVec3, up:
  * @param a matrix to represent as a string
  * @returns string representation of the matrix
  */
-export const str = (a: ReadonlyMat4): string => {
+export const str = (a: Readonly<Mat4>): string => {
   return (
     "mat4(" +
     a[0] +
@@ -1944,7 +1945,7 @@ export const str = (a: ReadonlyMat4): string => {
  * @param a the matrix to calculate Frobenius norm of
  * @returns Frobenius norm
  */
-export const frob = (a: ReadonlyMat4): number => {
+export const frob = (a: Readonly<Mat4>): number => {
   return Math.sqrt(
     a[0] * a[0] +
       a[1] * a[1] +
@@ -1973,7 +1974,7 @@ export const frob = (a: ReadonlyMat4): number => {
  * @param b the second operand
  * @returns out
  */
-export const add = (out: mat4, a: ReadonlyMat4, b: ReadonlyMat4): mat4 => {
+export const add = (out: Mat4, a: Readonly<Mat4>, b: Readonly<Mat4>): Mat4 => {
   out[0] = a[0] + b[0];
   out[1] = a[1] + b[1];
   out[2] = a[2] + b[2];
@@ -2001,7 +2002,7 @@ export const add = (out: mat4, a: ReadonlyMat4, b: ReadonlyMat4): mat4 => {
  * @param b the second operand
  * @returns out
  */
-export const subtract = (out: mat4, a: ReadonlyMat4, b: ReadonlyMat4): mat4 => {
+export const subtract = (out: Mat4, a: Readonly<Mat4>, b: Readonly<Mat4>): Mat4 => {
   out[0] = a[0] - b[0];
   out[1] = a[1] - b[1];
   out[2] = a[2] - b[2];
@@ -2029,7 +2030,7 @@ export const subtract = (out: mat4, a: ReadonlyMat4, b: ReadonlyMat4): mat4 => {
  * @param b amount to scale the matrix's elements by
  * @returns out
  */
-export const multiplyScalar = (out: mat4, a: ReadonlyMat4, b: number): mat4 => {
+export const multiplyScalar = (out: Mat4, a: Readonly<Mat4>, b: number): Mat4 => {
   out[0] = a[0] * b;
   out[1] = a[1] * b;
   out[2] = a[2] * b;
@@ -2058,7 +2059,7 @@ export const multiplyScalar = (out: mat4, a: ReadonlyMat4, b: number): mat4 => {
  * @param scale the amount to scale b's elements by before adding
  * @returns out
  */
-export const multiplyScalarAndAdd = (out: mat4, a: ReadonlyMat4, b: ReadonlyMat4, scale: number): mat4 => {
+export const multiplyScalarAndAdd = (out: Mat4, a: Readonly<Mat4>, b: Readonly<Mat4>, scale: number): Mat4 => {
   out[0] = a[0] + b[0] * scale;
   out[1] = a[1] + b[1] * scale;
   out[2] = a[2] + b[2] * scale;
@@ -2085,26 +2086,23 @@ export const multiplyScalarAndAdd = (out: mat4, a: ReadonlyMat4, b: ReadonlyMat4
  * @param b The second matrix.
  * @returns True if the matrices are equal, false otherwise.
  */
-export const exactEquals = (a: ReadonlyMat4, b: ReadonlyMat4): boolean => {
-  return (
-    a[0] === b[0] &&
-    a[1] === b[1] &&
-    a[2] === b[2] &&
-    a[3] === b[3] &&
-    a[4] === b[4] &&
-    a[5] === b[5] &&
-    a[6] === b[6] &&
-    a[7] === b[7] &&
-    a[8] === b[8] &&
-    a[9] === b[9] &&
-    a[10] === b[10] &&
-    a[11] === b[11] &&
-    a[12] === b[12] &&
-    a[13] === b[13] &&
-    a[14] === b[14] &&
-    a[15] === b[15]
-  );
-};
+export const exactEquals = (a: Readonly<Mat4>, b: Readonly<Mat4>): boolean =>
+  a[0] === b[0] &&
+  a[1] === b[1] &&
+  a[2] === b[2] &&
+  a[3] === b[3] &&
+  a[4] === b[4] &&
+  a[5] === b[5] &&
+  a[6] === b[6] &&
+  a[7] === b[7] &&
+  a[8] === b[8] &&
+  a[9] === b[9] &&
+  a[10] === b[10] &&
+  a[11] === b[11] &&
+  a[12] === b[12] &&
+  a[13] === b[13] &&
+  a[14] === b[14] &&
+  a[15] === b[15];
 
 /**
  * Returns whether or not the matrices have approximately the same elements in the same position.
@@ -2113,40 +2111,40 @@ export const exactEquals = (a: ReadonlyMat4, b: ReadonlyMat4): boolean => {
  * @param b The second matrix.
  * @returns True if the matrices are equal, false otherwise.
  */
-export const equals = (a: ReadonlyMat4, b: ReadonlyMat4): boolean => {
-  let a0 = a[0],
-    a1 = a[1],
-    a2 = a[2],
-    a3 = a[3];
-  let a4 = a[4],
-    a5 = a[5],
-    a6 = a[6],
-    a7 = a[7];
-  let a8 = a[8],
-    a9 = a[9],
-    a10 = a[10],
-    a11 = a[11];
-  let a12 = a[12],
-    a13 = a[13],
-    a14 = a[14],
-    a15 = a[15];
+export const equals = (a: Readonly<Mat4>, b: Readonly<Mat4>): boolean => {
+  const a0 = a[0];
+  const a1 = a[1];
+  const a2 = a[2];
+  const a3 = a[3];
+  const a4 = a[4];
+  const a5 = a[5];
+  const a6 = a[6];
+  const a7 = a[7];
+  const a8 = a[8];
+  const a9 = a[9];
+  const a10 = a[10];
+  const a11 = a[11];
+  const a12 = a[12];
+  const a13 = a[13];
+  const a14 = a[14];
+  const a15 = a[15];
 
-  let b0 = b[0],
-    b1 = b[1],
-    b2 = b[2],
-    b3 = b[3];
-  let b4 = b[4],
-    b5 = b[5],
-    b6 = b[6],
-    b7 = b[7];
-  let b8 = b[8],
-    b9 = b[9],
-    b10 = b[10],
-    b11 = b[11];
-  let b12 = b[12],
-    b13 = b[13],
-    b14 = b[14],
-    b15 = b[15];
+  const b0 = b[0];
+  const b1 = b[1];
+  const b2 = b[2];
+  const b3 = b[3];
+  const b4 = b[4];
+  const b5 = b[5];
+  const b6 = b[6];
+  const b7 = b[7];
+  const b8 = b[8];
+  const b9 = b[9];
+  const b10 = b[10];
+  const b11 = b[11];
+  const b12 = b[12];
+  const b13 = b[13];
+  const b14 = b[14];
+  const b15 = b[15];
 
   return (
     Math.abs(a0 - b0) <= EPSILON * Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
@@ -2169,11 +2167,11 @@ export const equals = (a: ReadonlyMat4, b: ReadonlyMat4): boolean => {
 };
 
 /**
- * Alias for {@link mat4.multiply}
+ * Alias for {@link Mat4.multiply}
  */
 export const mul = multiply;
 
 /**
- * Alias for {@link mat4.subtract}
+ * Alias for {@link Mat4.subtract}
  */
 export const sub = subtract;

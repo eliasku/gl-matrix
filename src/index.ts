@@ -8,3 +8,5 @@ export * as quat2 from "./quat2";
 export * as vec2 from "./vec2";
 export * as vec3 from "./vec3";
 export * as vec4 from "./vec4";
+
+export type * from "./types";

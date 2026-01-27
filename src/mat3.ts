@@ -1,4 +1,5 @@
 import { EPSILON, createArray } from "./common";
+import { Mat3, Mat2d, Mat4, Quat, Vec2 } from "./types";
 
 /**
  * 3x3 Matrix
@@ -10,7 +11,7 @@ import { EPSILON, createArray } from "./common";
  *
  * @returns a new 3x3 matrix
  */
-export const create = (): mat3 => {
+export const create = (): Mat3 => {
   const out = createArray(9);
   out[0] = 1;
   out[4] = 1;
@@ -25,7 +26,7 @@ export const create = (): mat3 => {
  * @param a   the source 4x4 matrix
  * @returns out
  */
-export const fromMat4 = (out: mat3, a: ReadonlyMat4): mat3 => {
+export const fromMat4 = (out: Mat3, a: Readonly<Mat4>): Mat3 => {
   out[0] = a[0];
   out[1] = a[1];
   out[2] = a[2];
@@ -44,7 +45,7 @@ export const fromMat4 = (out: mat3, a: ReadonlyMat4): mat3 => {
  * @param a matrix to clone
  * @returns a new 3x3 matrix
  */
-export const clone = (a: ReadonlyMat3): mat3 => {
+export const clone = (a: Readonly<Mat3>): Mat3 => {
   const out = createArray(9);
   out[0] = a[0];
   out[1] = a[1];
@@ -65,7 +66,7 @@ export const clone = (a: ReadonlyMat3): mat3 => {
  * @param a the source matrix
  * @returns out
  */
-export const copy = (out: mat3, a: ReadonlyMat3): mat3 => {
+export const copy = (out: Mat3, a: Readonly<Mat3>): Mat3 => {
   out[0] = a[0];
   out[1] = a[1];
   out[2] = a[2];
@@ -102,7 +103,7 @@ export const fromValues = (
   m20: number,
   m21: number,
   m22: number,
-): mat3 => {
+): Mat3 => {
   const out = createArray(9);
   out[0] = m00;
   out[1] = m01;
@@ -132,7 +133,7 @@ export const fromValues = (
  * @returns out
  */
 export const set = (
-  out: mat3,
+  out: Mat3,
   m00: number,
   m01: number,
   m02: number,
@@ -142,7 +143,7 @@ export const set = (
   m20: number,
   m21: number,
   m22: number,
-): mat3 => {
+): Mat3 => {
   out[0] = m00;
   out[1] = m01;
   out[2] = m02;
@@ -161,7 +162,7 @@ export const set = (
  * @param out the receiving matrix
  * @returns out
  */
-export const identity = (out: mat3): mat3 => {
+export const identity = (out: Mat3): Mat3 => {
   out[0] = 1;
   out[1] = 0;
   out[2] = 0;
@@ -181,12 +182,12 @@ export const identity = (out: mat3): mat3 => {
  * @param a the source matrix
  * @returns out
  */
-export const transpose = (out: mat3, a: ReadonlyMat3): mat3 => {
+export const transpose = (out: Mat3, a: Readonly<Mat3>): Mat3 => {
   // If we are transposing ourselves we can skip a few steps but have to cache some values
   if (out === a) {
-    let a01 = a[1],
-      a02 = a[2],
-      a12 = a[5];
+    const a01 = a[1];
+    const a02 = a[2];
+    const a12 = a[5];
     out[1] = a[3];
     out[2] = a[6];
     out[3] = a01;
@@ -215,24 +216,23 @@ export const transpose = (out: mat3, a: ReadonlyMat3): mat3 => {
  * @param a the source matrix
  * @returns out, or null if source matrix is not invertible
  */
-export const invert = (out: mat3, a: ReadonlyMat3): mat3 | null => {
-  let a00 = a[0],
-    a01 = a[1],
-    a02 = a[2];
-  let a10 = a[3],
-    a11 = a[4],
-    a12 = a[5];
-  let a20 = a[6],
-    a21 = a[7],
-    a22 = a[8];
+export const invert = (out: Mat3, a: Readonly<Mat3>): Mat3 | null => {
+  const a00 = a[0];
+  const a01 = a[1];
+  const a02 = a[2];
+  const a10 = a[3];
+  const a11 = a[4];
+  const a12 = a[5];
+  const a20 = a[6];
+  const a21 = a[7];
+  const a22 = a[8];
 
-  let b01 = a22 * a11 - a12 * a21;
-  let b11 = -a22 * a10 + a12 * a20;
-  let b21 = a21 * a10 - a11 * a20;
+  const b01 = a22 * a11 - a12 * a21;
+  const b11 = -a22 * a10 + a12 * a20;
+  const b21 = a21 * a10 - a11 * a20;
 
   // Calculate the determinant
   let det = a00 * b01 + a01 * b11 + a02 * b21;
-
   if (!det) {
     return null;
   }
@@ -257,16 +257,16 @@ export const invert = (out: mat3, a: ReadonlyMat3): mat3 | null => {
  * @param a the source matrix
  * @returns out
  */
-export const adjoint = (out: mat3, a: ReadonlyMat3): mat3 => {
-  let a00 = a[0],
-    a01 = a[1],
-    a02 = a[2];
-  let a10 = a[3],
-    a11 = a[4],
-    a12 = a[5];
-  let a20 = a[6],
-    a21 = a[7],
-    a22 = a[8];
+export const adjoint = (out: Mat3, a: Readonly<Mat3>): Mat3 => {
+  const a00 = a[0];
+  const a01 = a[1];
+  const a02 = a[2];
+  const a10 = a[3];
+  const a11 = a[4];
+  const a12 = a[5];
+  const a20 = a[6];
+  const a21 = a[7];
+  const a22 = a[8];
 
   out[0] = a11 * a22 - a12 * a21;
   out[1] = a02 * a21 - a01 * a22;
@@ -286,16 +286,16 @@ export const adjoint = (out: mat3, a: ReadonlyMat3): mat3 => {
  * @param a the source matrix
  * @returns determinant of a
  */
-export const determinant = (a: mat3): number => {
-  let a00 = a[0],
-    a01 = a[1],
-    a02 = a[2];
-  let a10 = a[3],
-    a11 = a[4],
-    a12 = a[5];
-  let a20 = a[6],
-    a21 = a[7],
-    a22 = a[8];
+export const determinant = (a: Mat3): number => {
+  const a00 = a[0];
+  const a01 = a[1];
+  const a02 = a[2];
+  const a10 = a[3];
+  const a11 = a[4];
+  const a12 = a[5];
+  const a20 = a[6];
+  const a21 = a[7];
+  const a22 = a[8];
 
   return a00 * (a22 * a11 - a12 * a21) + a01 * (-a22 * a10 + a12 * a20) + a02 * (a21 * a10 - a11 * a20);
 };
@@ -308,26 +308,26 @@ export const determinant = (a: mat3): number => {
  * @param b the second operand
  * @returns out
  */
-export const multiply = (out: mat3, a: ReadonlyMat3, b: ReadonlyMat3): mat3 => {
-  let a00 = a[0],
-    a01 = a[1],
-    a02 = a[2];
-  let a10 = a[3],
-    a11 = a[4],
-    a12 = a[5];
-  let a20 = a[6],
-    a21 = a[7],
-    a22 = a[8];
+export const multiply = (out: Mat3, a: Readonly<Mat3>, b: Readonly<Mat3>): Mat3 => {
+  const a00 = a[0];
+  const a01 = a[1];
+  const a02 = a[2];
+  const a10 = a[3];
+  const a11 = a[4];
+  const a12 = a[5];
+  const a20 = a[6];
+  const a21 = a[7];
+  const a22 = a[8];
 
-  let b00 = b[0],
-    b01 = b[1],
-    b02 = b[2];
-  let b10 = b[3],
-    b11 = b[4],
-    b12 = b[5];
-  let b20 = b[6],
-    b21 = b[7],
-    b22 = b[8];
+  const b00 = b[0];
+  const b01 = b[1];
+  const b02 = b[2];
+  const b10 = b[3];
+  const b11 = b[4];
+  const b12 = b[5];
+  const b20 = b[6];
+  const b21 = b[7];
+  const b22 = b[8];
 
   out[0] = b00 * a00 + b01 * a10 + b02 * a20;
   out[1] = b00 * a01 + b01 * a11 + b02 * a21;
@@ -351,18 +351,18 @@ export const multiply = (out: mat3, a: ReadonlyMat3, b: ReadonlyMat3): mat3 => {
  * @param v vector to translate by
  * @returns out
  */
-export const translate = (out: mat3, a: ReadonlyMat3, v: ReadonlyVec2): mat3 => {
-  let a00 = a[0],
-    a01 = a[1],
-    a02 = a[2],
-    a10 = a[3],
-    a11 = a[4],
-    a12 = a[5],
-    a20 = a[6],
-    a21 = a[7],
-    a22 = a[8],
-    x = v[0],
-    y = v[1];
+export const translate = (out: Mat3, a: Readonly<Mat3>, v: Readonly<Vec2>): Mat3 => {
+  const a00 = a[0];
+  const a01 = a[1];
+  const a02 = a[2];
+  const a10 = a[3];
+  const a11 = a[4];
+  const a12 = a[5];
+  const a20 = a[6];
+  const a21 = a[7];
+  const a22 = a[8];
+  const x = v[0];
+  const y = v[1];
 
   out[0] = a00;
   out[1] = a01;
@@ -386,18 +386,18 @@ export const translate = (out: mat3, a: ReadonlyMat3, v: ReadonlyVec2): mat3 => 
  * @param rad the angle to rotate the matrix by
  * @returns out
  */
-export const rotate = (out: mat3, a: ReadonlyMat3, rad: number): mat3 => {
-  let a00 = a[0],
-    a01 = a[1],
-    a02 = a[2],
-    a10 = a[3],
-    a11 = a[4],
-    a12 = a[5],
-    a20 = a[6],
-    a21 = a[7],
-    a22 = a[8],
-    s = Math.sin(rad),
-    c = Math.cos(rad);
+export const rotate = (out: Mat3, a: Readonly<Mat3>, rad: number): Mat3 => {
+  const a00 = a[0];
+  const a01 = a[1];
+  const a02 = a[2];
+  const a10 = a[3];
+  const a11 = a[4];
+  const a12 = a[5];
+  const a20 = a[6];
+  const a21 = a[7];
+  const a22 = a[8];
+  const s = Math.sin(rad);
+  const c = Math.cos(rad);
 
   out[0] = c * a00 + s * a10;
   out[1] = c * a01 + s * a11;
@@ -410,6 +410,7 @@ export const rotate = (out: mat3, a: ReadonlyMat3, rad: number): mat3 => {
   out[6] = a20;
   out[7] = a21;
   out[8] = a22;
+
   return out;
 };
 
@@ -421,9 +422,9 @@ export const rotate = (out: mat3, a: ReadonlyMat3, rad: number): mat3 => {
  * @param v the vec2 to scale the matrix by
  * @returns out
  **/
-export const scale = (out: mat3, a: ReadonlyMat3, v: ReadonlyVec2): mat3 => {
-  let x = v[0],
-    y = v[1];
+export const scale = (out: Mat3, a: Readonly<Mat3>, v: Readonly<Vec2>): Mat3 => {
+  const x = v[0];
+  const y = v[1];
 
   out[0] = x * a[0];
   out[1] = x * a[1];
@@ -436,6 +437,7 @@ export const scale = (out: mat3, a: ReadonlyMat3, v: ReadonlyVec2): mat3 => {
   out[6] = a[6];
   out[7] = a[7];
   out[8] = a[8];
+
   return out;
 };
 
@@ -450,7 +452,7 @@ export const scale = (out: mat3, a: ReadonlyMat3, v: ReadonlyVec2): mat3 => {
  * @param v Translation vector
  * @returns out
  */
-export const fromTranslation = (out: mat3, v: ReadonlyVec2): mat3 => {
+export const fromTranslation = (out: Mat3, v: Readonly<Vec2>): Mat3 => {
   out[0] = 1;
   out[1] = 0;
   out[2] = 0;
@@ -474,9 +476,9 @@ export const fromTranslation = (out: mat3, v: ReadonlyVec2): mat3 => {
  * @param rad the angle to rotate the matrix by
  * @returns out
  */
-export const fromRotation = (out: mat3, rad: number): mat3 => {
-  let s = Math.sin(rad),
-    c = Math.cos(rad);
+export const fromRotation = (out: Mat3, rad: number): Mat3 => {
+  const s = Math.sin(rad);
+  const c = Math.cos(rad);
 
   out[0] = c;
   out[1] = s;
@@ -503,7 +505,7 @@ export const fromRotation = (out: mat3, rad: number): mat3 => {
  * @param v Scaling vector
  * @returns out
  */
-export const fromScaling = (out: mat3, v: ReadonlyVec2): mat3 => {
+export const fromScaling = (out: Mat3, v: Readonly<Vec2>): Mat3 => {
   out[0] = v[0];
   out[1] = 0;
   out[2] = 0;
@@ -525,7 +527,7 @@ export const fromScaling = (out: mat3, v: ReadonlyVec2): mat3 => {
  * @param a the matrix to copy
  * @returns out
  **/
-export const fromMat2d = (out: mat3, a: ReadonlyMat2d): mat3 => {
+export const fromMat2d = (out: Mat3, a: Readonly<Mat2d>): Mat3 => {
   out[0] = a[0];
   out[1] = a[1];
   out[2] = 0;
@@ -548,24 +550,25 @@ export const fromMat2d = (out: mat3, a: ReadonlyMat2d): mat3 => {
  *
  * @returns out
  */
-export const fromQuat = (out: mat3, q: ReadonlyQuat): mat3 => {
-  let x = q[0],
-    y = q[1],
-    z = q[2],
-    w = q[3];
-  let x2 = x + x;
-  let y2 = y + y;
-  let z2 = z + z;
+export const fromQuat = (out: Mat3, q: Readonly<Quat>): Mat3 => {
+  const x = q[0];
+  const y = q[1];
+  const z = q[2];
+  const w = q[3];
 
-  let xx = x * x2;
-  let yx = y * x2;
-  let yy = y * y2;
-  let zx = z * x2;
-  let zy = z * y2;
-  let zz = z * z2;
-  let wx = w * x2;
-  let wy = w * y2;
-  let wz = w * z2;
+  const x2 = x + x;
+  const y2 = y + y;
+  const z2 = z + z;
+
+  const xx = x * x2;
+  const yx = y * x2;
+  const yy = y * y2;
+  const zx = z * x2;
+  const zy = z * y2;
+  const zz = z * z2;
+  const wx = w * x2;
+  const wy = w * y2;
+  const wz = w * z2;
 
   out[0] = 1 - yy - zz;
   out[3] = yx - wz;
@@ -590,36 +593,36 @@ export const fromQuat = (out: mat3, q: ReadonlyQuat): mat3 => {
  *
  * @returns out
  */
-export const normalFromMat4 = (out: mat3, a: ReadonlyMat4): mat3 => {
-  let a00 = a[0],
-    a01 = a[1],
-    a02 = a[2],
-    a03 = a[3];
-  let a10 = a[4],
-    a11 = a[5],
-    a12 = a[6],
-    a13 = a[7];
-  let a20 = a[8],
-    a21 = a[9],
-    a22 = a[10],
-    a23 = a[11];
-  let a30 = a[12],
-    a31 = a[13],
-    a32 = a[14],
-    a33 = a[15];
+export const normalFromMat4 = (out: Mat3, a: Readonly<Mat4>): Mat3 => {
+  const a00 = a[0];
+  const a01 = a[1];
+  const a02 = a[2];
+  const a03 = a[3];
+  const a10 = a[4];
+  const a11 = a[5];
+  const a12 = a[6];
+  const a13 = a[7];
+  const a20 = a[8];
+  const a21 = a[9];
+  const a22 = a[10];
+  const a23 = a[11];
+  const a30 = a[12];
+  const a31 = a[13];
+  const a32 = a[14];
+  const a33 = a[15];
 
-  let b00 = a00 * a11 - a01 * a10;
-  let b01 = a00 * a12 - a02 * a10;
-  let b02 = a00 * a13 - a03 * a10;
-  let b03 = a01 * a12 - a02 * a11;
-  let b04 = a01 * a13 - a03 * a11;
-  let b05 = a02 * a13 - a03 * a12;
-  let b06 = a20 * a31 - a21 * a30;
-  let b07 = a20 * a32 - a22 * a30;
-  let b08 = a20 * a33 - a23 * a30;
-  let b09 = a21 * a32 - a22 * a31;
-  let b10 = a21 * a33 - a23 * a31;
-  let b11 = a22 * a33 - a23 * a32;
+  const b00 = a00 * a11 - a01 * a10;
+  const b01 = a00 * a12 - a02 * a10;
+  const b02 = a00 * a13 - a03 * a10;
+  const b03 = a01 * a12 - a02 * a11;
+  const b04 = a01 * a13 - a03 * a11;
+  const b05 = a02 * a13 - a03 * a12;
+  const b06 = a20 * a31 - a21 * a30;
+  const b07 = a20 * a32 - a22 * a30;
+  const b08 = a20 * a33 - a23 * a30;
+  const b09 = a21 * a32 - a22 * a31;
+  const b10 = a21 * a33 - a23 * a31;
+  const b11 = a22 * a33 - a23 * a32;
 
   // Calculate the determinant
   let det = b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
@@ -632,11 +635,9 @@ export const normalFromMat4 = (out: mat3, a: ReadonlyMat4): mat3 => {
   out[0] = (a11 * b11 - a12 * b10 + a13 * b09) * det;
   out[1] = (a12 * b08 - a10 * b11 - a13 * b07) * det;
   out[2] = (a10 * b10 - a11 * b08 + a13 * b06) * det;
-
   out[3] = (a02 * b10 - a01 * b11 - a03 * b09) * det;
   out[4] = (a00 * b11 - a02 * b08 + a03 * b07) * det;
   out[5] = (a01 * b08 - a00 * b10 - a03 * b06) * det;
-
   out[6] = (a31 * b05 - a32 * b04 + a33 * b03) * det;
   out[7] = (a32 * b02 - a30 * b05 - a33 * b01) * det;
   out[8] = (a30 * b04 - a31 * b02 + a33 * b00) * det;
@@ -652,7 +653,7 @@ export const normalFromMat4 = (out: mat3, a: ReadonlyMat4): mat3 => {
  * @param height Height of gl context
  * @returns out
  */
-export const projection = (out: mat3, width: number, height: number): mat3 => {
+export const projection = (out: Mat3, width: number, height: number): Mat3 => {
   out[0] = 2 / width;
   out[1] = 0;
   out[2] = 0;
@@ -671,29 +672,26 @@ export const projection = (out: mat3, width: number, height: number): mat3 => {
  * @param a matrix to represent as a string
  * @returns string representation of the matrix
  */
-export const str = (a: ReadonlyMat3): string => {
-  return (
-    "mat3(" +
-    a[0] +
-    ", " +
-    a[1] +
-    ", " +
-    a[2] +
-    ", " +
-    a[3] +
-    ", " +
-    a[4] +
-    ", " +
-    a[5] +
-    ", " +
-    a[6] +
-    ", " +
-    a[7] +
-    ", " +
-    a[8] +
-    ")"
-  );
-};
+export const str = (a: Readonly<Mat3>): string =>
+  "mat3(" +
+  a[0] +
+  ", " +
+  a[1] +
+  ", " +
+  a[2] +
+  ", " +
+  a[3] +
+  ", " +
+  a[4] +
+  ", " +
+  a[5] +
+  ", " +
+  a[6] +
+  ", " +
+  a[7] +
+  ", " +
+  a[8] +
+  ")";
 
 /**
  * Returns Frobenius norm of a mat3
@@ -701,8 +699,8 @@ export const str = (a: ReadonlyMat3): string => {
  * @param a the matrix to calculate Frobenius norm of
  * @returns Frobenius norm
  */
-export const frob = (a: ReadonlyMat3): number => {
-  return Math.sqrt(
+export const frob = (a: Readonly<Mat3>): number =>
+  Math.sqrt(
     a[0] * a[0] +
       a[1] * a[1] +
       a[2] * a[2] +
@@ -713,7 +711,6 @@ export const frob = (a: ReadonlyMat3): number => {
       a[7] * a[7] +
       a[8] * a[8],
   );
-};
 
 /**
  * Adds two mat3's
@@ -723,7 +720,7 @@ export const frob = (a: ReadonlyMat3): number => {
  * @param b the second operand
  * @returns out
  */
-export const add = (out: mat3, a: ReadonlyMat3, b: ReadonlyMat3): mat3 => {
+export const add = (out: Mat3, a: Readonly<Mat3>, b: Readonly<Mat3>): Mat3 => {
   out[0] = a[0] + b[0];
   out[1] = a[1] + b[1];
   out[2] = a[2] + b[2];
@@ -744,7 +741,7 @@ export const add = (out: mat3, a: ReadonlyMat3, b: ReadonlyMat3): mat3 => {
  * @param b the second operand
  * @returns out
  */
-export const subtract = (out: mat3, a: ReadonlyMat3, b: ReadonlyMat3): mat3 => {
+export const subtract = (out: Mat3, a: Readonly<Mat3>, b: Readonly<Mat3>): Mat3 => {
   out[0] = a[0] - b[0];
   out[1] = a[1] - b[1];
   out[2] = a[2] - b[2];
@@ -765,7 +762,7 @@ export const subtract = (out: mat3, a: ReadonlyMat3, b: ReadonlyMat3): mat3 => {
  * @param b amount to scale the matrix's elements by
  * @returns out
  */
-export const multiplyScalar = (out: mat3, a: ReadonlyMat3, b: number): mat3 => {
+export const multiplyScalar = (out: Mat3, a: Readonly<Mat3>, b: number): Mat3 => {
   out[0] = a[0] * b;
   out[1] = a[1] * b;
   out[2] = a[2] * b;
@@ -787,7 +784,7 @@ export const multiplyScalar = (out: mat3, a: ReadonlyMat3, b: number): mat3 => {
  * @param scale the amount to scale b's elements by before adding
  * @returns out
  */
-export const multiplyScalarAndAdd = (out: mat3, a: ReadonlyMat3, b: ReadonlyMat3, scale: number): mat3 => {
+export const multiplyScalarAndAdd = (out: Mat3, a: Readonly<Mat3>, b: Readonly<Mat3>, scale: number): Mat3 => {
   out[0] = a[0] + b[0] * scale;
   out[1] = a[1] + b[1] * scale;
   out[2] = a[2] + b[2] * scale;
@@ -807,19 +804,16 @@ export const multiplyScalarAndAdd = (out: mat3, a: ReadonlyMat3, b: ReadonlyMat3
  * @param b The second matrix.
  * @returns True if the matrices are equal, false otherwise.
  */
-export const exactEquals = (a: ReadonlyMat3, b: ReadonlyMat3): boolean => {
-  return (
-    a[0] === b[0] &&
-    a[1] === b[1] &&
-    a[2] === b[2] &&
-    a[3] === b[3] &&
-    a[4] === b[4] &&
-    a[5] === b[5] &&
-    a[6] === b[6] &&
-    a[7] === b[7] &&
-    a[8] === b[8]
-  );
-};
+export const exactEquals = (a: Readonly<Mat3>, b: Readonly<Mat3>): boolean =>
+  a[0] === b[0] &&
+  a[1] === b[1] &&
+  a[2] === b[2] &&
+  a[3] === b[3] &&
+  a[4] === b[4] &&
+  a[5] === b[5] &&
+  a[6] === b[6] &&
+  a[7] === b[7] &&
+  a[8] === b[8];
 
 /**
  * Returns whether or not the matrices have approximately the same elements in the same position.
@@ -828,25 +822,25 @@ export const exactEquals = (a: ReadonlyMat3, b: ReadonlyMat3): boolean => {
  * @param b The second matrix.
  * @returns True if the matrices are equal, false otherwise.
  */
-export const equals = (a: ReadonlyMat3, b: ReadonlyMat3): boolean => {
-  let a0 = a[0],
-    a1 = a[1],
-    a2 = a[2],
-    a3 = a[3],
-    a4 = a[4],
-    a5 = a[5],
-    a6 = a[6],
-    a7 = a[7],
-    a8 = a[8];
-  let b0 = b[0],
-    b1 = b[1],
-    b2 = b[2],
-    b3 = b[3],
-    b4 = b[4],
-    b5 = b[5],
-    b6 = b[6],
-    b7 = b[7],
-    b8 = b[8];
+export const equals = (a: Readonly<Mat3>, b: Readonly<Mat3>): boolean => {
+  const a0 = a[0];
+  const a1 = a[1];
+  const a2 = a[2];
+  const a3 = a[3];
+  const a4 = a[4];
+  const a5 = a[5];
+  const a6 = a[6];
+  const a7 = a[7];
+  const a8 = a[8];
+  const b0 = b[0];
+  const b1 = b[1];
+  const b2 = b[2];
+  const b3 = b[3];
+  const b4 = b[4];
+  const b5 = b[5];
+  const b6 = b[6];
+  const b7 = b[7];
+  const b8 = b[8];
   return (
     Math.abs(a0 - b0) <= EPSILON * Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
     Math.abs(a1 - b1) <= EPSILON * Math.max(1.0, Math.abs(a1), Math.abs(b1)) &&
