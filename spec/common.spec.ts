@@ -1,5 +1,5 @@
 import { describe, beforeEach, it, expect } from "bun:test";
-import * as glMatrix from "../src/common.js";
+import { EPSILON, equals, toDegree, toRadian } from "../src/common";
 import "./helpers";
 
 describe("common", function () {
@@ -7,7 +7,7 @@ describe("common", function () {
 
   describe("toRadian", function () {
     beforeEach(function () {
-      result = glMatrix.toRadian(180);
+      result = toRadian(180);
     });
     it("should return a value of 3.141592654(Math.PI)", function () {
       expect(result).toBeEqualish(Math.PI);
@@ -16,7 +16,7 @@ describe("common", function () {
 
   describe("toDegree", function () {
     beforeEach(function () {
-      result = glMatrix.toDegree(Math.PI);
+      result = toDegree(Math.PI);
     });
     it("should return a value of 180", function () {
       expect(result).toBeEqualish(180);
@@ -26,11 +26,11 @@ describe("common", function () {
   describe("equals", function () {
     let r0, r1, r2, r3, r4;
     beforeEach(function () {
-      r0 = glMatrix.equals(1.0, 0.0);
-      r1 = glMatrix.equals(1.0, 1.0);
-      r2 = glMatrix.equals(1.0 + glMatrix.EPSILON / 2, 1.0);
-      r3 = glMatrix.equals(1.0011, 1.0, 0.001);
-      r4 = glMatrix.equals(100.5, 100.7, 0.2);
+      r0 = equals(1.0, 0.0);
+      r1 = equals(1.0, 1.0);
+      r2 = equals(1.0 + EPSILON / 2, 1.0);
+      r3 = equals(1.0011, 1.0, 0.001);
+      r4 = equals(100.5, 100.7, 0.2);
     });
     it("should return false for different numbers", function () {
       expect(r0).toBe(false);

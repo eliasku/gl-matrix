@@ -1,4 +1,4 @@
-import * as glMatrix from "./common";
+import { ARRAY_TYPE, EPSILON, RANDOM, symround } from "./common";
 
 /**
  * 2 Dimensional Vector
@@ -11,8 +11,8 @@ import * as glMatrix from "./common";
  * @returns a new 2D vector
  */
 export const create = (): vec2 => {
-  const out = new glMatrix.ARRAY_TYPE(2);
-  if (glMatrix.ARRAY_TYPE != Float32Array) {
+  const out = new ARRAY_TYPE(2);
+  if (ARRAY_TYPE != Float32Array) {
     out[0] = 0;
     out[1] = 0;
   }
@@ -26,7 +26,7 @@ export const create = (): vec2 => {
  * @returns a new 2D vector
  */
 export const clone = (a: ReadonlyVec2): vec2 => {
-  const out = new glMatrix.ARRAY_TYPE(2);
+  const out = new ARRAY_TYPE(2);
   out[0] = a[0];
   out[1] = a[1];
   return out;
@@ -40,7 +40,7 @@ export const clone = (a: ReadonlyVec2): vec2 => {
  * @returns a new 2D vector
  */
 export const fromValues = (x: number, y: number): vec2 => {
-  const out = new glMatrix.ARRAY_TYPE(2);
+  const out = new ARRAY_TYPE(2);
   out[0] = x;
   out[1] = y;
   return out;
@@ -191,8 +191,8 @@ export const max = (out: vec2, a: ReadonlyVec2, b: ReadonlyVec2): vec2 => {
  * @returns out
  */
 export const round = (out: vec2, a: ReadonlyVec2): vec2 => {
-  out[0] = glMatrix.round(a[0]);
-  out[1] = glMatrix.round(a[1]);
+  out[0] = symround(a[0]);
+  out[1] = symround(a[1]);
   return out;
 };
 
@@ -373,7 +373,7 @@ export const lerp = (out: vec2, a: ReadonlyVec2, b: ReadonlyVec2, t: number): ve
  * @returns out
  */
 export const random = (out: vec2, scale: number = 1): vec2 => {
-  const r = glMatrix.RANDOM() * 2.0 * Math.PI;
+  const r = RANDOM() * 2.0 * Math.PI;
   out[0] = Math.cos(r) * scale;
   out[1] = Math.sin(r) * scale;
   return out;
@@ -543,8 +543,8 @@ export const equals = (a: ReadonlyVec2, b: ReadonlyVec2): boolean => {
   const b0 = b[0];
   const b1 = b[1];
   return (
-    Math.abs(a0 - b0) <= glMatrix.EPSILON * Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
-    Math.abs(a1 - b1) <= glMatrix.EPSILON * Math.max(1.0, Math.abs(a1), Math.abs(b1))
+    Math.abs(a0 - b0) <= EPSILON * Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
+    Math.abs(a1 - b1) <= EPSILON * Math.max(1.0, Math.abs(a1), Math.abs(b1))
   );
 };
 

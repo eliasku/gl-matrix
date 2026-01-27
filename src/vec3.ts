@@ -1,4 +1,4 @@
-import * as glMatrix from "./common";
+import { ARRAY_TYPE, EPSILON, RANDOM, symround } from "./common";
 
 /**
  * 3 Dimensional Vector
@@ -11,8 +11,8 @@ import * as glMatrix from "./common";
  * @returns a new 3D vector
  */
 export const create = (): vec3 => {
-  const out = new glMatrix.ARRAY_TYPE(3);
-  if (glMatrix.ARRAY_TYPE != Float32Array) {
+  const out = new ARRAY_TYPE(3);
+  if (ARRAY_TYPE != Float32Array) {
     out[0] = 0;
     out[1] = 0;
     out[2] = 0;
@@ -27,7 +27,7 @@ export const create = (): vec3 => {
  * @returns a new 3D vector
  */
 export const clone = (a: ReadonlyVec3): vec3 => {
-  const out = new glMatrix.ARRAY_TYPE(3);
+  const out = new ARRAY_TYPE(3);
   out[0] = a[0];
   out[1] = a[1];
   out[2] = a[2];
@@ -56,7 +56,7 @@ export const length = (a: ReadonlyVec3): number => {
  * @returns a new 3D vector
  */
 export const fromValues = (x: number, y: number, z: number): vec3 => {
-  const out = new glMatrix.ARRAY_TYPE(3);
+  const out = new ARRAY_TYPE(3);
   out[0] = x;
   out[1] = y;
   out[2] = z;
@@ -219,9 +219,9 @@ export const max = (out: vec3, a: ReadonlyVec3, b: ReadonlyVec3): vec3 => {
  * @returns out
  */
 export const round = (out: vec3, a: ReadonlyVec3): vec3 => {
-  out[0] = glMatrix.round(a[0]);
-  out[1] = glMatrix.round(a[1]);
-  out[2] = glMatrix.round(a[2]);
+  out[0] = symround(a[0]);
+  out[1] = symround(a[1]);
+  out[2] = symround(a[2]);
   return out;
 };
 
@@ -495,8 +495,8 @@ export const bezier = (
  * @returns out
  */
 export const random = (out: vec3, scale: number = 1): vec3 => {
-  const r = glMatrix.RANDOM() * 2.0 * Math.PI;
-  const z = glMatrix.RANDOM() * 2.0 - 1.0;
+  const r = RANDOM() * 2.0 * Math.PI;
+  const z = RANDOM() * 2.0 - 1.0;
   const zScale = Math.sqrt(1.0 - z * z) * scale;
 
   out[0] = Math.cos(r) * zScale;
@@ -738,9 +738,9 @@ export const equals = (a: ReadonlyVec3, b: ReadonlyVec3): boolean => {
   const b1 = b[1];
   const b2 = b[2];
   return (
-    Math.abs(a0 - b0) <= glMatrix.EPSILON * Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
-    Math.abs(a1 - b1) <= glMatrix.EPSILON * Math.max(1.0, Math.abs(a1), Math.abs(b1)) &&
-    Math.abs(a2 - b2) <= glMatrix.EPSILON * Math.max(1.0, Math.abs(a2), Math.abs(b2))
+    Math.abs(a0 - b0) <= EPSILON * Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
+    Math.abs(a1 - b1) <= EPSILON * Math.max(1.0, Math.abs(a1), Math.abs(b1)) &&
+    Math.abs(a2 - b2) <= EPSILON * Math.max(1.0, Math.abs(a2), Math.abs(b2))
   );
 };
 

@@ -1,4 +1,4 @@
-import * as glMatrix from "./common";
+import { ARRAY_TYPE, EPSILON, RANDOM, symround } from "./common";
 
 /**
  * 2x2 Matrix
@@ -11,8 +11,8 @@ import * as glMatrix from "./common";
  * @returns a new 2x2 matrix
  */
 export const create = (): mat2 => {
-  let out = new glMatrix.ARRAY_TYPE(4);
-  if (glMatrix.ARRAY_TYPE != Float32Array) {
+  let out = new ARRAY_TYPE(4);
+  if (ARRAY_TYPE != Float32Array) {
     out[1] = 0;
     out[2] = 0;
   }
@@ -28,7 +28,7 @@ export const create = (): mat2 => {
  * @returns a new 2x2 matrix
  */
 export const clone = (a: ReadonlyMat2): mat2 => {
-  let out = new glMatrix.ARRAY_TYPE(4);
+  let out = new ARRAY_TYPE(4);
   out[0] = a[0];
   out[1] = a[1];
   out[2] = a[2];
@@ -75,7 +75,7 @@ export const identity = (out: mat2): mat2 => {
  * @returns out A new 2x2 matrix
  */
 export const fromValues = (m00: number, m01: number, m10: number, m11: number): mat2 => {
-  let out = new glMatrix.ARRAY_TYPE(4);
+  let out = new ARRAY_TYPE(4);
   out[0] = m00;
   out[1] = m01;
   out[2] = m10;
@@ -385,10 +385,10 @@ export const equals = (a: ReadonlyMat2, b: ReadonlyMat2): boolean => {
     b2 = b[2],
     b3 = b[3];
   return (
-    Math.abs(a0 - b0) <= glMatrix.EPSILON * Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
-    Math.abs(a1 - b1) <= glMatrix.EPSILON * Math.max(1.0, Math.abs(a1), Math.abs(b1)) &&
-    Math.abs(a2 - b2) <= glMatrix.EPSILON * Math.max(1.0, Math.abs(a2), Math.abs(b2)) &&
-    Math.abs(a3 - b3) <= glMatrix.EPSILON * Math.max(1.0, Math.abs(a3), Math.abs(b3))
+    Math.abs(a0 - b0) <= EPSILON * Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
+    Math.abs(a1 - b1) <= EPSILON * Math.max(1.0, Math.abs(a1), Math.abs(b1)) &&
+    Math.abs(a2 - b2) <= EPSILON * Math.max(1.0, Math.abs(a2), Math.abs(b2)) &&
+    Math.abs(a3 - b3) <= EPSILON * Math.max(1.0, Math.abs(a3), Math.abs(b3))
   );
 };
 

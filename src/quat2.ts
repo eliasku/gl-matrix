@@ -1,4 +1,5 @@
-import * as glMatrix from "./common";
+import { ARRAY_TYPE, EPSILON, RANDOM, symround } from "./common";
+
 import * as quat from "./quat";
 import * as mat4 from "./mat4";
 
@@ -16,8 +17,8 @@ import * as mat4 from "./mat4";
  * @returns a new dual quaternion [real -> rotation, dual -> translation]
  */
 export const create = (): quat2 => {
-  let dq = new glMatrix.ARRAY_TYPE(8);
-  if (glMatrix.ARRAY_TYPE != Float32Array) {
+  let dq = new ARRAY_TYPE(8);
+  if (ARRAY_TYPE != Float32Array) {
     dq[0] = 0;
     dq[1] = 0;
     dq[2] = 0;
@@ -37,7 +38,7 @@ export const create = (): quat2 => {
  * @returns new dual quaternion
  */
 export const clone = (a: ReadonlyQuat2): quat2 => {
-  let dq = new glMatrix.ARRAY_TYPE(8);
+  let dq = new ARRAY_TYPE(8);
   dq[0] = a[0];
   dq[1] = a[1];
   dq[2] = a[2];
@@ -72,7 +73,7 @@ export const fromValues = (
   z2: number,
   w2: number,
 ): quat2 => {
-  let dq = new glMatrix.ARRAY_TYPE(8);
+  let dq = new ARRAY_TYPE(8);
   dq[0] = x1;
   dq[1] = y1;
   dq[2] = z1;
@@ -105,7 +106,7 @@ export const fromRotationTranslationValues = (
   y2: number,
   z2: number,
 ): quat2 => {
-  let dq = new glMatrix.ARRAY_TYPE(8);
+  let dq = new ARRAY_TYPE(8);
   dq[0] = x1;
   dq[1] = y1;
   dq[2] = z1;
@@ -196,7 +197,7 @@ export const fromMat4 = (out: quat2, a: ReadonlyMat4): quat2 => {
   //TODO Optimize this
   let outer = quat.create();
   mat4.getRotation(outer, a);
-  let t = new glMatrix.ARRAY_TYPE(3);
+  let t = new ARRAY_TYPE(3);
   mat4.getTranslation(t, a);
   fromRotationTranslation(out, outer, t);
   return out;
@@ -550,7 +551,7 @@ export const rotateByQuatPrepend = (out: quat2, q: ReadonlyQuat, a: ReadonlyQuat
  */
 export const rotateAroundAxis = (out: quat2, a: ReadonlyQuat2, axis: ReadonlyVec3, rad: number): quat2 => {
   //Special case for rad = 0
-  if (Math.abs(rad) < glMatrix.EPSILON) {
+  if (Math.abs(rad) < EPSILON) {
     return copy(out, a);
   }
   let axisLength = Math.sqrt(axis[0] * axis[0] + axis[1] * axis[1] + axis[2] * axis[2]);
@@ -875,13 +876,13 @@ export const equals = (a: ReadonlyQuat2, b: ReadonlyQuat2): boolean => {
     b6 = b[6],
     b7 = b[7];
   return (
-    Math.abs(a0 - b0) <= glMatrix.EPSILON * Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
-    Math.abs(a1 - b1) <= glMatrix.EPSILON * Math.max(1.0, Math.abs(a1), Math.abs(b1)) &&
-    Math.abs(a2 - b2) <= glMatrix.EPSILON * Math.max(1.0, Math.abs(a2), Math.abs(b2)) &&
-    Math.abs(a3 - b3) <= glMatrix.EPSILON * Math.max(1.0, Math.abs(a3), Math.abs(b3)) &&
-    Math.abs(a4 - b4) <= glMatrix.EPSILON * Math.max(1.0, Math.abs(a4), Math.abs(b4)) &&
-    Math.abs(a5 - b5) <= glMatrix.EPSILON * Math.max(1.0, Math.abs(a5), Math.abs(b5)) &&
-    Math.abs(a6 - b6) <= glMatrix.EPSILON * Math.max(1.0, Math.abs(a6), Math.abs(b6)) &&
-    Math.abs(a7 - b7) <= glMatrix.EPSILON * Math.max(1.0, Math.abs(a7), Math.abs(b7))
+    Math.abs(a0 - b0) <= EPSILON * Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
+    Math.abs(a1 - b1) <= EPSILON * Math.max(1.0, Math.abs(a1), Math.abs(b1)) &&
+    Math.abs(a2 - b2) <= EPSILON * Math.max(1.0, Math.abs(a2), Math.abs(b2)) &&
+    Math.abs(a3 - b3) <= EPSILON * Math.max(1.0, Math.abs(a3), Math.abs(b3)) &&
+    Math.abs(a4 - b4) <= EPSILON * Math.max(1.0, Math.abs(a4), Math.abs(b4)) &&
+    Math.abs(a5 - b5) <= EPSILON * Math.max(1.0, Math.abs(a5), Math.abs(b5)) &&
+    Math.abs(a6 - b6) <= EPSILON * Math.max(1.0, Math.abs(a6), Math.abs(b6)) &&
+    Math.abs(a7 - b7) <= EPSILON * Math.max(1.0, Math.abs(a7), Math.abs(b7))
   );
 };

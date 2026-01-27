@@ -1,4 +1,4 @@
-import * as glMatrix from "./common";
+import { ARRAY_TYPE, EPSILON, RANDOM, symround } from "./common";
 
 /**
  * 4 Dimensional Vector
@@ -11,8 +11,8 @@ import * as glMatrix from "./common";
  * @returns a new 4D vector
  */
 export const create = (): vec4 => {
-  const out = new glMatrix.ARRAY_TYPE(4);
-  if (glMatrix.ARRAY_TYPE != Float32Array) {
+  const out = new ARRAY_TYPE(4);
+  if (ARRAY_TYPE != Float32Array) {
     out[0] = 0;
     out[1] = 0;
     out[2] = 0;
@@ -28,7 +28,7 @@ export const create = (): vec4 => {
  * @returns a new 4D vector
  */
 export const clone = (a: ReadonlyVec4): vec4 => {
-  const out = new glMatrix.ARRAY_TYPE(4);
+  const out = new ARRAY_TYPE(4);
   out[0] = a[0];
   out[1] = a[1];
   out[2] = a[2];
@@ -46,7 +46,7 @@ export const clone = (a: ReadonlyVec4): vec4 => {
  * @returns a new 4D vector
  */
 export const fromValues = (x: number, y: number, z: number, w: number): vec4 => {
-  const out = new glMatrix.ARRAY_TYPE(4);
+  const out = new ARRAY_TYPE(4);
   out[0] = x;
   out[1] = y;
   out[2] = z;
@@ -221,10 +221,10 @@ export const max = (out: vec4, a: ReadonlyVec4, b: ReadonlyVec4): vec4 => {
  * @returns out
  */
 export const round = (out: vec4, a: ReadonlyVec4): vec4 => {
-  out[0] = glMatrix.round(a[0]);
-  out[1] = glMatrix.round(a[1]);
-  out[2] = glMatrix.round(a[2]);
-  out[3] = glMatrix.round(a[3]);
+  out[0] = symround(a[0]);
+  out[1] = symround(a[1]);
+  out[2] = symround(a[2]);
+  out[3] = symround(a[3]);
   return out;
 };
 
@@ -445,14 +445,14 @@ export const random = (out: vec4, scale: number = 1): vec4 => {
   // Sphere. Ann. Math. Statist. 43 (1972), no. 2, 645--646.
   // http://projecteuclid.org/euclid.aos/1177692644;
 
-  let rand = glMatrix.RANDOM();
+  let rand = RANDOM();
   let v1 = rand * 2 - 1;
-  let v2 = (4 * glMatrix.RANDOM() - 2) * Math.sqrt(rand * -rand + rand);
+  let v2 = (4 * RANDOM() - 2) * Math.sqrt(rand * -rand + rand);
   let s1 = v1 * v1 + v2 * v2;
 
-  rand = glMatrix.RANDOM();
+  rand = RANDOM();
   let v3 = rand * 2 - 1;
-  let v4 = (4 * glMatrix.RANDOM() - 2) * Math.sqrt(rand * -rand + rand);
+  let v4 = (4 * RANDOM() - 2) * Math.sqrt(rand * -rand + rand);
   let s2 = v3 * v3 + v4 * v4;
 
   const d = Math.sqrt((1 - s1) / s2);
@@ -574,10 +574,10 @@ export const equals = (a: ReadonlyVec4, b: ReadonlyVec4): boolean => {
   const b2 = b[2];
   const b3 = b[3];
   return (
-    Math.abs(a0 - b0) <= glMatrix.EPSILON * Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
-    Math.abs(a1 - b1) <= glMatrix.EPSILON * Math.max(1.0, Math.abs(a1), Math.abs(b1)) &&
-    Math.abs(a2 - b2) <= glMatrix.EPSILON * Math.max(1.0, Math.abs(a2), Math.abs(b2)) &&
-    Math.abs(a3 - b3) <= glMatrix.EPSILON * Math.max(1.0, Math.abs(a3), Math.abs(b3))
+    Math.abs(a0 - b0) <= EPSILON * Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
+    Math.abs(a1 - b1) <= EPSILON * Math.max(1.0, Math.abs(a1), Math.abs(b1)) &&
+    Math.abs(a2 - b2) <= EPSILON * Math.max(1.0, Math.abs(a2), Math.abs(b2)) &&
+    Math.abs(a3 - b3) <= EPSILON * Math.max(1.0, Math.abs(a3), Math.abs(b3))
   );
 };
 

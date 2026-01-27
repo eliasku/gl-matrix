@@ -1,5 +1,6 @@
 import { AngleOrder } from "./AngleOrder";
-import * as glMatrix from "./common";
+import { ARRAY_TYPE, DEFAULT_ANGLE_ORDER, EPSILON, RANDOM, symround } from "./common";
+
 import * as mat3 from "./mat3";
 import * as vec3 from "./vec3";
 import * as vec4 from "./vec4";
@@ -15,8 +16,8 @@ import * as vec4 from "./vec4";
  * @returns a new quaternion
  */
 export const create = (): quat => {
-  let out = new glMatrix.ARRAY_TYPE(4);
-  if (glMatrix.ARRAY_TYPE != Float32Array) {
+  let out = new ARRAY_TYPE(4);
+  if (ARRAY_TYPE != Float32Array) {
     out[0] = 0;
     out[1] = 0;
     out[2] = 0;
@@ -74,7 +75,7 @@ export const setAxisAngle = (out: quat, axis: ReadonlyVec3, rad: number): quat =
 export const getAxisAngle = (out_axis: vec3, q: ReadonlyQuat): number => {
   let rad = Math.acos(q[3]) * 2.0;
   let s = Math.sin(rad / 2.0);
-  if (s > glMatrix.EPSILON) {
+  if (s > EPSILON) {
     out_axis[0] = q[0] / s;
     out_axis[1] = q[1] / s;
     out_axis[2] = q[2] / s;
@@ -96,7 +97,7 @@ export const getAxisAngle = (out_axis: vec3, q: ReadonlyQuat): number => {
  */
 export const getAngle = (a: ReadonlyQuat, b: ReadonlyQuat): number => {
   const dotproduct = dot(a, b);
-  
+
   return Math.acos(2 * dotproduct * dotproduct - 1);
 };
 
@@ -319,7 +320,7 @@ export const slerp = (out: quat, a: ReadonlyQuat, b: ReadonlyQuat, t: number): q
     bw = -bw;
   }
   // calculate coefficients
-  if (1.0 - cosom > glMatrix.EPSILON) {
+  if (1.0 - cosom > EPSILON) {
     // standard case (slerp)
     omega = Math.acos(cosom);
     sinom = Math.sin(omega);
@@ -349,9 +350,9 @@ export const slerp = (out: quat, a: ReadonlyQuat, b: ReadonlyQuat, t: number): q
 export const random = (out: quat): quat => {
   // Implementation of http://planning.cs.uiuc.edu/node198.html
   // TODO: Calling random 3 times is probably not the fastest solution
-  let u1 = glMatrix.RANDOM();
-  let u2 = glMatrix.RANDOM();
-  let u3 = glMatrix.RANDOM();
+  let u1 = RANDOM();
+  let u2 = RANDOM();
+  let u3 = RANDOM();
 
   let sqrt1MinusU1 = Math.sqrt(1 - u1);
   let sqrtU1 = Math.sqrt(u1);
@@ -461,7 +462,7 @@ export const fromEuler = (
   x: number,
   y: number,
   z: number,
-  order: AngleOrder = glMatrix.DEFAULT_ANGLE_ORDER,
+  order: AngleOrder = DEFAULT_ANGLE_ORDER,
 ): quat => {
   let halfToRad = Math.PI / 360;
   x *= halfToRad;
@@ -670,7 +671,7 @@ export const exactEquals = vec4.exactEquals;
  * @param b The second unit quaternion.
  * @returns True if the quaternions are equal, false otherwise.
  */
-export const equals = (a: ReadonlyQuat, b: ReadonlyQuat): boolean => Math.abs(vec4.dot(a, b)) >= 1 - glMatrix.EPSILON;
+export const equals = (a: ReadonlyQuat, b: ReadonlyQuat): boolean => Math.abs(vec4.dot(a, b)) >= 1 - EPSILON;
 
 const tmpvec3 = vec3.create();
 const xUnitVec3 = vec3.fromValues(1, 0, 0);

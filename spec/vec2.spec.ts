@@ -2,1068 +2,1068 @@ import * as vec2 from "../src/vec2";
 import { describe, beforeEach, it, expect } from "bun:test";
 import "./helpers";
 
-describe("vec2", function () {
+describe("vec2", () => {
   let out, vecA, vecB, result;
 
-  beforeEach(function () {
+  beforeEach(() => {
     vecA = [1, 2];
     vecB = [3, 4];
     out = [0, 0];
   });
 
-  describe("create", function () {
-    beforeEach(function () {
+  describe("create", () => {
+    beforeEach(() => {
       result = vec2.create();
     });
-    it("should return a 2 element array initialized to 0s", function () {
+    it("should return a 2 element array initialized to 0s", () => {
       expect(result).toBeEqualish([0, 0]);
     });
   });
 
-  describe("clone", function () {
-    beforeEach(function () {
+  describe("clone", () => {
+    beforeEach(() => {
       result = vec2.clone(vecA);
     });
-    it("should return a 2 element array initialized to the values in vecA", function () {
+    it("should return a 2 element array initialized to the values in vecA", () => {
       expect(result).toBeEqualish(vecA);
     });
   });
 
-  describe("fromValues", function () {
-    beforeEach(function () {
+  describe("fromValues", () => {
+    beforeEach(() => {
       result = vec2.fromValues(1, 2);
     });
-    it("should return a 2 element array initialized to the values passed", function () {
+    it("should return a 2 element array initialized to the values passed", () => {
       expect(result).toBeEqualish([1, 2]);
     });
   });
 
-  describe("copy", function () {
-    beforeEach(function () {
+  describe("copy", () => {
+    beforeEach(() => {
       result = vec2.copy(out, vecA);
     });
-    it("should place values into out", function () {
+    it("should place values into out", () => {
       expect(out).toBeEqualish([1, 2]);
     });
-    it("should return out", function () {
+    it("should return out", () => {
       expect(result).toBe(out);
     });
   });
 
-  describe("set", function () {
-    beforeEach(function () {
+  describe("set", () => {
+    beforeEach(() => {
       result = vec2.set(out, 1, 2);
     });
-    it("should place values into out", function () {
+    it("should place values into out", () => {
       expect(out).toBeEqualish([1, 2]);
     });
-    it("should return out", function () {
+    it("should return out", () => {
       expect(result).toBe(out);
     });
   });
 
-  describe("add", function () {
-    describe("with a separate output vector", function () {
-      beforeEach(function () {
+  describe("add", () => {
+    describe("with a separate output vector", () => {
+      beforeEach(() => {
         result = vec2.add(out, vecA, vecB);
       });
 
-      it("should place values into out", function () {
+      it("should place values into out", () => {
         expect(out).toBeEqualish([4, 6]);
       });
-      it("should return out", function () {
+      it("should return out", () => {
         expect(result).toBe(out);
       });
-      it("should not modify vecA", function () {
+      it("should not modify vecA", () => {
         expect(vecA).toBeEqualish([1, 2]);
       });
-      it("should not modify vecB", function () {
+      it("should not modify vecB", () => {
         expect(vecB).toBeEqualish([3, 4]);
       });
     });
 
-    describe("when vecA is the output vector", function () {
-      beforeEach(function () {
+    describe("when vecA is the output vector", () => {
+      beforeEach(() => {
         result = vec2.add(vecA, vecA, vecB);
       });
 
-      it("should place values into vecA", function () {
+      it("should place values into vecA", () => {
         expect(vecA).toBeEqualish([4, 6]);
       });
-      it("should return vecA", function () {
+      it("should return vecA", () => {
         expect(result).toBe(vecA);
       });
-      it("should not modify vecB", function () {
+      it("should not modify vecB", () => {
         expect(vecB).toBeEqualish([3, 4]);
       });
     });
 
-    describe("when vecB is the output vector", function () {
-      beforeEach(function () {
+    describe("when vecB is the output vector", () => {
+      beforeEach(() => {
         result = vec2.add(vecB, vecA, vecB);
       });
 
-      it("should place values into vecB", function () {
+      it("should place values into vecB", () => {
         expect(vecB).toBeEqualish([4, 6]);
       });
-      it("should return vecB", function () {
+      it("should return vecB", () => {
         expect(result).toBe(vecB);
       });
-      it("should not modify vecA", function () {
+      it("should not modify vecA", () => {
         expect(vecA).toBeEqualish([1, 2]);
       });
     });
   });
 
-  describe("subtract", function () {
-    it("should have an alias called 'sub'", function () {
+  describe("subtract", () => {
+    it("should have an alias called 'sub'", () => {
       expect(vec2.sub).toEqual(vec2.subtract);
     });
 
-    describe("with a separate output vector", function () {
-      beforeEach(function () {
+    describe("with a separate output vector", () => {
+      beforeEach(() => {
         result = vec2.subtract(out, vecA, vecB);
       });
 
-      it("should place values into out", function () {
+      it("should place values into out", () => {
         expect(out).toBeEqualish([-2, -2]);
       });
-      it("should return out", function () {
+      it("should return out", () => {
         expect(result).toBe(out);
       });
-      it("should not modify vecA", function () {
+      it("should not modify vecA", () => {
         expect(vecA).toBeEqualish([1, 2]);
       });
-      it("should not modify vecB", function () {
+      it("should not modify vecB", () => {
         expect(vecB).toBeEqualish([3, 4]);
       });
     });
 
-    describe("when vecA is the output vector", function () {
-      beforeEach(function () {
+    describe("when vecA is the output vector", () => {
+      beforeEach(() => {
         result = vec2.subtract(vecA, vecA, vecB);
       });
 
-      it("should place values into vecA", function () {
+      it("should place values into vecA", () => {
         expect(vecA).toBeEqualish([-2, -2]);
       });
-      it("should return vecA", function () {
+      it("should return vecA", () => {
         expect(result).toBe(vecA);
       });
-      it("should not modify vecB", function () {
+      it("should not modify vecB", () => {
         expect(vecB).toBeEqualish([3, 4]);
       });
     });
 
-    describe("when vecB is the output vector", function () {
-      beforeEach(function () {
+    describe("when vecB is the output vector", () => {
+      beforeEach(() => {
         result = vec2.subtract(vecB, vecA, vecB);
       });
 
-      it("should place values into vecB", function () {
+      it("should place values into vecB", () => {
         expect(vecB).toBeEqualish([-2, -2]);
       });
-      it("should return vecB", function () {
+      it("should return vecB", () => {
         expect(result).toBe(vecB);
       });
-      it("should not modify vecA", function () {
+      it("should not modify vecA", () => {
         expect(vecA).toBeEqualish([1, 2]);
       });
     });
   });
 
-  describe("multiply", function () {
-    it("should have an alias called 'mul'", function () {
+  describe("multiply", () => {
+    it("should have an alias called 'mul'", () => {
       expect(vec2.mul).toEqual(vec2.multiply);
     });
 
-    describe("with a separate output vector", function () {
-      beforeEach(function () {
+    describe("with a separate output vector", () => {
+      beforeEach(() => {
         result = vec2.multiply(out, vecA, vecB);
       });
 
-      it("should place values into out", function () {
+      it("should place values into out", () => {
         expect(out).toBeEqualish([3, 8]);
       });
-      it("should return out", function () {
+      it("should return out", () => {
         expect(result).toBe(out);
       });
-      it("should not modify vecA", function () {
+      it("should not modify vecA", () => {
         expect(vecA).toBeEqualish([1, 2]);
       });
-      it("should not modify vecB", function () {
+      it("should not modify vecB", () => {
         expect(vecB).toBeEqualish([3, 4]);
       });
     });
 
-    describe("when vecA is the output vector", function () {
-      beforeEach(function () {
+    describe("when vecA is the output vector", () => {
+      beforeEach(() => {
         result = vec2.multiply(vecA, vecA, vecB);
       });
 
-      it("should place values into vecA", function () {
+      it("should place values into vecA", () => {
         expect(vecA).toBeEqualish([3, 8]);
       });
-      it("should return vecA", function () {
+      it("should return vecA", () => {
         expect(result).toBe(vecA);
       });
-      it("should not modify vecB", function () {
+      it("should not modify vecB", () => {
         expect(vecB).toBeEqualish([3, 4]);
       });
     });
 
-    describe("when vecB is the output vector", function () {
-      beforeEach(function () {
+    describe("when vecB is the output vector", () => {
+      beforeEach(() => {
         result = vec2.multiply(vecB, vecA, vecB);
       });
 
-      it("should place values into vecB", function () {
+      it("should place values into vecB", () => {
         expect(vecB).toBeEqualish([3, 8]);
       });
-      it("should return vecB", function () {
+      it("should return vecB", () => {
         expect(result).toBe(vecB);
       });
-      it("should not modify vecA", function () {
+      it("should not modify vecA", () => {
         expect(vecA).toBeEqualish([1, 2]);
       });
     });
   });
 
-  describe("divide", function () {
-    it("should have an alias called 'div'", function () {
+  describe("divide", () => {
+    it("should have an alias called 'div'", () => {
       expect(vec2.div).toEqual(vec2.divide);
     });
 
-    describe("with a separate output vector", function () {
-      beforeEach(function () {
+    describe("with a separate output vector", () => {
+      beforeEach(() => {
         result = vec2.divide(out, vecA, vecB);
       });
 
-      it("should place values into out", function () {
+      it("should place values into out", () => {
         expect(out).toBeEqualish([0.3333333, 0.5]);
       });
-      it("should return out", function () {
+      it("should return out", () => {
         expect(result).toBe(out);
       });
-      it("should not modify vecA", function () {
+      it("should not modify vecA", () => {
         expect(vecA).toBeEqualish([1, 2]);
       });
-      it("should not modify vecB", function () {
+      it("should not modify vecB", () => {
         expect(vecB).toBeEqualish([3, 4]);
       });
     });
 
-    describe("when vecA is the output vector", function () {
-      beforeEach(function () {
+    describe("when vecA is the output vector", () => {
+      beforeEach(() => {
         result = vec2.divide(vecA, vecA, vecB);
       });
 
-      it("should place values into vecA", function () {
+      it("should place values into vecA", () => {
         expect(vecA).toBeEqualish([0.3333333, 0.5]);
       });
-      it("should return vecA", function () {
+      it("should return vecA", () => {
         expect(result).toBe(vecA);
       });
-      it("should not modify vecB", function () {
+      it("should not modify vecB", () => {
         expect(vecB).toBeEqualish([3, 4]);
       });
     });
 
-    describe("when vecB is the output vector", function () {
-      beforeEach(function () {
+    describe("when vecB is the output vector", () => {
+      beforeEach(() => {
         result = vec2.divide(vecB, vecA, vecB);
       });
 
-      it("should place values into vecB", function () {
+      it("should place values into vecB", () => {
         expect(vecB).toBeEqualish([0.3333333, 0.5]);
       });
-      it("should return vecB", function () {
+      it("should return vecB", () => {
         expect(result).toBe(vecB);
       });
-      it("should not modify vecA", function () {
+      it("should not modify vecA", () => {
         expect(vecA).toBeEqualish([1, 2]);
       });
     });
   });
 
-  describe("ceil", function () {
-    beforeEach(function () {
+  describe("ceil", () => {
+    beforeEach(() => {
       vecA = [Math.E, Math.PI];
     });
 
-    describe("with a separate output vector", function () {
-      beforeEach(function () {
+    describe("with a separate output vector", () => {
+      beforeEach(() => {
         result = vec2.ceil(out, vecA);
       });
 
-      it("should place values into out", function () {
+      it("should place values into out", () => {
         expect(out).toBeEqualish([3, 4]);
       });
-      it("should return out", function () {
+      it("should return out", () => {
         expect(result).toBe(out);
       });
-      it("should not modify vecA", function () {
+      it("should not modify vecA", () => {
         expect(vecA).toBeEqualish([Math.E, Math.PI]);
       });
     });
 
-    describe("when vecA is the output vector", function () {
-      beforeEach(function () {
+    describe("when vecA is the output vector", () => {
+      beforeEach(() => {
         result = vec2.ceil(vecA, vecA);
       });
 
-      it("should place values into vecA", function () {
+      it("should place values into vecA", () => {
         expect(vecA).toBeEqualish([3, 4]);
       });
-      it("should return vecA", function () {
+      it("should return vecA", () => {
         expect(result).toBe(vecA);
       });
     });
   });
 
-  describe("floor", function () {
-    beforeEach(function () {
+  describe("floor", () => {
+    beforeEach(() => {
       vecA = [Math.E, Math.PI];
     });
 
-    describe("with a separate output vector", function () {
-      beforeEach(function () {
+    describe("with a separate output vector", () => {
+      beforeEach(() => {
         result = vec2.floor(out, vecA);
       });
 
-      it("should place values into out", function () {
+      it("should place values into out", () => {
         expect(out).toBeEqualish([2, 3]);
       });
-      it("should return out", function () {
+      it("should return out", () => {
         expect(result).toBe(out);
       });
-      it("should not modify vecA", function () {
+      it("should not modify vecA", () => {
         expect(vecA).toBeEqualish([Math.E, Math.PI]);
       });
     });
 
-    describe("when vecA is the output vector", function () {
-      beforeEach(function () {
+    describe("when vecA is the output vector", () => {
+      beforeEach(() => {
         result = vec2.floor(vecA, vecA);
       });
 
-      it("should place values into vecA", function () {
+      it("should place values into vecA", () => {
         expect(vecA).toBeEqualish([2, 3]);
       });
-      it("should return vecA", function () {
+      it("should return vecA", () => {
         expect(result).toBe(vecA);
       });
     });
   });
 
-  describe("min", function () {
-    beforeEach(function () {
+  describe("min", () => {
+    beforeEach(() => {
       vecA = [1, 4];
       vecB = [3, 2];
     });
 
-    describe("with a separate output vector", function () {
-      beforeEach(function () {
+    describe("with a separate output vector", () => {
+      beforeEach(() => {
         result = vec2.min(out, vecA, vecB);
       });
 
-      it("should place values into out", function () {
+      it("should place values into out", () => {
         expect(out).toBeEqualish([1, 2]);
       });
-      it("should return out", function () {
+      it("should return out", () => {
         expect(result).toBe(out);
       });
-      it("should not modify vecA", function () {
+      it("should not modify vecA", () => {
         expect(vecA).toBeEqualish([1, 4]);
       });
-      it("should not modify vecB", function () {
+      it("should not modify vecB", () => {
         expect(vecB).toBeEqualish([3, 2]);
       });
     });
 
-    describe("when vecA is the output vector", function () {
-      beforeEach(function () {
+    describe("when vecA is the output vector", () => {
+      beforeEach(() => {
         result = vec2.min(vecA, vecA, vecB);
       });
 
-      it("should place values into vecA", function () {
+      it("should place values into vecA", () => {
         expect(vecA).toBeEqualish([1, 2]);
       });
-      it("should return vecA", function () {
+      it("should return vecA", () => {
         expect(result).toBe(vecA);
       });
-      it("should not modify vecB", function () {
+      it("should not modify vecB", () => {
         expect(vecB).toBeEqualish([3, 2]);
       });
     });
 
-    describe("when vecB is the output vector", function () {
-      beforeEach(function () {
+    describe("when vecB is the output vector", () => {
+      beforeEach(() => {
         result = vec2.min(vecB, vecA, vecB);
       });
 
-      it("should place values into vecB", function () {
+      it("should place values into vecB", () => {
         expect(vecB).toBeEqualish([1, 2]);
       });
-      it("should return vecB", function () {
+      it("should return vecB", () => {
         expect(result).toBe(vecB);
       });
-      it("should not modify vecA", function () {
+      it("should not modify vecA", () => {
         expect(vecA).toBeEqualish([1, 4]);
       });
     });
   });
 
-  describe("max", function () {
-    beforeEach(function () {
+  describe("max", () => {
+    beforeEach(() => {
       vecA = [1, 4];
       vecB = [3, 2];
     });
 
-    describe("with a separate output vector", function () {
-      beforeEach(function () {
+    describe("with a separate output vector", () => {
+      beforeEach(() => {
         result = vec2.max(out, vecA, vecB);
       });
 
-      it("should place values into out", function () {
+      it("should place values into out", () => {
         expect(out).toBeEqualish([3, 4]);
       });
-      it("should return out", function () {
+      it("should return out", () => {
         expect(result).toBe(out);
       });
-      it("should not modify vecA", function () {
+      it("should not modify vecA", () => {
         expect(vecA).toBeEqualish([1, 4]);
       });
-      it("should not modify vecB", function () {
+      it("should not modify vecB", () => {
         expect(vecB).toBeEqualish([3, 2]);
       });
     });
 
-    describe("when vecA is the output vector", function () {
-      beforeEach(function () {
+    describe("when vecA is the output vector", () => {
+      beforeEach(() => {
         result = vec2.max(vecA, vecA, vecB);
       });
 
-      it("should place values into vecA", function () {
+      it("should place values into vecA", () => {
         expect(vecA).toBeEqualish([3, 4]);
       });
-      it("should return vecA", function () {
+      it("should return vecA", () => {
         expect(result).toBe(vecA);
       });
-      it("should not modify vecB", function () {
+      it("should not modify vecB", () => {
         expect(vecB).toBeEqualish([3, 2]);
       });
     });
 
-    describe("when vecB is the output vector", function () {
-      beforeEach(function () {
+    describe("when vecB is the output vector", () => {
+      beforeEach(() => {
         result = vec2.max(vecB, vecA, vecB);
       });
 
-      it("should place values into vecB", function () {
+      it("should place values into vecB", () => {
         expect(vecB).toBeEqualish([3, 4]);
       });
-      it("should return vecB", function () {
+      it("should return vecB", () => {
         expect(result).toBe(vecB);
       });
-      it("should not modify vecA", function () {
+      it("should not modify vecA", () => {
         expect(vecA).toBeEqualish([1, 4]);
       });
     });
   });
 
-  describe("round", function () {
-    beforeEach(function () {
+  describe("round", () => {
+    beforeEach(() => {
       vecA = [Math.E, Math.PI];
     });
 
-    describe("with a separate output vector", function () {
-      beforeEach(function () {
+    describe("with a separate output vector", () => {
+      beforeEach(() => {
         result = vec2.round(out, vecA);
       });
 
-      it("should place values into out", function () {
+      it("should place values into out", () => {
         expect(out).toBeEqualish([3, 3]);
       });
-      it("should return out", function () {
+      it("should return out", () => {
         expect(result).toBe(out);
       });
-      it("should not modify vecA", function () {
+      it("should not modify vecA", () => {
         expect(vecA).toBeEqualish([Math.E, Math.PI]);
       });
     });
 
-    describe("when vecA is the output vector", function () {
-      beforeEach(function () {
+    describe("when vecA is the output vector", () => {
+      beforeEach(() => {
         result = vec2.round(vecA, vecA);
       });
 
-      it("should place values into vecA", function () {
+      it("should place values into vecA", () => {
         expect(vecA).toBeEqualish([3, 3]);
       });
-      it("should return vecA", function () {
+      it("should return vecA", () => {
         expect(result).toBe(vecA);
       });
     });
 
-    describe("symmetry", function () {
-      it("should round negative values torwards negative infinity", function () {
+    describe("symmetry", () => {
+      it("should round negative values torwards negative infinity", () => {
         expect(vec2.round([], [-1.5, -1.5])).toBeEqualish([-2, -2]);
       });
     });
   });
 
-  describe("scale", function () {
-    describe("with a separate output vector", function () {
-      beforeEach(function () {
+  describe("scale", () => {
+    describe("with a separate output vector", () => {
+      beforeEach(() => {
         result = vec2.scale(out, vecA, 2);
       });
 
-      it("should place values into out", function () {
+      it("should place values into out", () => {
         expect(out).toBeEqualish([2, 4]);
       });
-      it("should return out", function () {
+      it("should return out", () => {
         expect(result).toBe(out);
       });
-      it("should not modify vecA", function () {
+      it("should not modify vecA", () => {
         expect(vecA).toBeEqualish([1, 2]);
       });
     });
 
-    describe("when vecA is the output vector", function () {
-      beforeEach(function () {
+    describe("when vecA is the output vector", () => {
+      beforeEach(() => {
         result = vec2.scale(vecA, vecA, 2);
       });
 
-      it("should place values into vecA", function () {
+      it("should place values into vecA", () => {
         expect(vecA).toBeEqualish([2, 4]);
       });
-      it("should return vecA", function () {
+      it("should return vecA", () => {
         expect(result).toBe(vecA);
       });
     });
   });
 
-  describe("scaleAndAdd", function () {
-    describe("with a separate output vector", function () {
-      beforeEach(function () {
+  describe("scaleAndAdd", () => {
+    describe("with a separate output vector", () => {
+      beforeEach(() => {
         result = vec2.scaleAndAdd(out, vecA, vecB, 0.5);
       });
 
-      it("should place values into out", function () {
+      it("should place values into out", () => {
         expect(out).toBeEqualish([2.5, 4]);
       });
-      it("should return out", function () {
+      it("should return out", () => {
         expect(result).toBe(out);
       });
-      it("should not modify vecA", function () {
+      it("should not modify vecA", () => {
         expect(vecA).toBeEqualish([1, 2]);
       });
-      it("should not modify vecB", function () {
+      it("should not modify vecB", () => {
         expect(vecB).toBeEqualish([3, 4]);
       });
     });
 
-    describe("when vecA is the output vector", function () {
-      beforeEach(function () {
+    describe("when vecA is the output vector", () => {
+      beforeEach(() => {
         result = vec2.scaleAndAdd(vecA, vecA, vecB, 0.5);
       });
 
-      it("should place values into vecA", function () {
+      it("should place values into vecA", () => {
         expect(vecA).toBeEqualish([2.5, 4]);
       });
-      it("should return vecA", function () {
+      it("should return vecA", () => {
         expect(result).toBe(vecA);
       });
-      it("should not modify vecB", function () {
+      it("should not modify vecB", () => {
         expect(vecB).toBeEqualish([3, 4]);
       });
     });
 
-    describe("when vecB is the output vector", function () {
-      beforeEach(function () {
+    describe("when vecB is the output vector", () => {
+      beforeEach(() => {
         result = vec2.scaleAndAdd(vecB, vecA, vecB, 0.5);
       });
 
-      it("should place values into vecB", function () {
+      it("should place values into vecB", () => {
         expect(vecB).toBeEqualish([2.5, 4]);
       });
-      it("should return vecB", function () {
+      it("should return vecB", () => {
         expect(result).toBe(vecB);
       });
-      it("should not modify vecA", function () {
+      it("should not modify vecA", () => {
         expect(vecA).toBeEqualish([1, 2]);
       });
     });
   });
 
-  describe("distance", function () {
-    it("should have an alias called 'dist'", function () {
+  describe("distance", () => {
+    it("should have an alias called 'dist'", () => {
       expect(vec2.dist).toEqual(vec2.distance);
     });
 
-    beforeEach(function () {
+    beforeEach(() => {
       result = vec2.distance(vecA, vecB);
     });
 
-    it("should return the distance", function () {
+    it("should return the distance", () => {
       expect(result).toBeEqualish(2.828427);
     });
   });
 
-  describe("squaredDistance", function () {
-    it("should have an alias called 'sqrDist'", function () {
+  describe("squaredDistance", () => {
+    it("should have an alias called 'sqrDist'", () => {
       expect(vec2.sqrDist).toEqual(vec2.squaredDistance);
     });
 
-    beforeEach(function () {
+    beforeEach(() => {
       result = vec2.squaredDistance(vecA, vecB);
     });
 
-    it("should return the squared distance", function () {
+    it("should return the squared distance", () => {
       expect(result).toEqual(8);
     });
   });
 
-  describe("length", function () {
-    it("should have an alias called 'len'", function () {
+  describe("length", () => {
+    it("should have an alias called 'len'", () => {
       expect(vec2.len).toEqual(vec2.length);
     });
 
-    beforeEach(function () {
+    beforeEach(() => {
       result = vec2.len(vecA);
     });
 
-    it("should return the length", function () {
+    it("should return the length", () => {
       expect(result).toBeEqualish(2.236067);
     });
   });
 
-  describe("squaredLength", function () {
-    it("should have an alias called 'sqrLen'", function () {
+  describe("squaredLength", () => {
+    it("should have an alias called 'sqrLen'", () => {
       expect(vec2.sqrLen).toEqual(vec2.squaredLength);
     });
 
-    beforeEach(function () {
+    beforeEach(() => {
       result = vec2.squaredLength(vecA);
     });
 
-    it("should return the squared length", function () {
+    it("should return the squared length", () => {
       expect(result).toEqual(5);
     });
   });
 
-  describe("negate", function () {
-    describe("with a separate output vector", function () {
-      beforeEach(function () {
+  describe("negate", () => {
+    describe("with a separate output vector", () => {
+      beforeEach(() => {
         result = vec2.negate(out, vecA);
       });
 
-      it("should place values into out", function () {
+      it("should place values into out", () => {
         expect(out).toBeEqualish([-1, -2]);
       });
-      it("should return out", function () {
+      it("should return out", () => {
         expect(result).toBe(out);
       });
-      it("should not modify vecA", function () {
+      it("should not modify vecA", () => {
         expect(vecA).toBeEqualish([1, 2]);
       });
     });
 
-    describe("when vecA is the output vector", function () {
-      beforeEach(function () {
+    describe("when vecA is the output vector", () => {
+      beforeEach(() => {
         result = vec2.negate(vecA, vecA);
       });
 
-      it("should place values into vecA", function () {
+      it("should place values into vecA", () => {
         expect(vecA).toBeEqualish([-1, -2]);
       });
-      it("should return vecA", function () {
+      it("should return vecA", () => {
         expect(result).toBe(vecA);
       });
     });
   });
 
-  describe("normalize", function () {
-    beforeEach(function () {
+  describe("normalize", () => {
+    beforeEach(() => {
       vecA = [5, 0];
     });
 
-    describe("with a separate output vector", function () {
-      beforeEach(function () {
+    describe("with a separate output vector", () => {
+      beforeEach(() => {
         result = vec2.normalize(out, vecA);
       });
 
-      it("should place values into out", function () {
+      it("should place values into out", () => {
         expect(out).toBeEqualish([1, 0]);
       });
-      it("should return out", function () {
+      it("should return out", () => {
         expect(result).toBe(out);
       });
-      it("should not modify vecA", function () {
+      it("should not modify vecA", () => {
         expect(vecA).toBeEqualish([5, 0]);
       });
     });
 
-    describe("when vecA is the output vector", function () {
-      beforeEach(function () {
+    describe("when vecA is the output vector", () => {
+      beforeEach(() => {
         result = vec2.normalize(vecA, vecA);
       });
 
-      it("should place values into vecA", function () {
+      it("should place values into vecA", () => {
         expect(vecA).toBeEqualish([1, 0]);
       });
-      it("should return vecA", function () {
+      it("should return vecA", () => {
         expect(result).toBe(vecA);
       });
     });
   });
 
-  describe("dot", function () {
-    beforeEach(function () {
+  describe("dot", () => {
+    beforeEach(() => {
       result = vec2.dot(vecA, vecB);
     });
 
-    it("should return the dot product", function () {
+    it("should return the dot product", () => {
       expect(result).toEqual(11);
     });
-    it("should not modify vecA", function () {
+    it("should not modify vecA", () => {
       expect(vecA).toBeEqualish([1, 2]);
     });
-    it("should not modify vecB", function () {
+    it("should not modify vecB", () => {
       expect(vecB).toBeEqualish([3, 4]);
     });
   });
 
-  describe("cross", function () {
+  describe("cross", () => {
     let out3;
 
-    beforeEach(function () {
+    beforeEach(() => {
       out3 = [0, 0, 0];
       result = vec2.cross(out3, vecA, vecB);
     });
 
-    it("should place values into out", function () {
+    it("should place values into out", () => {
       expect(out3).toBeEqualish([0, 0, -2]);
     });
-    it("should return out", function () {
+    it("should return out", () => {
       expect(result).toBe(out3);
     });
-    it("should not modify vecA", function () {
+    it("should not modify vecA", () => {
       expect(vecA).toBeEqualish([1, 2]);
     });
-    it("should not modify vecB", function () {
+    it("should not modify vecB", () => {
       expect(vecB).toBeEqualish([3, 4]);
     });
   });
 
-  describe("lerp", function () {
-    describe("with a separate output vector", function () {
-      beforeEach(function () {
+  describe("lerp", () => {
+    describe("with a separate output vector", () => {
+      beforeEach(() => {
         result = vec2.lerp(out, vecA, vecB, 0.5);
       });
 
-      it("should place values into out", function () {
+      it("should place values into out", () => {
         expect(out).toBeEqualish([2, 3]);
       });
-      it("should return out", function () {
+      it("should return out", () => {
         expect(result).toBe(out);
       });
-      it("should not modify vecA", function () {
+      it("should not modify vecA", () => {
         expect(vecA).toBeEqualish([1, 2]);
       });
-      it("should not modify vecB", function () {
+      it("should not modify vecB", () => {
         expect(vecB).toBeEqualish([3, 4]);
       });
     });
 
-    describe("when vecA is the output vector", function () {
-      beforeEach(function () {
+    describe("when vecA is the output vector", () => {
+      beforeEach(() => {
         result = vec2.lerp(vecA, vecA, vecB, 0.5);
       });
 
-      it("should place values into vecA", function () {
+      it("should place values into vecA", () => {
         expect(vecA).toBeEqualish([2, 3]);
       });
-      it("should return vecA", function () {
+      it("should return vecA", () => {
         expect(result).toBe(vecA);
       });
-      it("should not modify vecB", function () {
+      it("should not modify vecB", () => {
         expect(vecB).toBeEqualish([3, 4]);
       });
     });
 
-    describe("when vecB is the output vector", function () {
-      beforeEach(function () {
+    describe("when vecB is the output vector", () => {
+      beforeEach(() => {
         result = vec2.lerp(vecB, vecA, vecB, 0.5);
       });
 
-      it("should place values into vecB", function () {
+      it("should place values into vecB", () => {
         expect(vecB).toBeEqualish([2, 3]);
       });
-      it("should return vecB", function () {
+      it("should return vecB", () => {
         expect(result).toBe(vecB);
       });
-      it("should not modify vecA", function () {
+      it("should not modify vecA", () => {
         expect(vecA).toBeEqualish([1, 2]);
       });
     });
   });
 
-  describe("random", function () {
-    describe("with no scale", function () {
-      beforeEach(function () {
+  describe("random", () => {
+    describe("with no scale", () => {
+      beforeEach(() => {
         result = vec2.random(out);
       });
 
-      it("should result in a unit length vector", function () {
+      it("should result in a unit length vector", () => {
         expect(vec2.len(out)).toBeEqualish(1.0);
       });
-      it("should return out", function () {
+      it("should return out", () => {
         expect(result).toBe(out);
       });
     });
 
-    describe("with a scale", function () {
-      beforeEach(function () {
+    describe("with a scale", () => {
+      beforeEach(() => {
         result = vec2.random(out, 5.0);
       });
 
-      it("should result in a vector of correct length", function () {
+      it("should result in a vector of correct length", () => {
         expect(vec2.len(out)).toBeEqualish(5.0);
       });
-      it("should return out", function () {
+      it("should return out", () => {
         expect(result).toBe(out);
       });
     });
 
-    describe("with a scale of zero", function () {
-      beforeEach(function () {
+    describe("with a scale of zero", () => {
+      beforeEach(() => {
         result = vec2.random(out, 0);
       });
 
-      it("should result in a zero vector", function () {
+      it("should result in a zero vector", () => {
         expect(vec2.len(out)).toBeEqualish(0);
       });
-      it("should return out", function () {
+      it("should return out", () => {
         expect(result).toBe(out);
       });
     });
   });
 
-  describe("transformMat2", function () {
+  describe("transformMat2", () => {
     let matA;
-    beforeEach(function () {
+    beforeEach(() => {
       matA = [1, 2, 3, 4];
     });
 
-    describe("with a separate output vector", function () {
-      beforeEach(function () {
+    describe("with a separate output vector", () => {
+      beforeEach(() => {
         result = vec2.transformMat2(out, vecA, matA);
       });
 
-      it("should place values into out", function () {
+      it("should place values into out", () => {
         expect(out).toBeEqualish([7, 10]);
       });
-      it("should return out", function () {
+      it("should return out", () => {
         expect(result).toBe(out);
       });
-      it("should not modify vecA", function () {
+      it("should not modify vecA", () => {
         expect(vecA).toBeEqualish([1, 2]);
       });
-      it("should not modify matA", function () {
+      it("should not modify matA", () => {
         expect(matA).toBeEqualish([1, 2, 3, 4]);
       });
     });
 
-    describe("when vecA is the output vector", function () {
-      beforeEach(function () {
+    describe("when vecA is the output vector", () => {
+      beforeEach(() => {
         result = vec2.transformMat2(vecA, vecA, matA);
       });
 
-      it("should place values into vecA", function () {
+      it("should place values into vecA", () => {
         expect(vecA).toBeEqualish([7, 10]);
       });
-      it("should return vecA", function () {
+      it("should return vecA", () => {
         expect(result).toBe(vecA);
       });
-      it("should not modify matA", function () {
+      it("should not modify matA", () => {
         expect(matA).toBeEqualish([1, 2, 3, 4]);
       });
     });
   });
 
-  describe("transformMat2d", function () {
+  describe("transformMat2d", () => {
     let matA;
-    beforeEach(function () {
+    beforeEach(() => {
       matA = [1, 2, 3, 4, 5, 6];
     });
 
-    describe("with a separate output vector", function () {
-      beforeEach(function () {
+    describe("with a separate output vector", () => {
+      beforeEach(() => {
         result = vec2.transformMat2d(out, vecA, matA);
       });
 
-      it("should place values into out", function () {
+      it("should place values into out", () => {
         expect(out).toBeEqualish([12, 16]);
       });
-      it("should return out", function () {
+      it("should return out", () => {
         expect(result).toBe(out);
       });
-      it("should not modify vecA", function () {
+      it("should not modify vecA", () => {
         expect(vecA).toBeEqualish([1, 2]);
       });
-      it("should not modify matA", function () {
+      it("should not modify matA", () => {
         expect(matA).toBeEqualish([1, 2, 3, 4, 5, 6]);
       });
     });
 
-    describe("when vecA is the output vector", function () {
-      beforeEach(function () {
+    describe("when vecA is the output vector", () => {
+      beforeEach(() => {
         result = vec2.transformMat2d(vecA, vecA, matA);
       });
 
-      it("should place values into vecA", function () {
+      it("should place values into vecA", () => {
         expect(vecA).toBeEqualish([12, 16]);
       });
-      it("should return vecA", function () {
+      it("should return vecA", () => {
         expect(result).toBe(vecA);
       });
-      it("should not modify matA", function () {
+      it("should not modify matA", () => {
         expect(matA).toBeEqualish([1, 2, 3, 4, 5, 6]);
       });
     });
   });
 
-  describe("forEach", function () {
+  describe("forEach", () => {
     let vecArray;
 
-    beforeEach(function () {
+    beforeEach(() => {
       vecArray = [1, 2, 3, 4, 0, 0];
     });
 
-    describe("when performing operations that take no extra arguments", function () {
-      beforeEach(function () {
+    describe("when performing operations that take no extra arguments", () => {
+      beforeEach(() => {
         result = vec2.forEach(vecArray, 0, 0, 0, vec2.normalize);
       });
 
-      it("should update all values", function () {
+      it("should update all values", () => {
         expect(vecArray).toBeEqualish([0.447214, 0.894427, 0.6, 0.8, 0, 0]);
       });
-      it("should return vecArray", function () {
+      it("should return vecArray", () => {
         expect(result).toBe(vecArray);
       });
     });
 
-    describe("when performing operations that takes one extra arguments", function () {
-      beforeEach(function () {
+    describe("when performing operations that takes one extra arguments", () => {
+      beforeEach(() => {
         result = vec2.forEach(vecArray, 0, 0, 0, vec2.add, vecA);
       });
 
-      it("should update all values", function () {
+      it("should update all values", () => {
         expect(vecArray).toBeEqualish([2, 4, 4, 6, 1, 2]);
       });
-      it("should return vecArray", function () {
+      it("should return vecArray", () => {
         expect(result).toBe(vecArray);
       });
-      it("should not modify vecA", function () {
+      it("should not modify vecA", () => {
         expect(vecA).toBeEqualish([1, 2]);
       });
     });
 
-    describe("when specifying an offset", function () {
-      beforeEach(function () {
+    describe("when specifying an offset", () => {
+      beforeEach(() => {
         result = vec2.forEach(vecArray, 0, 2, 0, vec2.add, vecA);
       });
 
-      it("should update all values except the first vector", function () {
+      it("should update all values except the first vector", () => {
         expect(vecArray).toBeEqualish([1, 2, 4, 6, 1, 2]);
       });
-      it("should return vecArray", function () {
+      it("should return vecArray", () => {
         expect(result).toBe(vecArray);
       });
-      it("should not modify vecA", function () {
+      it("should not modify vecA", () => {
         expect(vecA).toBeEqualish([1, 2]);
       });
     });
 
-    describe("when specifying a count", function () {
-      beforeEach(function () {
+    describe("when specifying a count", () => {
+      beforeEach(() => {
         result = vec2.forEach(vecArray, 0, 0, 2, vec2.add, vecA);
       });
 
-      it("should update all values except the last vector", function () {
+      it("should update all values except the last vector", () => {
         expect(vecArray).toBeEqualish([2, 4, 4, 6, 0, 0]);
       });
-      it("should return vecArray", function () {
+      it("should return vecArray", () => {
         expect(result).toBe(vecArray);
       });
-      it("should not modify vecA", function () {
+      it("should not modify vecA", () => {
         expect(vecA).toBeEqualish([1, 2]);
       });
     });
 
-    describe("when specifying a stride", function () {
-      beforeEach(function () {
+    describe("when specifying a stride", () => {
+      beforeEach(() => {
         result = vec2.forEach(vecArray, 4, 0, 0, vec2.add, vecA);
       });
 
-      it("should update all values except the second vector", function () {
+      it("should update all values except the second vector", () => {
         expect(vecArray).toBeEqualish([2, 4, 3, 4, 1, 2]);
       });
-      it("should return vecArray", function () {
+      it("should return vecArray", () => {
         expect(result).toBe(vecArray);
       });
-      it("should not modify vecA", function () {
+      it("should not modify vecA", () => {
         expect(vecA).toBeEqualish([1, 2]);
       });
     });
 
-    describe("when calling a function that does not modify the out variable", function () {
-      beforeEach(function () {
+    describe("when calling a function that does not modify the out variable", () => {
+      beforeEach(() => {
         result = vec2.forEach(vecArray, 0, 0, 0, function (out, vec) {});
       });
 
-      it("values should remain unchanged", function () {
+      it("values should remain unchanged", () => {
         expect(vecArray).toBeEqualish([1, 2, 3, 4, 0, 0]);
       });
-      it("should return vecArray", function () {
+      it("should return vecArray", () => {
         expect(result).toBe(vecArray);
       });
     });
   });
 
-  describe("rotate", function () {
-    describe("rotation around world origin [0, 0, 0]", function () {
-      beforeEach(function () {
+  describe("rotate", () => {
+    describe("rotation around world origin [0, 0, 0]", () => {
+      beforeEach(() => {
         vecA = [0, 1];
         vecB = [0, 0];
         result = vec2.rotate(out, vecA, vecB, Math.PI);
       });
-      it("should return the rotated vector", function () {
+      it("should return the rotated vector", () => {
         expect(result).toBeEqualish([0, -1]);
       });
     });
-    describe("rotation around an arbitrary origin", function () {
-      beforeEach(function () {
+    describe("rotation around an arbitrary origin", () => {
+      beforeEach(() => {
         vecA = [6, -5];
         vecB = [0, -5];
         result = vec2.rotate(out, vecA, vecB, Math.PI);
       });
-      it("should return the rotated vector", function () {
+      it("should return the rotated vector", () => {
         expect(result).toBeEqualish([-6, -5]);
       });
     });
   });
 
-  describe("angle", function () {
-    it("should always return the positive angle between 0 and pi", function () {
+  describe("angle", () => {
+    it("should always return the positive angle between 0 and pi", () => {
       expect(vec2.angle([1, 0], [1, 2])).toBeEqualish(1.10714);
       expect(vec2.angle([1, 2], [1, 0])).toBeEqualish(1.10714);
       expect(vec2.angle([-1, 0], [1, 2])).toBeEqualish(2.03445);
       expect(vec2.angle([1, 2], [-1, 0])).toBeEqualish(2.03445);
     });
-    it("should not modify the arguments", function () {
+    it("should not modify the arguments", () => {
       let a = [1, 0],
         b = [1, 2];
       vec2.angle(a, b);
@@ -1072,14 +1072,14 @@ describe("vec2", function () {
     });
   });
 
-  describe("signedAngle", function () {
-    it("should always return the signed angle between -pi and pi", function () {
+  describe("signedAngle", () => {
+    it("should always return the signed angle between -pi and pi", () => {
       expect(vec2.signedAngle([1, 0], [1, 2])).toBeEqualish(1.10714);
       expect(vec2.signedAngle([1, 2], [1, 0])).toBeEqualish(-1.10714);
       expect(vec2.signedAngle([-1, 0], [1, 2])).toBeEqualish(-2.03445);
       expect(vec2.signedAngle([1, 2], [-1, 0])).toBeEqualish(2.03445);
     });
-    it("should not modify the arguments", function () {
+    it("should not modify the arguments", () => {
       let a = [1, 0],
         b = [1, 2];
       vec2.signedAngle(a, b);
@@ -1088,19 +1088,19 @@ describe("vec2", function () {
     });
   });
 
-  describe("str", function () {
-    beforeEach(function () {
+  describe("str", () => {
+    beforeEach(() => {
       result = vec2.str(vecA);
     });
 
-    it("should return a string representation of the vector", function () {
+    it("should return a string representation of the vector", () => {
       expect(result).toEqual("vec2(1, 2)");
     });
   });
 
-  describe("exactEquals", function () {
+  describe("exactEquals", () => {
     let vecC, r0, r1;
-    beforeEach(function () {
+    beforeEach(() => {
       vecA = [0, 1];
       vecB = [0, 1];
       vecC = [1, 2];
@@ -1108,23 +1108,23 @@ describe("vec2", function () {
       r1 = vec2.exactEquals(vecA, vecC);
     });
 
-    it("should return true for identical vectors", function () {
+    it("should return true for identical vectors", () => {
       expect(r0).toBe(true);
     });
-    it("should return false for different vectors", function () {
+    it("should return false for different vectors", () => {
       expect(r1).toBe(false);
     });
-    it("should not modify vecA", function () {
+    it("should not modify vecA", () => {
       expect(vecA).toBeEqualish([0, 1]);
     });
-    it("should not modify vecB", function () {
+    it("should not modify vecB", () => {
       expect(vecB).toBeEqualish([0, 1]);
     });
   });
 
-  describe("equals", function () {
+  describe("equals", () => {
     let vecC, vecD, r0, r1, r2;
-    beforeEach(function () {
+    beforeEach(() => {
       vecA = [0, 1];
       vecB = [0, 1];
       vecC = [1, 2];
@@ -1133,29 +1133,29 @@ describe("vec2", function () {
       r1 = vec2.equals(vecA, vecC);
       r2 = vec2.equals(vecA, vecD);
     });
-    it("should return true for identical vectors", function () {
+    it("should return true for identical vectors", () => {
       expect(r0).toBe(true);
     });
-    it("should return false for different vectors", function () {
+    it("should return false for different vectors", () => {
       expect(r1).toBe(false);
     });
-    it("should return true for close but not identical vectors", function () {
+    it("should return true for close but not identical vectors", () => {
       expect(r2).toBe(true);
     });
-    it("should not modify vecA", function () {
+    it("should not modify vecA", () => {
       expect(vecA).toBeEqualish([0, 1]);
     });
-    it("should not modify vecB", function () {
+    it("should not modify vecB", () => {
       expect(vecB).toBeEqualish([0, 1]);
     });
   });
 
-  describe("zero", function () {
-    beforeEach(function () {
+  describe("zero", () => {
+    beforeEach(() => {
       vecA = [1, 2];
       result = vec2.zero(vecA);
     });
-    it("should result in a 2 element vector with zeros", function () {
+    it("should result in a 2 element vector with zeros", () => {
       expect(result).toBeEqualish([0, 0]);
     });
   });

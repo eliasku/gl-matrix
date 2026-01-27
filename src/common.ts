@@ -13,7 +13,7 @@ export let DEFAULT_ANGLE_ORDER = AngleOrder.zyx;
  *
  * @param a value to round
  */
-export const round = (a: number): number => {
+export const symround = (a: number): number => {
   if (a >= 0) {
     return Math.round(a);
   }
@@ -49,12 +49,12 @@ export const toDegree = (a: number): number => a * radian;
 
 /**
  * Tests whether or not the arguments have approximately the same value, within an absolute
- * or relative tolerance of glMatrix.EPSILON (an absolute tolerance is used for values less
+ * or relative tolerance of EPSILON (an absolute tolerance is used for values less
  * than or equal to 1.0, and a relative tolerance is used for larger values)
  *
  * @param a          The first number to test.
  * @param b          The second number to test.
- * @param tolerance  Absolute or relative tolerance (default glMatrix.EPSILON)
+ * @param tolerance  Absolute or relative tolerance (default EPSILON)
  * @returns True if the numbers are approximately equal, false otherwise.
  */
 export const equals = (a: number, b: number, tolerance: number = EPSILON): boolean =>

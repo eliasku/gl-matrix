@@ -2,9 +2,6 @@ import { expect } from "bun:test";
 
 const EPSILON = 0.00001;
 
-// function expected(e, message, a) {
-//   expect(a).fail(e, `expected ${JSON.stringify(e)} ${message} ${JSON.stringify(a)}`);
-// }
 expect.extend({
   /**
    * Returns true if `actual` has the same length as `expected`, and
@@ -90,51 +87,3 @@ expect.extend({
     return { pass: true };
   },
 });
-
-// export const Helper = {
-//   toBe: function (a) {
-//     assert.strictEqual(e, a);
-//   },
-//   toEqual: function (a) {
-//     assert.strictEqual(e, a);
-//   },
-//   toBeDefined: function () {
-//     assert.notStrictEqual(e, undefined);
-//   },
-//   toBeTruthy: function () {
-//     assert(e);
-//   },
-//   toBeFalsy: function () {
-//     assert(!e);
-//   },
-//   toBeNull: function () {
-//     assert.strictEqual(e, null);
-//   },
-//   not: {
-//     toBe: function (a) {
-//       assert.notStrictEqual(e, a);
-//     },
-
-//     toBeEqualish: function (a) {
-//       if (typeof e == "number") assert(Math.abs(e - a) >= EPSILON);
-
-//       if (e.length != a.length) return;
-//       for (let i = 0; i < e.length; i++) {
-//         if (isNaN(e[i]) !== isNaN(a[i])) return;
-//         if (Math.abs(e[i] - a[i]) >= EPSILON) return;
-//       }
-
-//       assert.fail(e, a);
-//     },
-//   },
-//   toBeGreaterThan: function (a) {
-//     assert(e > a);
-//   },
-//   toBeLessThan: function (a) {
-//     assert(e < a);
-//   },
-
-//   toBeEqualish: function (a) {},
-
-//
-// };
