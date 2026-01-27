@@ -582,13 +582,13 @@ const tmp = create();
  * @param fn Function to call for each vector in the array
  * @param arg additional argument to pass to fn
  */
-export const forEach = (
+export const forEach = <T>(
   a: number[],
-  stride?: number,
-  offset?: number,
-  count?: number,
-  fn?: (out: Vec2, vec: Vec2, arg?: unknown) => void,
-  arg?: unknown,
+  stride: number | 0,
+  offset: number,
+  count: number | 0,
+  fn: (out: Vec2, vec: Vec2, arg: T) => void,
+  arg: T,
 ): number[] => {
   if (!stride) {
     stride = 2;
@@ -602,7 +602,7 @@ export const forEach = (
   for (let i = offset; i < end; i += stride) {
     tmp[0] = a[i];
     tmp[1] = a[i + 1];
-    fn?.(tmp, tmp, arg);
+    fn(tmp, tmp, arg);
     a[i] = tmp[0];
     a[i + 1] = tmp[1];
   }

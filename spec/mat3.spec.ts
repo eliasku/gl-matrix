@@ -3,9 +3,15 @@ import * as mat4 from "../src/mat4";
 import * as vec3 from "../src/vec3";
 import { describe, beforeEach, it, expect } from "bun:test";
 import "./helpers";
+import { Mat3, Quat } from "../src/types";
 
 describe("mat3", () => {
-  let out, matA, matB, identity, nonInvertible, result;
+  let out: Mat3;
+  let matA: Mat3;
+  let matB: Mat3;
+  let identity: Mat3;
+  let nonInvertible: Mat3;
+  let result: Mat3 | null;
 
   beforeEach(() => {
     matA = [1, 0, 0, 0, 1, 0, 1, 2, 1];
@@ -50,7 +56,7 @@ describe("mat3", () => {
   });
 
   describe("fromQuat", () => {
-    let q;
+    let q: Quat;
 
     beforeEach(() => {
       q = [0, -0.7071067811865475, 0, 0.7071067811865475];
@@ -240,6 +246,7 @@ describe("mat3", () => {
   });
 
   describe("determinant", () => {
+    let result: number;
     beforeEach(() => {
       result = mat3.determinant(matA);
     });
@@ -307,6 +314,7 @@ describe("mat3", () => {
   });
 
   describe("str", () => {
+    let result: string;
     beforeEach(() => {
       result = mat3.str(matA);
     });
@@ -317,6 +325,7 @@ describe("mat3", () => {
   });
 
   describe("frob", () => {
+    let result: number;
     beforeEach(() => {
       result = mat3.frob(matA);
     });
@@ -582,7 +591,9 @@ describe("mat3", () => {
   });
 
   describe("exactEquals", () => {
-    let matC, r0, r1;
+    let matC: Mat3;
+    let r0: boolean;
+    let r1: boolean;
     beforeEach(() => {
       matA = [0, 1, 2, 3, 4, 5, 6, 7, 8];
       matB = [0, 1, 2, 3, 4, 5, 6, 7, 8];
@@ -606,7 +617,11 @@ describe("mat3", () => {
   });
 
   describe("equals", () => {
-    let matC, matD, r0, r1, r2;
+    let matC: Mat3;
+    let matD: Mat3;
+    let r0: boolean;
+    let r1: boolean;
+    let r2: boolean;
     beforeEach(() => {
       matA = [0, 1, 2, 3, 4, 5, 6, 7, 8];
       matB = [0, 1, 2, 3, 4, 5, 6, 7, 8];

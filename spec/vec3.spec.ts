@@ -5,9 +5,13 @@ import * as vec3 from "../src/vec3";
 import { describe, beforeEach, it, expect } from "bun:test";
 
 import "./helpers";
+import type { Mat3, Mat4, Vec3 } from "../src/types";
 
 describe("vec3", () => {
-  let out, vecA, vecB, result;
+  let out: Vec3;
+  let vecA: Vec3;
+  let vecB: Vec3;
+  let result: Vec3;
 
   beforeEach(() => {
     vecA = [1, 2, 3];
@@ -85,7 +89,7 @@ describe("vec3", () => {
   });
 
   describe("transformMat4", () => {
-    let matr;
+    let matr: Mat4;
     describe("with an identity", () => {
       beforeEach(() => {
         matr = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1];
@@ -132,7 +136,7 @@ describe("vec3", () => {
   });
 
   describe("transformMat3", () => {
-    let matr;
+    let matr: Mat3;
     describe("with an identity", () => {
       beforeEach(() => {
         matr = [1, 0, 0, 0, 1, 0, 0, 0, 1];
@@ -182,14 +186,16 @@ describe("vec3", () => {
     });
 
     describe("with a lookAt normal matrix", () => {
+      let matr: Mat4;
+      let matr3: Mat3;
       beforeEach(() => {
         matr = mat4.lookAt(mat4.create(), [5, 6, 7], [2, 6, 7], [0, 1, 0]);
         const n = mat3.create();
-        matr = mat3.transpose(n, mat3.invert(n, mat3.fromMat4(n, matr)));
+        matr3 = mat3.transpose(n, mat3.invert(n, mat3.fromMat4(n, matr)) ?? mat3.create());
       });
 
       beforeEach(() => {
-        result = vec3.transformMat3(out, [1, 0, 0], matr);
+        result = vec3.transformMat3(out, [1, 0, 0], matr3);
       });
 
       it("should rotate the input", () => {
@@ -805,6 +811,7 @@ describe("vec3", () => {
   });
 
   describe("distance", () => {
+    let result: number;
     it("should have an alias called 'dist'", () => {
       expect(vec3.dist).toEqual(vec3.distance);
     });
@@ -819,6 +826,7 @@ describe("vec3", () => {
   });
 
   describe("squaredDistance", () => {
+    let result: number;
     it("should have an alias called 'sqrDist'", () => {
       expect(vec3.sqrDist).toEqual(vec3.squaredDistance);
     });
@@ -833,6 +841,7 @@ describe("vec3", () => {
   });
 
   describe("length", () => {
+    let result: number;
     it("should have an alias called 'len'", () => {
       expect(vec3.len).toEqual(vec3.length);
     });
@@ -847,6 +856,7 @@ describe("vec3", () => {
   });
 
   describe("squaredLength", () => {
+    let result: number;
     it("should have an alias called 'sqrLen'", () => {
       expect(vec3.sqrLen).toEqual(vec3.squaredLength);
     });
@@ -927,6 +937,7 @@ describe("vec3", () => {
   });
 
   describe("dot", () => {
+    let result: number;
     beforeEach(() => {
       result = vec3.dot(vecA, vecB);
     });
@@ -1105,7 +1116,7 @@ describe("vec3", () => {
   });
 
   describe("forEach", () => {
-    let vecArray;
+    let vecArray: number[];
 
     beforeEach(() => {
       vecArray = [1, 2, 3, 4, 5, 6, 0, 0, 0];
@@ -1113,7 +1124,7 @@ describe("vec3", () => {
 
     describe("when performing operations that take no extra arguments", () => {
       beforeEach(() => {
-        result = vec3.forEach(vecArray, 0, 0, 0, vec3.normalize);
+        result = vec3.forEach(vecArray, 0, 0, 0, vec3.normalize, undefined);
       });
 
       it("should update all values", () => {
@@ -1190,9 +1201,16 @@ describe("vec3", () => {
 
     describe("when calling a function that does not modify the out variable", () => {
       beforeEach(() => {
-        result = vec3.forEach(vecArray, 0, 0, 0, () => {
-          /* ignored */
-        });
+        result = vec3.forEach(
+          vecArray,
+          0,
+          0,
+          0,
+          () => {
+            /* ignored */
+          },
+          undefined,
+        );
       });
 
       it("values should remain unchanged", () => {
@@ -1205,6 +1223,7 @@ describe("vec3", () => {
   });
 
   describe("angle", () => {
+    let result: number;
     beforeEach(() => {
       result = vec3.angle(vecA, vecB);
     });
@@ -1221,6 +1240,7 @@ describe("vec3", () => {
   });
 
   describe("str", () => {
+    let result: string;
     beforeEach(() => {
       result = vec3.str(vecA);
     });
@@ -1231,7 +1251,9 @@ describe("vec3", () => {
   });
 
   describe("exactEquals", () => {
-    let vecC, r0, r1;
+    let vecC: Vec3;
+    let r0: boolean;
+    let r1: boolean;
     beforeEach(() => {
       vecA = [0, 1, 2];
       vecB = [0, 1, 2];
@@ -1255,7 +1277,11 @@ describe("vec3", () => {
   });
 
   describe("equals", () => {
-    let vecC, vecD, r0, r1, r2;
+    let vecC: Vec3;
+    let vecD: Vec3;
+    let r0: boolean;
+    let r1: boolean;
+    let r2: boolean;
     beforeEach(() => {
       vecA = [0, 1, 2];
       vecB = [0, 1, 2];

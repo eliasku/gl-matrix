@@ -40,18 +40,18 @@ expect.extend({
         message: e.length + " " + a.length + " length mismatch",
       };
     }
-
+    const A = a as number[];
     for (let i = 0; i < e.length; i++) {
-      if (isNaN(e[i]) !== isNaN(a[i])) {
+      if (isNaN(e[i]) !== isNaN(A[i])) {
         return {
           pass: false,
-          message: isNaN(e[i]) + " " + isNaN(a[i]) + " el " + i,
+          message: isNaN(e[i]) + " " + isNaN(A[i]) + " el " + i,
         };
       }
-      if (Math.abs(e[i] - a[i]) >= EPSILON) {
+      if (Math.abs(e[i] - A[i]) >= EPSILON) {
         return {
           pass: false,
-          message: "" + Math.abs(e[i] - a[i]) + " more than epsilon",
+          message: "" + Math.abs(e[i] - A[i]) + " more than epsilon",
         };
       }
     }
@@ -61,7 +61,14 @@ expect.extend({
 
   // Dual quaternions are very special & unique snowflakes
   toBeEqualishQuat2(a: unknown, e: number[] | Float32Array, epsilon: number = EPSILON) {
-    if (!e || !a || typeof e !== "object" || typeof a !== "object" || !("length" in a)) {
+    if (
+      !e ||
+      !a ||
+      typeof e !== "object" ||
+      typeof a !== "object" ||
+      !("length" in a) ||
+      typeof (a as number[])[0] !== "number"
+    ) {
       return {
         pass: false,
         message: "not arrays",
@@ -75,8 +82,9 @@ expect.extend({
       };
     }
 
+    const A = a as number[];
     for (let i = 0; i < e.length; i++) {
-      if (isNaN(e[i]) !== isNaN(a[i])) {
+      if (isNaN(e[i]) !== isNaN(A[i])) {
         return {
           pass: false,
           message: `${e} to be equalish to ${a}`,
@@ -84,14 +92,14 @@ expect.extend({
       }
 
       if (allSignsFlipped) {
-        if (Math.abs(e[i] - -a[i]) >= epsilon) {
+        if (Math.abs(e[i] - -A[i]) >= epsilon) {
           return {
             pass: false,
             message: `${e} to be equalish to ${a}`,
           };
         }
       } else {
-        if (Math.abs(e[i] - a[i]) >= epsilon) {
+        if (Math.abs(e[i] - A[i]) >= epsilon) {
           allSignsFlipped = true;
           i = 0;
         }

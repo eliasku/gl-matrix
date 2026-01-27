@@ -3,9 +3,15 @@ import * as quat from "../src/quat";
 import * as vec3 from "../src/vec3";
 import { describe, beforeEach, it, expect } from "bun:test";
 import "./helpers";
+import type { Mat4, Vec3 } from "../src/types";
 
 describe("mat4", () => {
-  let out, matA, matB, identity, nonInvertible, result;
+  let out: Mat4;
+  let matA: Mat4;
+  let matB: Mat4;
+  let identity: Mat4;
+  let nonInvertible: Mat4;
+  let result: Mat4;
 
   beforeEach(() => {
     // Attempting to portray a semi-realistic transform matrix
@@ -90,6 +96,7 @@ describe("mat4", () => {
   });
 
   describe("invert", () => {
+    let result: Mat4 | null;
     describe("with a separate output matrix", () => {
       beforeEach(() => {
         result = mat4.invert(out, matA);
@@ -162,6 +169,7 @@ describe("mat4", () => {
   });
 
   describe("determinant", () => {
+    let result: number;
     beforeEach(() => {
       result = mat4.determinant(matA);
     });
@@ -293,7 +301,7 @@ describe("mat4", () => {
   describe("rotate", () => {
     const rad = Math.PI * 0.5;
     const axis = [1, 0, 0];
-
+    let result: Mat4 | null;
     describe("with a separate output matrix", () => {
       beforeEach(() => {
         result = mat4.rotate(out, matA, rad, axis);
@@ -714,7 +722,8 @@ describe("mat4", () => {
     });
   });
 
-  let out_t, out_s;
+  let out_t: Vec3;
+  let out_s: Vec3;
   describe("decompose", () => {
     describe("from the identity matrix", () => {
       beforeEach(() => {
@@ -889,7 +898,8 @@ describe("mat4", () => {
     let eye = new Float32Array([0, 0, 1]);
     let center = new Float32Array([0, 0, -1]);
     let up = new Float32Array([0, 1, 0]);
-    let view, right;
+    let view: Vec3;
+    let right: Vec3;
 
     describe("looking down", () => {
       beforeEach(() => {
@@ -958,7 +968,8 @@ describe("mat4", () => {
     let eye = new Float32Array([0, 0, 1]);
     let center = new Float32Array([0, 0, -1]);
     let up = new Float32Array([0, 1, 0]);
-    let view, right;
+    let view: Vec3;
+    let right: Vec3;
 
     describe("looking down", () => {
       beforeEach(() => {
@@ -1050,6 +1061,7 @@ describe("mat4", () => {
   });
 
   describe("str", () => {
+    let result: string;
     beforeEach(() => {
       result = mat4.str(matA);
     });
@@ -1060,6 +1072,7 @@ describe("mat4", () => {
   });
 
   describe("frob", () => {
+    let result: number;
     beforeEach(() => {
       result = mat4.frob(matA);
     });
@@ -1309,7 +1322,9 @@ describe("mat4", () => {
   });
 
   describe("exactEquals", () => {
-    let matC, r0, r1;
+    let matC: Mat4;
+    let r0: boolean;
+    let r1: boolean;
     beforeEach(() => {
       matA = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
       matB = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
@@ -1333,7 +1348,11 @@ describe("mat4", () => {
   });
 
   describe("equals", () => {
-    let matC, matD, r0, r1, r2;
+    let matC: Mat4;
+    let matD: Mat4;
+    let r0: boolean;
+    let r1: boolean;
+    let r2: boolean;
     beforeEach(() => {
       matA = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
       matB = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];

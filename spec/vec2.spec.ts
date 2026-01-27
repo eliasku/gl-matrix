@@ -1,9 +1,13 @@
 import * as vec2 from "../src/vec2";
 import { describe, beforeEach, it, expect } from "bun:test";
 import "./helpers";
+import type { Mat2, Mat2d, Vec2, Vec3 } from "../src/types";
 
 describe("vec2", () => {
-  let out, vecA, vecB, result;
+  let out: Vec2;
+  let vecA: Vec2;
+  let vecB: Vec2;
+  let result: Vec2;
 
   beforeEach(() => {
     vecA = [1, 2];
@@ -598,6 +602,7 @@ describe("vec2", () => {
   });
 
   describe("distance", () => {
+    let result: number;
     it("should have an alias called 'dist'", () => {
       expect(vec2.dist).toEqual(vec2.distance);
     });
@@ -612,6 +617,7 @@ describe("vec2", () => {
   });
 
   describe("squaredDistance", () => {
+    let result: number;
     it("should have an alias called 'sqrDist'", () => {
       expect(vec2.sqrDist).toEqual(vec2.squaredDistance);
     });
@@ -626,6 +632,7 @@ describe("vec2", () => {
   });
 
   describe("length", () => {
+    let result: number;
     it("should have an alias called 'len'", () => {
       expect(vec2.len).toEqual(vec2.length);
     });
@@ -640,6 +647,7 @@ describe("vec2", () => {
   });
 
   describe("squaredLength", () => {
+    let result: number;
     it("should have an alias called 'sqrLen'", () => {
       expect(vec2.sqrLen).toEqual(vec2.squaredLength);
     });
@@ -720,6 +728,7 @@ describe("vec2", () => {
   });
 
   describe("dot", () => {
+    let result: number;
     beforeEach(() => {
       result = vec2.dot(vecA, vecB);
     });
@@ -736,7 +745,7 @@ describe("vec2", () => {
   });
 
   describe("cross", () => {
-    let out3;
+    let out3: Vec3;
 
     beforeEach(() => {
       out3 = [0, 0, 0];
@@ -852,7 +861,7 @@ describe("vec2", () => {
   });
 
   describe("transformMat2", () => {
-    let matA;
+    let matA: Mat2;
     beforeEach(() => {
       matA = [1, 2, 3, 4];
     });
@@ -894,7 +903,7 @@ describe("vec2", () => {
   });
 
   describe("transformMat2d", () => {
-    let matA;
+    let matA: Mat2d;
     beforeEach(() => {
       matA = [1, 2, 3, 4, 5, 6];
     });
@@ -936,7 +945,7 @@ describe("vec2", () => {
   });
 
   describe("forEach", () => {
-    let vecArray;
+    let vecArray: number[];
 
     beforeEach(() => {
       vecArray = [1, 2, 3, 4, 0, 0];
@@ -944,7 +953,7 @@ describe("vec2", () => {
 
     describe("when performing operations that take no extra arguments", () => {
       beforeEach(() => {
-        result = vec2.forEach(vecArray, 0, 0, 0, vec2.normalize);
+        result = vec2.forEach(vecArray, 0, 0, 0, vec2.normalize, undefined);
       });
 
       it("should update all values", () => {
@@ -1021,9 +1030,16 @@ describe("vec2", () => {
 
     describe("when calling a function that does not modify the out variable", () => {
       beforeEach(() => {
-        result = vec2.forEach(vecArray, 0, 0, 0, () => {
-          /* ignored */
-        });
+        result = vec2.forEach(
+          vecArray,
+          0,
+          0,
+          0,
+          () => {
+            /* ignored */
+          },
+          undefined,
+        );
       });
 
       it("values should remain unchanged", () => {
@@ -1066,8 +1082,8 @@ describe("vec2", () => {
       expect(vec2.angle([1, 2], [-1, 0])).toBeEqualish(2.03445);
     });
     it("should not modify the arguments", () => {
-      const a = [1, 0],
-        b = [1, 2];
+      const a = [1, 0];
+      const b = [1, 2];
       vec2.angle(a, b);
       expect(a).toBeEqualish([1, 0]);
       expect(b).toBeEqualish([1, 2]);
@@ -1091,6 +1107,7 @@ describe("vec2", () => {
   });
 
   describe("str", () => {
+    let result: string;
     beforeEach(() => {
       result = vec2.str(vecA);
     });
@@ -1101,7 +1118,9 @@ describe("vec2", () => {
   });
 
   describe("exactEquals", () => {
-    let vecC, r0, r1;
+    let vecC: Vec2;
+    let r0: boolean;
+    let r1: boolean;
     beforeEach(() => {
       vecA = [0, 1];
       vecB = [0, 1];
@@ -1125,7 +1144,11 @@ describe("vec2", () => {
   });
 
   describe("equals", () => {
-    let vecC, vecD, r0, r1, r2;
+    let vecC: Vec2;
+    let vecD: Vec2;
+    let r0: boolean;
+    let r1: boolean;
+    let r2: boolean;
     beforeEach(() => {
       vecA = [0, 1];
       vecB = [0, 1];

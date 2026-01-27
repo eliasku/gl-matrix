@@ -1,44 +1,41 @@
-export interface IndexedCollection extends Iterable<number> {
-  readonly length: number;
-  [index: number]: number;
-}
+type Base = number[] | Float32Array;
 
 // prettier-ignore
-export type Mat2 =
-  | [number, number,
-     number, number]
-  | IndexedCollection;
+export type Mat2 = Base | [
+  number, number,
+  number, number,
+];
 
 // prettier-ignore
-export type Mat2d =
-  | [number, number,
-     number, number,
-     number, number]
-  | IndexedCollection;
+export type Mat2d = Base | [
+  number, number,
+  number, number,
+  number, number,
+];
 
 // prettier-ignore
-export type Mat3 =
-  | [number, number, number,
-     number, number, number,
-     number, number, number]
-  | IndexedCollection;
+export type Mat3 = Base | [
+  number, number, number,
+  number, number, number,
+  number, number, number,
+];
 
 // prettier-ignore
-export type Mat4 =
-  | [number, number, number, number,
-     number, number, number, number,
-     number, number, number, number,
-     number, number, number, number]
-  | IndexedCollection;
+export type Mat4 = Base | [
+  number, number, number, number,
+  number, number, number, number,
+  number, number, number, number,
+  number, number, number, number,
+];
 
-export type Quat = [number, number, number, number] | IndexedCollection;
+export type Quat = Base | [number, number, number, number];
 
 // prettier-ignore
-export type Quat2 =
-  | [number, number, number, number,
-    number, number, number, number]
-  | IndexedCollection;
+export type Quat2 = Base | [
+  number, number, number, number,
+  number, number, number, number,
+];
 
-export type Vec2 = [number, number] | IndexedCollection;
-export type Vec3 = [number, number, number] | IndexedCollection;
-export type Vec4 = [number, number, number, number] | IndexedCollection;
+export type Vec2 = Base | [number, number];
+export type Vec3 = Base | [number, number, number];
+export type Vec4 = Base | [number, number, number, number];

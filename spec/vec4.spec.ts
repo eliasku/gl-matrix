@@ -915,7 +915,7 @@ describe("vec4", () => {
 
     describe("when performing operations that take no extra arguments", () => {
       beforeEach(() => {
-        result = vec4.forEach(vecArray, 0, 0, 0, vec4.normalize);
+        result = vec4.forEach(vecArray, 0, 0, 0, vec4.normalize, undefined);
       });
 
       it("should update all values", () => {
@@ -994,9 +994,16 @@ describe("vec4", () => {
 
     describe("when calling a function that does not modify the out variable", () => {
       beforeEach(() => {
-        result = vec3.forEach(vecArray, 0, 0, 0, () => {
-          /* ignored */
-        });
+        result = vec3.forEach(
+          vecArray,
+          0,
+          0,
+          0,
+          () => {
+            /* ignored */
+          },
+          undefined,
+        );
       });
 
       it("values should remain unchanged", () => {
@@ -1021,7 +1028,9 @@ describe("vec4", () => {
   });
 
   describe("exactEquals", () => {
-    let vecC, r0, r1;
+    let vecC: Vec4;
+    let r0: boolean;
+    let r1: boolean;
     beforeEach(() => {
       vecA = [0, 1, 2, 3];
       vecB = [0, 1, 2, 3];
@@ -1045,7 +1054,11 @@ describe("vec4", () => {
   });
 
   describe("equals", () => {
-    let vecC, vecD, r0, r1, r2;
+    let vecC: Vec4;
+    let vecD: Vec4;
+    let r0: boolean;
+    let r1: boolean;
+    let r2: boolean;
     beforeEach(() => {
       vecA = [0, 1, 2, 3];
       vecB = [0, 1, 2, 3];

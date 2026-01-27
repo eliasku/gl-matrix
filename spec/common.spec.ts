@@ -8,7 +8,7 @@ describe("common", () => {
     expect(-Math.round(-5.5)).not.toBeEqualish(Math.round(5.5));
   });
 
-  let result;
+  let result: number;
 
   describe("toRadian", () => {
     beforeEach(() => {
@@ -29,7 +29,11 @@ describe("common", () => {
   });
 
   describe("equals", () => {
-    let r0, r1, r2, r3, r4;
+    let r0: boolean;
+    let r1: boolean;
+    let r2: boolean;
+    let r3: boolean;
+    let r4: boolean;
     beforeEach(() => {
       r0 = equals(1.0, 0.0);
       r1 = equals(1.0, 1.0);

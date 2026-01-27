@@ -3,10 +3,17 @@ import * as quat2 from "../src/quat2";
 import * as mat4 from "../src/mat4";
 import { describe, beforeEach, it, expect } from "bun:test";
 import "./helpers";
+import type { Quat, Quat2, Vec3 } from "../src/types";
 
 describe("quat2", () => {
-  let out, outVec, quat2A, quat2B, result, resultVec, outQuat;
-  let vec;
+  let out: Quat2;
+  let outVec: Vec3;
+  let quat2A: Quat2;
+  let quat2B: Quat2;
+  let result: Quat2;
+  let resultVec: Vec3;
+  let outQuat: Quat;
+  let vec: Vec3;
 
   beforeEach(() => {
     quat2A = [1, 2, 3, 4, 2, 5, 6, -2];
@@ -18,9 +25,9 @@ describe("quat2", () => {
   });
 
   describe("translate", () => {
-    const matrixA = mat4.create(),
-      matOut = mat4.create(),
-      quatOut = quat2.create();
+    const matrixA = mat4.create();
+    const matOut = mat4.create();
+    const quatOut = quat2.create();
     beforeEach(() => {
       //quat2A only seems to work when created using this function?
       quat2B = quat2.fromRotationTranslation(quat2A, [1, 2, 3, 4], [-5, 4, 10]);
@@ -624,6 +631,8 @@ describe("quat2", () => {
   });
 
   describe("length", () => {
+    let result: number;
+
     it("should have an alias called 'len'", () => {
       expect(quat2.len).toEqual(quat2.length);
     });
@@ -638,6 +647,8 @@ describe("quat2", () => {
   });
 
   describe("squaredLength", () => {
+    let result: number;
+
     it("should have an alias called 'sqrLen'", () => {
       expect(quat2.sqrLen).toEqual(quat2.squaredLength);
     });
@@ -895,6 +906,8 @@ describe("quat2", () => {
 
   describe("dot", () => {
     describe("with a separate output dual quaternion", () => {
+      let result: number;
+
       beforeEach(() => {
         result = quat2.dot(quat2A, quat2B);
       });
@@ -1066,6 +1079,8 @@ describe("quat2", () => {
   });
 
   describe("str", () => {
+    let result: string;
+
     beforeEach(() => {
       result = quat2.str(quat2A);
     });
@@ -1076,7 +1091,9 @@ describe("quat2", () => {
   });
 
   describe("exactEquals", () => {
-    let quat2C, r0, r1;
+    let quat2C: Quat2;
+    let r0: boolean;
+    let r1: boolean;
     beforeEach(() => {
       quat2A = [0, 1, 2, 3, 4, 5, 6, 7];
       quat2B = [0, 1, 2, 3, 4, 5, 6, 7];
@@ -1100,7 +1117,11 @@ describe("quat2", () => {
   });
 
   describe("equals", () => {
-    let quat2C, quat2D, r0, r1, r2;
+    let quat2C: Quat2;
+    let quat2D: Quat2;
+    let r0: boolean;
+    let r1: boolean;
+    let r2: boolean;
     beforeEach(() => {
       quat2A = [0, 1, 2, 3, 4, 5, 6, 7];
       quat2B = [0, 1, 2, 3, 4, 5, 6, 7];

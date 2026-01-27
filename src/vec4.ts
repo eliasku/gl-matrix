@@ -617,13 +617,13 @@ const tmp = create();
  * @param arg additional argument to pass to fn
  * @returns a
  */
-export const forEach = (
+export const forEach = <T>(
   a: number[],
-  stride?: number,
-  offset?: number,
-  count?: number,
-  fn?: (out: Vec4, vec: Vec4, arg?: unknown) => void,
-  arg?: unknown,
+  stride: number | 0,
+  offset: number,
+  count: number | 0,
+  fn: (out: Vec4, vec: Readonly<Vec4>, arg: T) => void,
+  arg: T,
 ): number[] => {
   if (!stride) {
     stride = 4;
@@ -632,6 +632,7 @@ export const forEach = (
   if (!offset) {
     offset = 0;
   }
+
   const end = count ? Math.min(count * stride + offset, a.length) : a.length;
 
   for (let i = offset; i < end; i += stride) {
@@ -639,7 +640,7 @@ export const forEach = (
     tmp[1] = a[i + 1];
     tmp[2] = a[i + 2];
     tmp[3] = a[i + 3];
-    fn?.(tmp, tmp, arg);
+    fn(tmp, tmp, arg);
     a[i] = tmp[0];
     a[i + 1] = tmp[1];
     a[i + 2] = tmp[2];

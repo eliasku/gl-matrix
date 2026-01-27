@@ -1,9 +1,17 @@
 import * as mat2d from "../src/mat2d";
 import { describe, beforeEach, it, expect } from "bun:test";
 import "./helpers";
+import type { Mat2d, Vec2 } from "../src/types";
 
 describe("mat2d", () => {
-  let out, matA, matB, oldA, oldB, identity, nonInvertible, result;
+  let out: Mat2d;
+  let matA: Mat2d;
+  let matB: Mat2d;
+  let oldA: Mat2d;
+  let oldB: Mat2d;
+  let identity: Mat2d;
+  let nonInvertible: Mat2d;
+  let result: Mat2d;
 
   beforeEach(() => {
     matA = [1, 2, 3, 4, 5, 6];
@@ -58,6 +66,7 @@ describe("mat2d", () => {
   });
 
   describe("invert", () => {
+    let result: Mat2d | null;
     describe("with a separate output matrix", () => {
       beforeEach(() => {
         result = mat2d.invert(out, matA);
@@ -99,6 +108,7 @@ describe("mat2d", () => {
   });
 
   describe("determinant", () => {
+    let result: number;
     beforeEach(() => {
       result = mat2d.determinant(matA);
     });
@@ -197,7 +207,7 @@ describe("mat2d", () => {
   });
 
   describe("scale", () => {
-    let vecA;
+    let vecA: Vec2;
     beforeEach(() => {
       vecA = [2, 3];
     });
@@ -233,7 +243,7 @@ describe("mat2d", () => {
   });
 
   describe("translate", () => {
-    let vecA;
+    let vecA: Vec2;
     beforeEach(() => {
       vecA = [2, 3];
     });
@@ -269,6 +279,7 @@ describe("mat2d", () => {
   });
 
   describe("str", () => {
+    let result: string;
     beforeEach(() => {
       result = mat2d.str(matA);
     });
@@ -279,6 +290,7 @@ describe("mat2d", () => {
   });
 
   describe("frob", () => {
+    let result: number;
     beforeEach(() => {
       result = mat2d.frob(matA);
     });
@@ -507,7 +519,9 @@ describe("mat2d", () => {
   });
 
   describe("exactEquals", () => {
-    let matC, r0, r1;
+    let matC: Mat2d;
+    let r0: boolean;
+    let r1: boolean;
     beforeEach(() => {
       matA = [0, 1, 2, 3, 4, 5];
       matB = [0, 1, 2, 3, 4, 5];
@@ -531,7 +545,11 @@ describe("mat2d", () => {
   });
 
   describe("equals", () => {
-    let matC, matD, r0, r1, r2;
+    let matC: Mat2d;
+    let matD: Mat2d;
+    let r0: boolean;
+    let r1: boolean;
+    let r2: boolean;
     beforeEach(() => {
       matA = [0, 1, 2, 3, 4, 5];
       matB = [0, 1, 2, 3, 4, 5];

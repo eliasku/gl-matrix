@@ -593,7 +593,7 @@ export const fromQuat = (out: Mat3, q: Readonly<Quat>): Mat3 => {
  *
  * @returns out
  */
-export const normalFromMat4 = (out: Mat3, a: Readonly<Mat4>): Mat3 => {
+export const normalFromMat4 = (out: Mat3, a: Readonly<Mat4>): Mat3 | null => {
   const a00 = a[0];
   const a01 = a[1];
   const a02 = a[2];
@@ -626,12 +626,10 @@ export const normalFromMat4 = (out: Mat3, a: Readonly<Mat4>): Mat3 => {
 
   // Calculate the determinant
   let det = b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
-
   if (!det) {
     return null;
   }
   det = 1.0 / det;
-
   out[0] = (a11 * b11 - a12 * b10 + a13 * b09) * det;
   out[1] = (a12 * b08 - a10 * b11 - a13 * b07) * det;
   out[2] = (a10 * b10 - a11 * b08 + a13 * b06) * det;

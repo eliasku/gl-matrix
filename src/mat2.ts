@@ -308,7 +308,7 @@ export const frob = (a: Readonly<Mat2>): number => Math.sqrt(a[0] * a[0] + a[1] 
  * @param U the upper triangular matrix
  * @param a the input matrix to factorize
  */
-export const LDU = (L: Mat2, D: Readonly<Mat2>, U: Mat2, a: Readonly<Mat2>) => {
+export const LDU = (L: Mat2, D: Readonly<Mat2>, U: Mat2, a: Readonly<Mat2>): [Mat2, Readonly<Mat2>, Mat2] => {
   L[2] = a[2] / a[0];
   U[0] = a[0];
   U[1] = a[1];

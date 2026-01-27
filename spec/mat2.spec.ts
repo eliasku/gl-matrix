@@ -1,9 +1,15 @@
 import { describe, beforeEach, it, expect } from "bun:test";
 import * as mat2 from "../src/mat2";
 import "./helpers";
+import type { Mat2, Vec2 } from "../src/types";
 
 describe("mat2", () => {
-  let out, matA, matB, identity, nonInvertible, result;
+  let out: Mat2;
+  let matA: Mat2;
+  let matB: Mat2;
+  let identity: Mat2;
+  let nonInvertible: Mat2;
+  let result: Mat2;
 
   beforeEach(() => {
     matA = [1, 2, 3, 4];
@@ -87,6 +93,7 @@ describe("mat2", () => {
   });
 
   describe("invert", () => {
+    let result: Mat2 | null;
     describe("with a separate output matrix", () => {
       beforeEach(() => {
         result = mat2.invert(out, matA);
@@ -159,6 +166,7 @@ describe("mat2", () => {
   });
 
   describe("determinant", () => {
+    let result: number;
     beforeEach(() => {
       result = mat2.determinant(matA);
     });
@@ -257,7 +265,7 @@ describe("mat2", () => {
   });
 
   describe("scale", () => {
-    let vecA;
+    let vecA: Vec2;
     beforeEach(() => {
       vecA = [2, 3];
     });
@@ -293,6 +301,7 @@ describe("mat2", () => {
   });
 
   describe("str", () => {
+    let result: string;
     beforeEach(() => {
       result = mat2.str(matA);
     });
@@ -303,6 +312,7 @@ describe("mat2", () => {
   });
 
   describe("frob", () => {
+    let result: number;
     beforeEach(() => {
       result = mat2.frob(matA);
     });
@@ -312,7 +322,13 @@ describe("mat2", () => {
   });
 
   describe("LDU", () => {
-    let L, D, U, L_result, D_result, U_result;
+    let result: [Mat2, Readonly<Mat2>, Mat2];
+    let L: Mat2;
+    let D: Mat2;
+    let U: Mat2;
+    let L_result: Mat2;
+    let D_result: Mat2;
+    let U_result: Mat2;
     beforeEach(() => {
       L = mat2.create();
       D = mat2.create();
@@ -549,7 +565,9 @@ describe("mat2", () => {
   });
 
   describe("exactEquals", () => {
-    let matC, r0, r1;
+    let matC: Mat2;
+    let r0: boolean;
+    let r1: boolean;
     beforeEach(() => {
       matA = [0, 1, 2, 3];
       matB = [0, 1, 2, 3];
@@ -572,7 +590,11 @@ describe("mat2", () => {
   });
 
   describe("equals", () => {
-    let matC, matD, r0, r1, r2;
+    let matC: Mat2;
+    let matD: Mat2;
+    let r0: boolean;
+    let r1: boolean;
+    let r2: boolean;
     beforeEach(() => {
       matA = [0, 1, 2, 3];
       matB = [0, 1, 2, 3];

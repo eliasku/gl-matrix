@@ -1034,12 +1034,13 @@ export const fromZRotation = (out: Mat4, rad: number): Mat4 => {
  * @param v Translation vector
  * @returns out
  */
-export const fromRotationTranslation = (out: Mat4, q: Quat, v: Readonly<Vec3>): Mat4 => {
+export const fromRotationTranslation = (out: Mat4, q: Readonly<Quat>, v: Readonly<Vec3>): Mat4 => {
   // Quaternion math
-  const x = q[0],
-    y = q[1],
-    z = q[2],
-    w = q[3];
+  const x = q[0];
+  const y = q[1];
+  const z = q[2];
+  const w = q[3];
+
   const x2 = x + x;
   const y2 = y + y;
   const z2 = z + z;
@@ -1083,14 +1084,14 @@ export const fromRotationTranslation = (out: Mat4, q: Quat, v: Readonly<Vec3>): 
  */
 export const fromQuat2 = (out: Mat4, a: Readonly<Quat2>): Mat4 => {
   const translation = createArray(3);
-  const bx = -a[0],
-    by = -a[1],
-    bz = -a[2],
-    bw = a[3],
-    ax = a[4],
-    ay = a[5],
-    az = a[6],
-    aw = a[7];
+  const bx = -a[0];
+  const by = -a[1];
+  const bz = -a[2];
+  const bw = a[3];
+  const ax = a[4];
+  const ay = a[5];
+  const az = a[6];
+  const aw = a[7];
 
   const magnitude = bx * bx + by * by + bz * bz + bw * bw;
   //Only scale if it makes sense

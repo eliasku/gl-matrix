@@ -5,10 +5,16 @@ import * as vec3 from "../src/vec3";
 import { describe, beforeEach, it, expect } from "bun:test";
 import "./helpers";
 import { AngleOrder } from "../src/AngleOrder";
+import type { Mat3, Quat, Vec3 } from "../src/types";
 
 describe("quat", () => {
-  let out, quatA, quatB, result;
-  let vec, id, deg90;
+  let out: Quat;
+  let quatA: Quat;
+  let quatB: Quat;
+  let result: Quat;
+  let vec: Vec3;
+  let id: Quat;
+  let deg90: number;
 
   beforeEach(() => {
     quatA = [1, 2, 3, 4];
@@ -193,7 +199,7 @@ describe("quat", () => {
   });
 
   describe("fromMat3", () => {
-    let matr;
+    let matr: Mat3;
 
     describe("legacy", () => {
       beforeEach(() => {
@@ -226,7 +232,8 @@ describe("quat", () => {
         matr = mat3.create();
         mat3.transpose(
           matr,
-          mat3.invert(matr, mat3.fromMat4(matr, mat4.lookAt(mat4.create(), [0, 0, 0], [0, 0, 1], [0, 1, 0]))),
+          mat3.invert(matr, mat3.fromMat4(matr, mat4.lookAt(mat4.create(), [0, 0, 0], [0, 0, 1], [0, 1, 0]))) ??
+            mat3.create(),
         );
         result = quat.fromMat3(out, matr);
       });
@@ -247,7 +254,8 @@ describe("quat", () => {
         matr = mat3.create();
         mat3.transpose(
           matr,
-          mat3.invert(matr, mat3.fromMat4(matr, mat4.lookAt(mat4.create(), [0, 0, 0], [-1, 0, 0], [0, -1, 0]))),
+          mat3.invert(matr, mat3.fromMat4(matr, mat4.lookAt(mat4.create(), [0, 0, 0], [-1, 0, 0], [0, -1, 0]))) ??
+            mat3.create(),
         );
         result = quat.fromMat3(out, matr);
       });
@@ -268,7 +276,8 @@ describe("quat", () => {
         matr = mat3.create();
         mat3.transpose(
           matr,
-          mat3.invert(matr, mat3.fromMat4(matr, mat4.lookAt(mat4.create(), [0, 0, 0], [0, 0, -1], [0, -1, 0]))),
+          mat3.invert(matr, mat3.fromMat4(matr, mat4.lookAt(mat4.create(), [0, 0, 0], [0, 0, -1], [0, -1, 0]))) ??
+            mat3.create(),
         );
         result = quat.fromMat3(out, matr);
       });
@@ -404,7 +413,7 @@ describe("quat", () => {
   });
 
   describe("rotationTo", () => {
-    let r;
+    let r: Vec3;
     beforeEach(() => {
       r = vec3.create();
     });
@@ -816,6 +825,7 @@ describe("quat", () => {
   });
 
   describe("length", () => {
+    let result: number;
     it("should have an alias called 'len'", () => {
       expect(quat.len).toEqual(quat.length);
     });
@@ -830,6 +840,7 @@ describe("quat", () => {
   });
 
   describe("squaredLength", () => {
+    let result: number;
     it("should have an alias called 'sqrLen'", () => {
       expect(quat.sqrLen).toEqual(quat.squaredLength);
     });
@@ -1061,6 +1072,7 @@ describe("quat", () => {
   });
 
   describe("str", () => {
+    let result: string;
     beforeEach(() => {
       result = quat.str(quatA);
     });
@@ -1071,7 +1083,9 @@ describe("quat", () => {
   });
 
   describe("exactEquals", () => {
-    let quatC, r0, r1;
+    let quatC: Quat;
+    let r0: boolean;
+    let r1: boolean;
     beforeEach(() => {
       quatA = [0, 1, 2, 3];
       quatB = [0, 1, 2, 3];
@@ -1095,7 +1109,13 @@ describe("quat", () => {
   });
 
   describe("equals", () => {
-    let quatC, quatD, quatE, r0, r1, r2, r3;
+    let quatC: Quat;
+    let quatD: Quat;
+    let quatE: Quat;
+    let r0: boolean;
+    let r1: boolean;
+    let r2: boolean;
+    let r3: boolean;
     beforeEach(() => {
       quatA = [0, 0, 0, 1];
       quatB = [0, 0, 0, 1];
