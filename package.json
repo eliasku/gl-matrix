@@ -1,6 +1,14 @@
 {
-  "name": "ts-gl-matrix",
+  "name": "gl-matrix-ts-port",
+  "description": "gl-matrix typescript port (buildless)",
   "type": "module",
+  "version": "0.0.1",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eliasku/gl-matrix.git"
+  },
+  "author": "Ilya Kuzmichev",
   "scripts": {
     "test": "bun test",
     "format": "prettier --write **/*.{ts,json,md}",

@@ -924,6 +924,7 @@ describe("quat2", () => {
   });
 
   describe("invert", () => {
+    let result: Quat2 | null;
     describe("with a separate output dual quaternion", () => {
       beforeEach(() => {
         result = quat2.invert(out, quat2A);
@@ -951,6 +952,10 @@ describe("quat2", () => {
         quat.invert(outQuat, [1, 2, 3, 4]);
 
         expect(quat2.getReal(outQuat, out)).toBeEqualish(outQuat);
+      });
+      it("can't find inverted", () => {
+        const result = quat2.invert(quat2A, [0, 0, 0, 0, 0, 0, 0, 0]);
+        expect(result).toBeNull();
       });
     });
 

@@ -374,7 +374,7 @@ export const random = (out: Quat): Quat => {
  * @param a quat to calculate inverse of
  * @returns out
  */
-export const invert = (out: Quat, a: Readonly<Quat>): Quat => {
+export const invert = (out: Quat, a: Readonly<Quat>): Quat | null => {
   const a0 = a[0];
   const a1 = a[1];
   const a2 = a[2];
@@ -386,13 +386,9 @@ export const invert = (out: Quat, a: Readonly<Quat>): Quat => {
     out[1] = -a1 * dot;
     out[2] = -a2 * dot;
     out[3] = a3 * dot;
-  } else {
-    out[0] = 0;
-    out[1] = 0;
-    out[2] = 0;
-    out[3] = 0;
+    return out;
   }
-  return out;
+  return null;
 };
 
 /**

@@ -704,7 +704,7 @@ export const lerp = (out: Quat2, a: Readonly<Quat2>, b: Readonly<Quat2>, t: numb
  * @param a dual quat to calculate inverse of
  * @returns out
  */
-export const invert = (out: Quat2, a: Readonly<Quat2>): Quat2 => {
+export const invert = (out: Quat2, a: Readonly<Quat2>): Quat2 | null => {
   let dot = squaredLength(a);
   if (dot > 0) {
     dot = 1 / dot;
@@ -716,17 +716,9 @@ export const invert = (out: Quat2, a: Readonly<Quat2>): Quat2 => {
     out[5] = -a[5] * dot;
     out[6] = -a[6] * dot;
     out[7] = a[7] * dot;
-  } else {
-    out[0] = 0;
-    out[1] = 0;
-    out[2] = 0;
-    out[3] = 0;
-    out[4] = 0;
-    out[5] = 0;
-    out[6] = 0;
-    out[7] = 0;
+    return out;
   }
-  return out;
+  return null;
 };
 
 /**

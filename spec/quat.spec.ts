@@ -395,21 +395,6 @@ describe("quat", () => {
         expect(out).toBeEqualish([0, 0, 0, 1]);
       });
     });
-
-    describe.skip("legacy example", () => {
-      let view, up, right;
-      beforeEach(() => {
-        right = [1, 0, 0];
-        up = [0, 0, 1];
-        view = [0, -1, 0];
-        result = quat.setAxes(out, view, right, up);
-      });
-
-      it("should set correct quat4 values", () => {
-        console.info(result);
-        expect(result).toBeEqualish([0.707106, 0, 0, 0.707106]);
-      });
-    });
   });
 
   describe("rotationTo", () => {
@@ -1010,6 +995,7 @@ describe("quat", () => {
   });
 
   describe("invert", () => {
+    let result: Quat | null;
     describe("with a separate output quaternion", () => {
       beforeEach(() => {
         result = quat.invert(out, quatA);
@@ -1037,6 +1023,11 @@ describe("quat", () => {
       it("should return quatA", () => {
         expect(result).toBe(quatA);
       });
+    });
+
+    it("can't find inverted", () => {
+      const result = quat.invert(out, [0, 0, 0, 0]);
+      expect(result).toBeNull();
     });
   });
 
