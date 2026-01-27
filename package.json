@@ -4,7 +4,8 @@
   "scripts": {
     "test": "bun test",
     "format": "prettier --write **/*.{ts,json,md}",
-    "check": "tsc -p ."
+    "check": "tsc -p .",
+    "lint": "eslint ."
   },
   "devDependencies": {
     "@types/bun": "latest"
@@ -12,6 +13,7 @@
   "optionalDependencies": {
     "prettier": "latest",
     "eslint": "latest",
+    "typescript-eslint": "latest",
     "typescript": "latest"
   }
 }

@@ -1,4 +1,4 @@
-import { createArray, EPSILON, RANDOM, symround } from "./common";
+import { createArray, EPSILON, invSqrt, RANDOM, symround } from "./common";
 import type { Mat2, Mat2d, Mat3, Mat4, Vec2, Vec3 } from "./types";
 
 /**
@@ -307,8 +307,7 @@ export const normalize = (out: Vec2, a: Readonly<Vec2>): Vec2 => {
   const y = a[1];
   let len = x * x + y * y;
   if (len > 0) {
-    // TODO: evaluate use of glm_invsqrt here?
-    len = 1 / Math.sqrt(len);
+    len = invSqrt(len);
   }
   out[0] = a[0] * len;
   out[1] = a[1] * len;
@@ -322,9 +321,7 @@ export const normalize = (out: Vec2, a: Readonly<Vec2>): Vec2 => {
  * @param b the second operand
  * @returns dot product of a and b
  */
-export const dot = (a: Readonly<Vec2>, b: Readonly<Vec2>): number => {
-  return a[0] * b[0] + a[1] * b[1];
-};
+export const dot = (a: Readonly<Vec2>, b: Readonly<Vec2>): number => a[0] * b[0] + a[1] * b[1];
 
 /**
  * Computes the cross product of two vec2's
@@ -366,7 +363,7 @@ export const lerp = (out: Vec2, a: Readonly<Vec2>, b: Readonly<Vec2>, t: number)
  * @param scale Length of the resulting vector. If omitted, a unit vector will be returned
  * @returns out
  */
-export const random = (out: Vec2, scale: number = 1): Vec2 => {
+export const random = (out: Vec2, scale = 1): Vec2 => {
   const r = RANDOM() * 2.0 * Math.PI;
   out[0] = Math.cos(r) * scale;
   out[1] = Math.sin(r) * scale;
@@ -509,9 +506,7 @@ export const zero = (out: Vec2): Vec2 => {
  * @param a vector to represent as a string
  * @returns string representation of the vector
  */
-export const str = (a: Readonly<Vec2>): string => {
-  return "vec2(" + a[0] + ", " + a[1] + ")";
-};
+export const str = (a: Readonly<Vec2>): string => "vec2(" + a[0] + ", " + a[1] + ")";
 
 /**
  * Returns whether or not the vectors exactly have the same elements in the same position (when compared with ===)
@@ -520,9 +515,7 @@ export const str = (a: Readonly<Vec2>): string => {
  * @param b The second vector.
  * @returns True if the vectors are equal, false otherwise.
  */
-export const exactEquals = (a: Readonly<Vec2>, b: Readonly<Vec2>): boolean => {
-  return a[0] === b[0] && a[1] === b[1];
-};
+export const exactEquals = (a: Readonly<Vec2>, b: Readonly<Vec2>): boolean => a[0] === b[0] && a[1] === b[1];
 
 /**
  * Returns whether or not the vectors have approximately the same elements in the same position.
@@ -594,8 +587,8 @@ export const forEach = (
   stride?: number,
   offset?: number,
   count?: number,
-  fn?: (out: Vec2, vec: Vec2, arg?: any) => void,
-  arg?: any,
+  fn?: (out: Vec2, vec: Vec2, arg?: unknown) => void,
+  arg?: unknown,
 ): number[] => {
   if (!stride) {
     stride = 2;

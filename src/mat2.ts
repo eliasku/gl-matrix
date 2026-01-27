@@ -130,7 +130,7 @@ export const transpose = (out: Mat2, a: Readonly<Mat2>): Mat2 => {
  * @returns out, or null if source matrix is not invertible
  */
 export const invert = (out: Mat2, a: Readonly<Mat2>): Mat2 | null => {
-  let a0 = a[0],
+  const a0 = a[0],
     a1 = a[1],
     a2 = a[2],
     a3 = a[3];
@@ -160,7 +160,7 @@ export const invert = (out: Mat2, a: Readonly<Mat2>): Mat2 | null => {
  */
 export const adjoint = (out: Mat2, a: Readonly<Mat2>): Mat2 => {
   // Caching this value is necessary if out == a
-  let a0 = a[0];
+  const a0 = a[0];
   out[0] = a[3];
   out[1] = -a[1];
   out[2] = -a[2];
@@ -175,9 +175,7 @@ export const adjoint = (out: Mat2, a: Readonly<Mat2>): Mat2 => {
  * @param a the source matrix
  * @returns determinant of a
  */
-export const determinant = (a: Readonly<Mat2>): number => {
-  return a[0] * a[3] - a[2] * a[1];
-};
+export const determinant = (a: Readonly<Mat2>): number => a[0] * a[3] - a[2] * a[1];
 
 /**
  * Multiplies two mat2's
@@ -188,14 +186,14 @@ export const determinant = (a: Readonly<Mat2>): number => {
  * @returns out
  */
 export const multiply = (out: Mat2, a: Readonly<Mat2>, b: Readonly<Mat2>): Mat2 => {
-  let a0 = a[0],
-    a1 = a[1],
-    a2 = a[2],
-    a3 = a[3];
-  let b0 = b[0],
-    b1 = b[1],
-    b2 = b[2],
-    b3 = b[3];
+  const a0 = a[0];
+  const a1 = a[1];
+  const a2 = a[2];
+  const a3 = a[3];
+  const b0 = b[0];
+  const b1 = b[1];
+  const b2 = b[2];
+  const b3 = b[3];
   out[0] = a0 * b0 + a2 * b1;
   out[1] = a1 * b0 + a3 * b1;
   out[2] = a0 * b2 + a2 * b3;
@@ -212,12 +210,12 @@ export const multiply = (out: Mat2, a: Readonly<Mat2>, b: Readonly<Mat2>): Mat2 
  * @returns out
  */
 export const rotate = (out: Mat2, a: Readonly<Mat2>, rad: number): Mat2 => {
-  let a0 = a[0],
-    a1 = a[1],
-    a2 = a[2],
-    a3 = a[3];
-  let s = Math.sin(rad);
-  let c = Math.cos(rad);
+  const a0 = a[0];
+  const a1 = a[1];
+  const a2 = a[2];
+  const a3 = a[3];
+  const s = Math.sin(rad);
+  const c = Math.cos(rad);
   out[0] = a0 * c + a2 * s;
   out[1] = a1 * c + a3 * s;
   out[2] = a0 * -s + a2 * c;
@@ -234,12 +232,12 @@ export const rotate = (out: Mat2, a: Readonly<Mat2>, rad: number): Mat2 => {
  * @returns out
  **/
 export const scale = (out: Mat2, a: Readonly<Mat2>, v: Readonly<Mat2>): Mat2 => {
-  let a0 = a[0],
-    a1 = a[1],
-    a2 = a[2],
-    a3 = a[3];
-  let v0 = v[0],
-    v1 = v[1];
+  const a0 = a[0];
+  const a1 = a[1];
+  const a2 = a[2];
+  const a3 = a[3];
+  const v0 = v[0];
+  const v1 = v[1];
   out[0] = a0 * v0;
   out[1] = a1 * v0;
   out[2] = a2 * v1;
@@ -259,8 +257,8 @@ export const scale = (out: Mat2, a: Readonly<Mat2>, v: Readonly<Mat2>): Mat2 => 
  * @returns out
  */
 export const fromRotation = (out: Mat2, rad: number): Mat2 => {
-  let s = Math.sin(rad);
-  let c = Math.cos(rad);
+  const s = Math.sin(rad);
+  const c = Math.cos(rad);
   out[0] = c;
   out[1] = s;
   out[2] = -s;
@@ -293,9 +291,7 @@ export const fromScaling = (out: Mat2, v: Readonly<Vec2>): Mat2 => {
  * @param a matrix to represent as a string
  * @returns string representation of the matrix
  */
-export const str = (a: Readonly<Mat2>): string => {
-  return "mat2(" + a[0] + ", " + a[1] + ", " + a[2] + ", " + a[3] + ")";
-};
+export const str = (a: Readonly<Mat2>): string => "mat2(" + a[0] + ", " + a[1] + ", " + a[2] + ", " + a[3] + ")";
 
 /**
  * Returns Frobenius norm of a mat2
@@ -303,9 +299,7 @@ export const str = (a: Readonly<Mat2>): string => {
  * @param a the matrix to calculate Frobenius norm of
  * @returns Frobenius norm
  */
-export const frob = (a: Readonly<Mat2>): number => {
-  return Math.sqrt(a[0] * a[0] + a[1] * a[1] + a[2] * a[2] + a[3] * a[3]);
-};
+export const frob = (a: Readonly<Mat2>): number => Math.sqrt(a[0] * a[0] + a[1] * a[1] + a[2] * a[2] + a[3] * a[3]);
 
 /**
  * Returns L, D and U matrices (Lower triangular, Diagonal and Upper triangular) by factorizing the input matrix
@@ -361,9 +355,8 @@ export const subtract = (out: Mat2, a: Readonly<Mat2>, b: Readonly<Mat2>): Mat2 
  * @param b The second matrix.
  * @returns True if the matrices are equal, false otherwise.
  */
-export const exactEquals = (a: Readonly<Mat2>, b: Readonly<Mat2>): boolean => {
-  return a[0] === b[0] && a[1] === b[1] && a[2] === b[2] && a[3] === b[3];
-};
+export const exactEquals = (a: Readonly<Mat2>, b: Readonly<Mat2>): boolean =>
+  a[0] === b[0] && a[1] === b[1] && a[2] === b[2] && a[3] === b[3];
 
 /**
  * Returns whether or not the matrices have approximately the same elements in the same position.
@@ -373,14 +366,14 @@ export const exactEquals = (a: Readonly<Mat2>, b: Readonly<Mat2>): boolean => {
  * @returns True if the matrices are equal, false otherwise.
  */
 export const equals = (a: Readonly<Mat2>, b: Readonly<Mat2>): boolean => {
-  let a0 = a[0],
-    a1 = a[1],
-    a2 = a[2],
-    a3 = a[3];
-  let b0 = b[0],
-    b1 = b[1],
-    b2 = b[2],
-    b3 = b[3];
+  const a0 = a[0];
+  const a1 = a[1];
+  const a2 = a[2];
+  const a3 = a[3];
+  const b0 = b[0];
+  const b1 = b[1];
+  const b2 = b[2];
+  const b3 = b[3];
   return (
     Math.abs(a0 - b0) <= EPSILON * Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
     Math.abs(a1 - b1) <= EPSILON * Math.max(1.0, Math.abs(a1), Math.abs(b1)) &&

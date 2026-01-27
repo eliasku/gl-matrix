@@ -2,6 +2,14 @@
 export const EPSILON = 0.000001;
 export const RANDOM = Math.random;
 
+/**
+ * Creates zero-filled array with `len` float32 elements
+ *
+ * Used as base underlying type for all low-level matrix, vector, quaternion types
+ *
+ * @param len elements number
+ * @returns new array
+ */
 export const createArray = (len: number) => new Float32Array(len);
 
 export const TO_RADIAN = Math.PI / 180;
@@ -41,3 +49,5 @@ export const equals = (a: number, b: number, tolerance: number = EPSILON): boole
  * @param a value to round
  */
 export const symround = (a: number): number => (a >= 0 || a % 0.5 !== 0 ? Math.round(a) : Math.floor(a));
+
+export const invSqrt = (x: number): number => 1 / Math.sqrt(x);

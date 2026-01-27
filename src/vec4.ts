@@ -1,4 +1,4 @@
-import { createArray, EPSILON, RANDOM, symround } from "./common";
+import { createArray, EPSILON, invSqrt, RANDOM, symround } from "./common";
 import type { Mat4, Quat, Vec4 } from "./types";
 
 /**
@@ -355,7 +355,7 @@ export const normalize = (out: Vec4, a: Readonly<Vec4>): Vec4 => {
   const w = a[3];
   let len = x * x + y * y + z * z + w * w;
   if (len > 0) {
-    len = 1 / Math.sqrt(len);
+    len = invSqrt(len);
   }
   out[0] = x * len;
   out[1] = y * len;
@@ -371,9 +371,8 @@ export const normalize = (out: Vec4, a: Readonly<Vec4>): Vec4 => {
  * @param b second operand
  * @returns dot product of a and b
  */
-export const dot = (a: Readonly<Vec4>, b: Readonly<Vec4>): number => {
-  return a[0] * b[0] + a[1] * b[1] + a[2] * b[2] + a[3] * b[3];
-};
+export const dot = (a: Readonly<Vec4>, b: Readonly<Vec4>): number =>
+  a[0] * b[0] + a[1] * b[1] + a[2] * b[2] + a[3] * b[3];
 
 /**
  * Returns cross-product of three vectors in a 4-dimensional space
@@ -432,20 +431,20 @@ export const lerp = (out: Vec4, a: Readonly<Vec4>, b: Readonly<Vec4>, t: number)
  * @param scale Length of resulting vector. If omitted, a unit vector will be returned
  * @returns out
  */
-export const random = (out: Vec4, scale: number = 1): Vec4 => {
+export const random = (out: Vec4, scale = 1): Vec4 => {
   // Marsaglia, George. Choosing a Point from a Surface of a
   // Sphere. Ann. Math. Statist. 43 (1972), no. 2, 645--646.
   // http://projecteuclid.org/euclid.aos/1177692644;
 
   let rand = RANDOM();
-  let v1 = rand * 2 - 1;
-  let v2 = (4 * RANDOM() - 2) * Math.sqrt(rand * -rand + rand);
-  let s1 = v1 * v1 + v2 * v2;
+  const v1 = rand * 2 - 1;
+  const v2 = (4 * RANDOM() - 2) * Math.sqrt(rand * -rand + rand);
+  const s1 = v1 * v1 + v2 * v2;
 
   rand = RANDOM();
-  let v3 = rand * 2 - 1;
-  let v4 = (4 * RANDOM() - 2) * Math.sqrt(rand * -rand + rand);
-  let s2 = v3 * v3 + v4 * v4;
+  const v3 = rand * 2 - 1;
+  const v4 = (4 * RANDOM() - 2) * Math.sqrt(rand * -rand + rand);
+  const s2 = v3 * v3 + v4 * v4;
 
   const d = Math.sqrt((1 - s1) / s2);
   out[0] = scale * v1;
@@ -534,9 +533,7 @@ export const zero = (out: Vec4): Vec4 => {
  * @param a vector to represent as a string
  * @returns string representation of vector
  */
-export const str = (a: Readonly<Vec4>): string => {
-  return "vec4(" + a[0] + ", " + a[1] + ", " + a[2] + ", " + a[3] + ")";
-};
+export const str = (a: Readonly<Vec4>): string => "vec4(" + a[0] + ", " + a[1] + ", " + a[2] + ", " + a[3] + ")";
 
 /**
  * Returns whether or not vectors have exactly same elements in same position (when compared with ===)
@@ -545,9 +542,8 @@ export const str = (a: Readonly<Vec4>): string => {
  * @param b The second vector.
  * @returns True if vectors are equal, false otherwise.
  */
-export const exactEquals = (a: Readonly<Vec4>, b: Readonly<Vec4>): boolean => {
-  return a[0] === b[0] && a[1] === b[1] && a[2] === b[2] && a[3] === b[3];
-};
+export const exactEquals = (a: Readonly<Vec4>, b: Readonly<Vec4>): boolean =>
+  a[0] === b[0] && a[1] === b[1] && a[2] === b[2] && a[3] === b[3];
 
 /**
  * Returns whether or not vectors have approximately same elements in same position.
@@ -626,8 +622,8 @@ export const forEach = (
   stride?: number,
   offset?: number,
   count?: number,
-  fn?: (out: Vec4, vec: Vec4, arg?: any) => void,
-  arg?: any,
+  fn?: (out: Vec4, vec: Vec4, arg?: unknown) => void,
+  arg?: unknown,
 ): number[] => {
   if (!stride) {
     stride = 4;
