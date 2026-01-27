@@ -11,8 +11,8 @@
 - `const` and `let` instead of `var`
 - type annotations in function declaration
 
-
 # CHANGELOG
+
 - common round renamed to symround and add test
 - skip `quat > setAxes > legacy example` test
 - forced `Float32Array` constructor
