@@ -1,14 +1,11 @@
-/**
- * Common utilities
- * @module glMatrix
- */
+import { AngleOrder } from "./AngleOrder";
 
 // Configuration Constants
 export const EPSILON = 0.000001;
 type ArrayType = Float32ArrayConstructor | ArrayConstructor;
 export let ARRAY_TYPE: ArrayType = typeof Float32Array !== "undefined" ? Float32Array : Array;
 export let RANDOM = Math.random;
-export let ANGLE_ORDER = "zyx";
+export let DEFAULT_ANGLE_ORDER = AngleOrder.zyx;
 
 /**
  * Symmetric round

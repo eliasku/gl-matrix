@@ -1,3 +1,4 @@
+import { AngleOrder } from "./AngleOrder";
 import * as glMatrix from "./common";
 import * as mat3 from "./mat3";
 import * as vec3 from "./vec3";
@@ -457,7 +458,13 @@ export function fromMat3(out: quat, m: ReadonlyMat3): quat {
  * @returns {quat} out
  * @function
  */
-export function fromEuler(out: quat, x: number, y: number, z: number, order = glMatrix.ANGLE_ORDER): quat {
+export function fromEuler(
+  out: quat,
+  x: number,
+  y: number,
+  z: number,
+  order: AngleOrder = glMatrix.DEFAULT_ANGLE_ORDER,
+): quat {
   let halfToRad = Math.PI / 360;
   x *= halfToRad;
   z *= halfToRad;
@@ -471,50 +478,47 @@ export function fromEuler(out: quat, x: number, y: number, z: number, order = gl
   let cz = Math.cos(z);
 
   switch (order) {
-    case "xyz":
+    case AngleOrder.xyz:
       out[0] = sx * cy * cz + cx * sy * sz;
       out[1] = cx * sy * cz - sx * cy * sz;
       out[2] = cx * cy * sz + sx * sy * cz;
       out[3] = cx * cy * cz - sx * sy * sz;
       break;
 
-    case "xzy":
+    case AngleOrder.xzy:
       out[0] = sx * cy * cz - cx * sy * sz;
       out[1] = cx * sy * cz - sx * cy * sz;
       out[2] = cx * cy * sz + sx * sy * cz;
       out[3] = cx * cy * cz + sx * sy * sz;
       break;
 
-    case "yxz":
+    case AngleOrder.yxz:
       out[0] = sx * cy * cz + cx * sy * sz;
       out[1] = cx * sy * cz - sx * cy * sz;
       out[2] = cx * cy * sz - sx * sy * cz;
       out[3] = cx * cy * cz + sx * sy * sz;
       break;
 
-    case "yzx":
+    case AngleOrder.yzx:
       out[0] = sx * cy * cz + cx * sy * sz;
       out[1] = cx * sy * cz + sx * cy * sz;
       out[2] = cx * cy * sz - sx * sy * cz;
       out[3] = cx * cy * cz - sx * sy * sz;
       break;
 
-    case "zxy":
+    case AngleOrder.zxy:
       out[0] = sx * cy * cz - cx * sy * sz;
       out[1] = cx * sy * cz + sx * cy * sz;
       out[2] = cx * cy * sz + sx * sy * cz;
       out[3] = cx * cy * cz - sx * sy * sz;
       break;
 
-    case "zyx":
+    case AngleOrder.zyx:
       out[0] = sx * cy * cz - cx * sy * sz;
       out[1] = cx * sy * cz + sx * cy * sz;
       out[2] = cx * cy * sz - sx * sy * cz;
       out[3] = cx * cy * cz + sx * sy * sz;
       break;
-
-    default:
-      throw new Error("Unknown angle order " + order);
   }
 
   return out;

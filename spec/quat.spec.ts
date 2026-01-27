@@ -4,6 +4,7 @@ import * as quat from "../src/quat";
 import * as vec3 from "../src/vec3";
 import { describe, beforeEach, it, expect } from "bun:test";
 import "./helpers";
+import { AngleOrder } from "../src/AngleOrder";
 
 describe("quat", function () {
   let out, quatA, quatB, result;
@@ -312,31 +313,31 @@ describe("quat", function () {
     describe("order argument", function () {
       it("should use ZYX order as the default", function () {
         result = quat.fromEuler(out, -30, 30, 30);
-        expect(result).toBeEqualish(quat.fromEuler(quat.create(), -30, 30, 30, "zyx"));
+        expect(result).toBeEqualish(quat.fromEuler(quat.create(), -30, 30, 30, AngleOrder.zyx));
       });
 
       it("should apply in XYZ order properly", function () {
-        result = quat.fromEuler(out, -30, 30, 30, "xyz");
+        result = quat.fromEuler(out, -30, 30, 30, AngleOrder.xyz);
         expect(result).toBeEqualish([-0.1767767, 0.3061862, 0.1767767, 0.9185587]);
       });
 
       it("should apply in XZY order properly", function () {
-        result = quat.fromEuler(out, -30, 30, 30, "xzy");
+        result = quat.fromEuler(out, -30, 30, 30, AngleOrder.xzy);
         expect(result).toBeEqualish([-0.3061862, 0.3061862, 0.1767767, 0.8838835]);
       });
 
       it("should apply in YXZ order properly", function () {
-        result = quat.fromEuler(out, -30, 30, 30, "yxz");
+        result = quat.fromEuler(out, -30, 30, 30, AngleOrder.yxz);
         expect(result).toBeEqualish([-0.1767767, 0.3061862, 0.3061862, 0.8838835]);
       });
 
       it("should apply in YZX order properly", function () {
-        result = quat.fromEuler(out, -30, 30, 30, "yzx");
+        result = quat.fromEuler(out, -30, 30, 30, AngleOrder.yzx);
         expect(result).toBeEqualish([-0.1767767, 0.1767767, 0.3061862, 0.9185587]);
       });
 
       it("should apply in ZXY order properly", function () {
-        result = quat.fromEuler(out, -30, 30, 30, "zxy");
+        result = quat.fromEuler(out, -30, 30, 30, AngleOrder.zxy);
         expect(result).toBeEqualish([-0.3061862, 0.1767767, 0.1767767, 0.9185587]);
       });
     });
