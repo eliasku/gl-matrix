@@ -1,4 +1,4 @@
-import { ARRAY_TYPE, EPSILON, RANDOM, symround } from "./common";
+import { createArray, EPSILON, RANDOM, symround } from "./common";
 
 /**
  * 4 Dimensional Vector
@@ -10,16 +10,7 @@ import { ARRAY_TYPE, EPSILON, RANDOM, symround } from "./common";
  *
  * @returns a new 4D vector
  */
-export const create = (): vec4 => {
-  const out = new ARRAY_TYPE(4);
-  if (ARRAY_TYPE != Float32Array) {
-    out[0] = 0;
-    out[1] = 0;
-    out[2] = 0;
-    out[3] = 0;
-  }
-  return out;
-};
+export const create = (): vec4 => createArray(4);
 
 /**
  * Creates a new vec4 initialized with values from an existing vector
@@ -28,7 +19,7 @@ export const create = (): vec4 => {
  * @returns a new 4D vector
  */
 export const clone = (a: ReadonlyVec4): vec4 => {
-  const out = new ARRAY_TYPE(4);
+  const out = createArray(4);
   out[0] = a[0];
   out[1] = a[1];
   out[2] = a[2];
@@ -46,7 +37,7 @@ export const clone = (a: ReadonlyVec4): vec4 => {
  * @returns a new 4D vector
  */
 export const fromValues = (x: number, y: number, z: number, w: number): vec4 => {
-  const out = new ARRAY_TYPE(4);
+  const out = createArray(4);
   out[0] = x;
   out[1] = y;
   out[2] = z;

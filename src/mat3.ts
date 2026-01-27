@@ -1,4 +1,4 @@
-import { ARRAY_TYPE, EPSILON, RANDOM, symround } from "./common";
+import { EPSILON, createArray } from "./common";
 
 /**
  * 3x3 Matrix
@@ -11,15 +11,7 @@ import { ARRAY_TYPE, EPSILON, RANDOM, symround } from "./common";
  * @returns a new 3x3 matrix
  */
 export const create = (): mat3 => {
-  let out = new ARRAY_TYPE(9);
-  if (ARRAY_TYPE != Float32Array) {
-    out[1] = 0;
-    out[2] = 0;
-    out[3] = 0;
-    out[5] = 0;
-    out[6] = 0;
-    out[7] = 0;
-  }
+  const out = createArray(9);
   out[0] = 1;
   out[4] = 1;
   out[8] = 1;
@@ -53,7 +45,7 @@ export const fromMat4 = (out: mat3, a: ReadonlyMat4): mat3 => {
  * @returns a new 3x3 matrix
  */
 export const clone = (a: ReadonlyMat3): mat3 => {
-  let out = new ARRAY_TYPE(9);
+  const out = createArray(9);
   out[0] = a[0];
   out[1] = a[1];
   out[2] = a[2];
@@ -111,7 +103,7 @@ export const fromValues = (
   m21: number,
   m22: number,
 ): mat3 => {
-  let out = new ARRAY_TYPE(9);
+  const out = createArray(9);
   out[0] = m00;
   out[1] = m01;
   out[2] = m02;

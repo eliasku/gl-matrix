@@ -1,5 +1,5 @@
 import { AngleOrder } from "./AngleOrder";
-import { ARRAY_TYPE, DEFAULT_ANGLE_ORDER, EPSILON, RANDOM, symround } from "./common";
+import { createArray, EPSILON, RANDOM } from "./common";
 
 import * as mat3 from "./mat3";
 import * as vec3 from "./vec3";
@@ -16,12 +16,7 @@ import * as vec4 from "./vec4";
  * @returns a new quaternion
  */
 export const create = (): quat => {
-  let out = new ARRAY_TYPE(4);
-  if (ARRAY_TYPE != Float32Array) {
-    out[0] = 0;
-    out[1] = 0;
-    out[2] = 0;
-  }
+  const out = createArray(4);
   out[3] = 1;
   return out;
 };
@@ -457,13 +452,7 @@ export const fromMat3 = (out: quat, m: ReadonlyMat3): quat => {
  * @param order Intrinsic order for conversion, default is zyx.
  * @returns out
  */
-export const fromEuler = (
-  out: quat,
-  x: number,
-  y: number,
-  z: number,
-  order: AngleOrder = DEFAULT_ANGLE_ORDER,
-): quat => {
+export const fromEuler = (out: quat, x: number, y: number, z: number, order = AngleOrder.zyx): quat => {
   let halfToRad = Math.PI / 360;
   x *= halfToRad;
   z *= halfToRad;

@@ -1,4 +1,4 @@
-import { ARRAY_TYPE, EPSILON, RANDOM, symround } from "./common";
+import { createArray, EPSILON } from "./common";
 
 import * as quat from "./quat";
 import * as mat4 from "./mat4";
@@ -17,16 +17,7 @@ import * as mat4 from "./mat4";
  * @returns a new dual quaternion [real -> rotation, dual -> translation]
  */
 export const create = (): quat2 => {
-  let dq = new ARRAY_TYPE(8);
-  if (ARRAY_TYPE != Float32Array) {
-    dq[0] = 0;
-    dq[1] = 0;
-    dq[2] = 0;
-    dq[4] = 0;
-    dq[5] = 0;
-    dq[6] = 0;
-    dq[7] = 0;
-  }
+  const dq = createArray(8);
   dq[3] = 1;
   return dq;
 };
@@ -38,7 +29,7 @@ export const create = (): quat2 => {
  * @returns new dual quaternion
  */
 export const clone = (a: ReadonlyQuat2): quat2 => {
-  let dq = new ARRAY_TYPE(8);
+  const dq = createArray(8);
   dq[0] = a[0];
   dq[1] = a[1];
   dq[2] = a[2];
@@ -73,7 +64,7 @@ export const fromValues = (
   z2: number,
   w2: number,
 ): quat2 => {
-  let dq = new ARRAY_TYPE(8);
+  const dq = createArray(8);
   dq[0] = x1;
   dq[1] = y1;
   dq[2] = z1;
@@ -106,14 +97,14 @@ export const fromRotationTranslationValues = (
   y2: number,
   z2: number,
 ): quat2 => {
-  let dq = new ARRAY_TYPE(8);
+  const dq = createArray(8);
   dq[0] = x1;
   dq[1] = y1;
   dq[2] = z1;
   dq[3] = w1;
-  let ax = x2 * 0.5,
-    ay = y2 * 0.5,
-    az = z2 * 0.5;
+  const ax = x2 * 0.5;
+  const ay = y2 * 0.5;
+  const az = z2 * 0.5;
   dq[4] = ax * w1 + ay * z1 - az * y1;
   dq[5] = ay * w1 + az * x1 - ax * z1;
   dq[6] = az * w1 + ax * y1 - ay * x1;
@@ -194,10 +185,10 @@ export const fromRotation = (out: quat2, q: ReadonlyQuat): quat2 => {
  * @returns dual quat receiving operation result
  */
 export const fromMat4 = (out: quat2, a: ReadonlyMat4): quat2 => {
-  //TODO Optimize this
-  let outer = quat.create();
+  // TODO: Optimize this
+  const outer = quat.create();
   mat4.getRotation(outer, a);
-  let t = new ARRAY_TYPE(3);
+  const t = createArray(3);
   mat4.getTranslation(t, a);
   fromRotationTranslation(out, outer, t);
   return out;

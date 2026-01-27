@@ -1,4 +1,4 @@
-import { ARRAY_TYPE, EPSILON, RANDOM, symround } from "./common";
+import { createArray, EPSILON } from "./common";
 
 /**
  * 2x2 Matrix
@@ -11,11 +11,7 @@ import { ARRAY_TYPE, EPSILON, RANDOM, symround } from "./common";
  * @returns a new 2x2 matrix
  */
 export const create = (): mat2 => {
-  let out = new ARRAY_TYPE(4);
-  if (ARRAY_TYPE != Float32Array) {
-    out[1] = 0;
-    out[2] = 0;
-  }
+  const out = createArray(4);
   out[0] = 1;
   out[3] = 1;
   return out;
@@ -28,7 +24,7 @@ export const create = (): mat2 => {
  * @returns a new 2x2 matrix
  */
 export const clone = (a: ReadonlyMat2): mat2 => {
-  let out = new ARRAY_TYPE(4);
+  const out = createArray(4);
   out[0] = a[0];
   out[1] = a[1];
   out[2] = a[2];
@@ -75,7 +71,7 @@ export const identity = (out: mat2): mat2 => {
  * @returns out A new 2x2 matrix
  */
 export const fromValues = (m00: number, m01: number, m10: number, m11: number): mat2 => {
-  let out = new ARRAY_TYPE(4);
+  const out = createArray(4);
   out[0] = m00;
   out[1] = m01;
   out[2] = m10;
@@ -112,7 +108,7 @@ export const transpose = (out: mat2, a: ReadonlyMat2): mat2 => {
   // If we are transposing ourselves we can skip a few steps but have to cache
   // some values
   if (out === a) {
-    let a1 = a[1];
+    const a1 = a[1];
     out[1] = a[2];
     out[2] = a1;
   } else {

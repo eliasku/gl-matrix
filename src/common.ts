@@ -1,51 +1,24 @@
-import { AngleOrder } from "./AngleOrder";
-
 // Configuration Constants
+export const createArray = (len: number) => new Float32Array(len);
 export const EPSILON = 0.000001;
-type ArrayType = Float32ArrayConstructor | ArrayConstructor;
-export let ARRAY_TYPE: ArrayType = typeof Float32Array !== "undefined" ? Float32Array : Array;
-export let RANDOM = Math.random;
-export let DEFAULT_ANGLE_ORDER = AngleOrder.zyx;
+export const RANDOM = Math.random;
 
-/**
- * Symmetric round
- * see https://www.npmjs.com/package/round-half-up-symmetric#user-content-detailed-background
- *
- * @param a value to round
- */
-export const symround = (a: number): number => {
-  if (a >= 0) {
-    return Math.round(a);
-  }
-  return a % 0.5 === 0 ? Math.floor(a) : Math.round(a);
-};
-
-/**
- * Sets the type of array used when creating new vectors and matrices
- *
- * @param type Array type, such as Float32Array or Array
- */
-export const setMatrixArrayType = (type: ArrayType) => {
-  ARRAY_TYPE = type;
-};
-
-const degree = Math.PI / 180;
-
-const radian = 180 / Math.PI;
+export const TO_RADIAN = Math.PI / 180;
+export const TO_DEGREE = 180 / Math.PI;
 
 /**
  * Convert Degree To Radian
  *
  * @param a Angle in Degrees
  */
-export const toRadian = (a: number): number => a * degree;
+export const toRadian = (a: number): number => a * TO_RADIAN;
 
 /**
  * Convert Radian To Degree
  *
  * @param a Angle in Radians
  */
-export const toDegree = (a: number): number => a * radian;
+export const toDegree = (a: number): number => a * TO_DEGREE;
 
 /**
  * Tests whether or not the arguments have approximately the same value, within an absolute
@@ -59,3 +32,11 @@ export const toDegree = (a: number): number => a * radian;
  */
 export const equals = (a: number, b: number, tolerance: number = EPSILON): boolean =>
   Math.abs(a - b) <= tolerance * Math.max(1, Math.abs(a), Math.abs(b));
+
+/**
+ * Symmetric round
+ * see https://www.npmjs.com/package/round-half-up-symmetric#user-content-detailed-background
+ *
+ * @param a value to round
+ */
+export const symround = (a: number): number => (a >= 0 || a % 0.5 !== 0 ? Math.round(a) : Math.floor(a));

@@ -1,4 +1,4 @@
-import { ARRAY_TYPE, EPSILON, RANDOM, symround } from "./common";
+import { EPSILON, createArray } from "./common";
 
 /**
  * 2x3 Matrix
@@ -25,13 +25,7 @@ import { ARRAY_TYPE, EPSILON, RANDOM, symround } from "./common";
  * @returns a new 2x3 matrix
  */
 export const create = (): mat2d => {
-  let out = new ARRAY_TYPE(6);
-  if (ARRAY_TYPE != Float32Array) {
-    out[1] = 0;
-    out[2] = 0;
-    out[4] = 0;
-    out[5] = 0;
-  }
+  const out = createArray(6);
   out[0] = 1;
   out[3] = 1;
   return out;
@@ -44,7 +38,7 @@ export const create = (): mat2d => {
  * @returns a new 2x3 matrix
  */
 export const clone = (a: Readonly<mat2d>): mat2d => {
-  let out = new ARRAY_TYPE(6);
+  const out = createArray(6);
   out[0] = a[0];
   out[1] = a[1];
   out[2] = a[2];
@@ -99,7 +93,7 @@ export const identity = (out: mat2d): mat2d => {
  * @returns A new mat2d
  */
 export const fromValues = (a: number, b: number, c: number, d: number, tx: number, ty: number): mat2d => {
-  let out = new ARRAY_TYPE(6);
+  const out = createArray(6);
   out[0] = a;
   out[1] = b;
   out[2] = c;

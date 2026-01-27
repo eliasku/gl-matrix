@@ -1,7 +1,9 @@
-import { ARRAY_TYPE, EPSILON, RANDOM, symround } from "./common";
+import { EPSILON, TO_DEGREE, createArray } from "./common";
 
 /**
- * 4x4 Matrix<br>Format: column-major, when typed out it looks like row-major<br>The matrices are being post multiplied.
+ * 4x4 Matrix
+ * Format: column-major, when typed out it looks like row-major
+ * The matrices are being post multiplied.
  * @module mat4
  */
 
@@ -11,21 +13,7 @@ import { ARRAY_TYPE, EPSILON, RANDOM, symround } from "./common";
  * @returns a new 4x4 matrix
  */
 export const create = (): mat4 => {
-  let out = new ARRAY_TYPE(16);
-  if (ARRAY_TYPE != Float32Array) {
-    out[1] = 0;
-    out[2] = 0;
-    out[3] = 0;
-    out[4] = 0;
-    out[6] = 0;
-    out[7] = 0;
-    out[8] = 0;
-    out[9] = 0;
-    out[11] = 0;
-    out[12] = 0;
-    out[13] = 0;
-    out[14] = 0;
-  }
+  const out = createArray(16);
   out[0] = 1;
   out[5] = 1;
   out[10] = 1;
@@ -40,7 +28,7 @@ export const create = (): mat4 => {
  * @returns a new 4x4 matrix
  */
 export const clone = (a: ReadonlyMat4): mat4 => {
-  let out = new ARRAY_TYPE(16);
+  const out = createArray(16);
   out[0] = a[0];
   out[1] = a[1];
   out[2] = a[2];
@@ -126,7 +114,7 @@ export const fromValues = (
   m32: number,
   m33: number,
 ): mat4 => {
-  let out = new ARRAY_TYPE(16);
+  const out = createArray(16);
   out[0] = m00;
   out[1] = m01;
   out[2] = m02;
@@ -1096,8 +1084,8 @@ export const fromRotationTranslation = (out: mat4, q: quat, v: ReadonlyVec3): ma
  * @returns mat4 receiving operation result
  */
 export const fromQuat2 = (out: mat4, a: ReadonlyQuat2): mat4 => {
-  let translation = new ARRAY_TYPE(3);
-  let bx = -a[0],
+  const translation = createArray(3);
+  const bx = -a[0],
     by = -a[1],
     bz = -a[2],
     bw = a[3],
@@ -1106,7 +1094,7 @@ export const fromQuat2 = (out: mat4, a: ReadonlyQuat2): mat4 => {
     az = a[6],
     aw = a[7];
 
-  let magnitude = bx * bx + by * by + bz * bz + bw * bw;
+  const magnitude = bx * bx + by * by + bz * bz + bw * bw;
   //Only scale if it makes sense
   if (magnitude > 0) {
     translation[0] = ((ax * bw + aw * bx + ay * bz - az * by) * 2) / magnitude;
@@ -1176,24 +1164,24 @@ export const getScaling = (out: vec3, mat: ReadonlyMat4): vec3 => {
  * @returns out
  */
 export const getRotation = (out: quat, mat: ReadonlyMat4): quat => {
-  let scaling = new ARRAY_TYPE(3);
+  const scaling = createArray(3);
   getScaling(scaling, mat);
 
-  let is1 = 1 / scaling[0];
-  let is2 = 1 / scaling[1];
-  let is3 = 1 / scaling[2];
+  const is1 = 1 / scaling[0];
+  const is2 = 1 / scaling[1];
+  const is3 = 1 / scaling[2];
 
-  let sm11 = mat[0] * is1;
-  let sm12 = mat[1] * is2;
-  let sm13 = mat[2] * is3;
-  let sm21 = mat[4] * is1;
-  let sm22 = mat[5] * is2;
-  let sm23 = mat[6] * is3;
-  let sm31 = mat[8] * is1;
-  let sm32 = mat[9] * is2;
-  let sm33 = mat[10] * is3;
+  const sm11 = mat[0] * is1;
+  const sm12 = mat[1] * is2;
+  const sm13 = mat[2] * is3;
+  const sm21 = mat[4] * is1;
+  const sm22 = mat[5] * is2;
+  const sm23 = mat[6] * is3;
+  const sm31 = mat[8] * is1;
+  const sm32 = mat[9] * is2;
+  const sm33 = mat[10] * is3;
 
-  let trace = sm11 + sm22 + sm33;
+  const trace = sm11 + sm22 + sm33;
   let S = 0;
 
   if (trace > 0) {
@@ -1639,10 +1627,10 @@ interface FovObject {
  * @returns out
  */
 export const perspectiveFromFieldOfView = (out: mat4, fov: FovObject, near: number, far: number): mat4 => {
-  let upTan = Math.tan((fov.upDegrees * Math.PI) / 180.0);
-  let downTan = Math.tan((fov.downDegrees * Math.PI) / 180.0);
-  let leftTan = Math.tan((fov.leftDegrees * Math.PI) / 180.0);
-  let rightTan = Math.tan((fov.rightDegrees * Math.PI) / 180.0);
+  let upTan = Math.tan(fov.upDegrees * TO_DEGREE);
+  let downTan = Math.tan(fov.downDegrees * TO_DEGREE);
+  let leftTan = Math.tan(fov.leftDegrees * TO_DEGREE);
+  let rightTan = Math.tan(fov.rightDegrees * TO_DEGREE);
   let xScale = 2.0 / (leftTan + rightTan);
   let yScale = 2.0 / (upTan + downTan);
 

@@ -1,4 +1,4 @@
-import { ARRAY_TYPE, EPSILON, RANDOM, symround } from "./common";
+import { createArray, EPSILON, RANDOM, symround } from "./common";
 
 /**
  * 2 Dimensional Vector
@@ -10,14 +10,7 @@ import { ARRAY_TYPE, EPSILON, RANDOM, symround } from "./common";
  *
  * @returns a new 2D vector
  */
-export const create = (): vec2 => {
-  const out = new ARRAY_TYPE(2);
-  if (ARRAY_TYPE != Float32Array) {
-    out[0] = 0;
-    out[1] = 0;
-  }
-  return out;
-};
+export const create = (): vec2 => createArray(2);
 
 /**
  * Creates a new vec2 initialized with values from an existing vector
@@ -26,7 +19,7 @@ export const create = (): vec2 => {
  * @returns a new 2D vector
  */
 export const clone = (a: ReadonlyVec2): vec2 => {
-  const out = new ARRAY_TYPE(2);
+  const out = createArray(2);
   out[0] = a[0];
   out[1] = a[1];
   return out;
@@ -40,7 +33,7 @@ export const clone = (a: ReadonlyVec2): vec2 => {
  * @returns a new 2D vector
  */
 export const fromValues = (x: number, y: number): vec2 => {
-  const out = new ARRAY_TYPE(2);
+  const out = createArray(2);
   out[0] = x;
   out[1] = y;
   return out;
