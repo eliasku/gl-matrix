@@ -1,5 +1,5 @@
 {
-  "name": "gl-matrix-ts-port",
+  "name": "@eliasku/gl-matrix",
   "description": "gl-matrix typescript port (buildless)",
   "type": "module",
   "version": "0.0.1",

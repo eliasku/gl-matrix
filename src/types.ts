@@ -39,3 +39,11 @@ export type Quat2 = Base | [
 export type Vec2 = Base | [number, number];
 export type Vec3 = Base | [number, number, number];
 export type Vec4 = Base | [number, number, number, number];
+
+// angles are in radians
+export interface FovParams {
+  up: number;
+  down: number;
+  left: number;
+  right: number;
+}

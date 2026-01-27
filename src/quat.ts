@@ -458,17 +458,16 @@ export const fromMat3 = (out: Quat, m: Readonly<Mat3>): Quat => {
  * Creates a quaternion from the given euler angle x, y, z using the provided intrinsic order for the conversion.
  *
  * @param out the receiving quaternion
- * @param x Angle to rotate around X axis in degrees.
- * @param y Angle to rotate around Y axis in degrees.
- * @param z Angle to rotate around Z axis in degrees.
+ * @param x Angle to rotate around X axis in radians.
+ * @param y Angle to rotate around Y axis in radians.
+ * @param z Angle to rotate around Z axis in radians.
  * @param order Intrinsic order for conversion, default is zyx.
  * @returns out
  */
 export const fromEuler = (out: Quat, x: number, y: number, z: number, order = AngleOrder.zyx): Quat => {
-  const halfToRad = Math.PI / 360;
-  x *= halfToRad;
-  z *= halfToRad;
-  y *= halfToRad;
+  x *= 0.5;
+  z *= 0.5;
+  y *= 0.5;
 
   const sx = Math.sin(x);
   const cx = Math.cos(x);

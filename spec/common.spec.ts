@@ -1,31 +1,11 @@
 import { describe, beforeEach, it, expect } from "bun:test";
-import { EPSILON, equals, symround, toDegree, toRadian } from "../src/common";
+import { EPSILON, equals, symround } from "../src/common";
 import "./helpers";
 
 describe("common", () => {
   it("symround for negative -0.5 as for 0.5", () => {
     expect(-symround(-5.5)).toBeEqualish(symround(5.5));
     expect(-Math.round(-5.5)).not.toBeEqualish(Math.round(5.5));
-  });
-
-  let result: number;
-
-  describe("toRadian", () => {
-    beforeEach(() => {
-      result = toRadian(180);
-    });
-    it("should return a value of 3.141592654(Math.PI)", () => {
-      expect(result).toBeEqualish(Math.PI);
-    });
-  });
-
-  describe("toDegree", () => {
-    beforeEach(() => {
-      result = toDegree(Math.PI);
-    });
-    it("should return a value of 180", () => {
-      expect(result).toBeEqualish(180);
-    });
   });
 
   describe("equals", () => {

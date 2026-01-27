@@ -295,9 +295,10 @@ describe("quat", () => {
   });
 
   describe("fromEuler", () => {
+    const deg = (x: number) => (x * Math.PI) / 180;
     describe("legacy", () => {
       beforeEach(() => {
-        result = quat.fromEuler(out, -30, 30, 30);
+        result = quat.fromEuler(out, deg(-30), deg(30), deg(30));
       });
 
       it("should set dest to the correct value", () => {
@@ -307,7 +308,7 @@ describe("quat", () => {
 
     describe("where trace > 0", () => {
       beforeEach(() => {
-        result = quat.fromEuler(out, -90, 0, 0);
+        result = quat.fromEuler(out, deg(-90), 0, 0);
       });
 
       it("should return out", () => {
@@ -321,32 +322,32 @@ describe("quat", () => {
 
     describe("order argument", () => {
       it("should use ZYX order as the default", () => {
-        result = quat.fromEuler(out, -30, 30, 30);
-        expect(result).toBeEqualish(quat.fromEuler(quat.create(), -30, 30, 30, AngleOrder.zyx));
+        result = quat.fromEuler(out, deg(-30), deg(30), deg(30));
+        expect(result).toBeEqualish(quat.fromEuler(quat.create(), deg(-30), deg(30), deg(30), AngleOrder.zyx));
       });
 
       it("should apply in XYZ order properly", () => {
-        result = quat.fromEuler(out, -30, 30, 30, AngleOrder.xyz);
+        result = quat.fromEuler(out, deg(-30), deg(30), deg(30), AngleOrder.xyz);
         expect(result).toBeEqualish([-0.1767767, 0.3061862, 0.1767767, 0.9185587]);
       });
 
       it("should apply in XZY order properly", () => {
-        result = quat.fromEuler(out, -30, 30, 30, AngleOrder.xzy);
+        result = quat.fromEuler(out, deg(-30), deg(30), deg(30), AngleOrder.xzy);
         expect(result).toBeEqualish([-0.3061862, 0.3061862, 0.1767767, 0.8838835]);
       });
 
       it("should apply in YXZ order properly", () => {
-        result = quat.fromEuler(out, -30, 30, 30, AngleOrder.yxz);
+        result = quat.fromEuler(out, deg(-30), deg(30), deg(30), AngleOrder.yxz);
         expect(result).toBeEqualish([-0.1767767, 0.3061862, 0.3061862, 0.8838835]);
       });
 
       it("should apply in YZX order properly", () => {
-        result = quat.fromEuler(out, -30, 30, 30, AngleOrder.yzx);
+        result = quat.fromEuler(out, deg(-30), deg(30), deg(30), AngleOrder.yzx);
         expect(result).toBeEqualish([-0.1767767, 0.1767767, 0.3061862, 0.9185587]);
       });
 
       it("should apply in ZXY order properly", () => {
-        result = quat.fromEuler(out, -30, 30, 30, AngleOrder.zxy);
+        result = quat.fromEuler(out, deg(-30), deg(30), deg(30), AngleOrder.zxy);
         expect(result).toBeEqualish([-0.3061862, 0.1767767, 0.1767767, 0.9185587]);
       });
     });

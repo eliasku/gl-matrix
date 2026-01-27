@@ -1,5 +1,5 @@
-import { EPSILON, TO_DEGREE, createArray, invSqrt } from "./common";
-import type { Mat4, Quat, Quat2, Vec3 } from "./types";
+import { EPSILON, createArray, invSqrt } from "./common";
+import type { FovParams, Mat4, Quat, Quat2, Vec3 } from "./types";
 
 /**
  * 4x4 Matrix
@@ -1608,13 +1608,6 @@ export const perspectiveZO = (out: Mat4, fovy: number, aspect: number, near: num
   return out;
 };
 
-export interface FovParams {
-  upDegrees: number;
-  downDegrees: number;
-  leftDegrees: number;
-  rightDegrees: number;
-}
-
 /**
  * Generates a perspective projection matrix with the given field of view.
  * This is primarily useful for generating projection matrices to be used
@@ -1627,10 +1620,10 @@ export interface FovParams {
  * @returns out
  */
 export const perspectiveFromFieldOfView = (out: Mat4, fov: FovParams, near: number, far: number): Mat4 => {
-  const upTan = Math.tan(fov.upDegrees * TO_DEGREE);
-  const downTan = Math.tan(fov.downDegrees * TO_DEGREE);
-  const leftTan = Math.tan(fov.leftDegrees * TO_DEGREE);
-  const rightTan = Math.tan(fov.rightDegrees * TO_DEGREE);
+  const upTan = Math.tan(fov.up);
+  const downTan = Math.tan(fov.down);
+  const leftTan = Math.tan(fov.left);
+  const rightTan = Math.tan(fov.right);
   const xScale = 2.0 / (leftTan + rightTan);
   const yScale = 2.0 / (upTan + downTan);
 

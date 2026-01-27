@@ -12,23 +12,6 @@ export const RANDOM = Math.random;
  */
 export const createArray = (len: number) => new Float32Array(len);
 
-export const TO_RADIAN = Math.PI / 180;
-export const TO_DEGREE = 180 / Math.PI;
-
-/**
- * Convert Degree To Radian
- *
- * @param a Angle in Degrees
- */
-export const toRadian = (a: number): number => a * TO_RADIAN;
-
-/**
- * Convert Radian To Degree
- *
- * @param a Angle in Radians
- */
-export const toDegree = (a: number): number => a * TO_DEGREE;
-
 /**
  * Tests whether or not the arguments have approximately the same value, within an absolute
  * or relative tolerance of EPSILON (an absolute tolerance is used for values less

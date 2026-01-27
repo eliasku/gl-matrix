@@ -10,3 +10,5 @@ export * as vec3 from "./vec3";
 export * as vec4 from "./vec4";
 
 export type * from "./types";
+
+export * from "./AngleOrder";
