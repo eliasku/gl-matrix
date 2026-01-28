@@ -1,3 +1,6 @@
+[![NPM Version](https://img.shields.io/npm/v/%40eliasku%2Fgl-matrix)](https://www.npmjs.com/package/@eliasku/gl-matrix)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/eliasku/gl-matrix/ci.yml)
+
 # GL Matrix (TypeScript version)
 
 - Based on `gl-matrix@3.4.4`
