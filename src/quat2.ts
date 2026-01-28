@@ -21,6 +21,7 @@ import { COS, SIN, ABS, SQRT, MAX, EPSILON } from "./builtin";
  * Creates a new identity dual quat
  *
  * @returns a new dual quaternion [real -> rotation, dual -> translation]
+ * @__NO_SIDE_EFFECTS__
  */
 export const create = (): Quat2 => {
   const dq = createArray(8);
@@ -33,6 +34,7 @@ export const create = (): Quat2 => {
  *
  * @param a dual quaternion to clone
  * @returns new dual quaternion
+ * @__NO_SIDE_EFFECTS__
  */
 export const clone = (a: Readonly<Quat2>): Quat2 => {
   const dq = createArray(8);
@@ -59,6 +61,7 @@ export const clone = (a: Readonly<Quat2>): Quat2 => {
  * @param z2 Z component
  * @param w2 W component
  * @returns new dual quaternion
+ * @__NO_SIDE_EFFECTS__
  */
 export const fromValues = (
   x1: number,
@@ -93,6 +96,7 @@ export const fromValues = (
  * @param y2 Y component (translation)
  * @param z2 Z component (translation)
  * @returns new dual quaternion
+ * @__NO_SIDE_EFFECTS__
  */
 export const fromRotationTranslationValues = (
   x1: number,
@@ -667,6 +671,7 @@ export const scale = (out: Quat2, a: Readonly<Quat2>, b: number): Quat2 => {
  * @param a the first operand
  * @param b the second operand
  * @returns dot product of a and b
+ * @__NO_SIDE_EFFECTS__
  */
 export const dot = quat.dot;
 
@@ -747,6 +752,7 @@ export const conjugate = (out: Quat2, a: Readonly<Quat2>): Quat2 => {
  *
  * @param a dual quat to calculate length of
  * @returns length of a
+ * @__NO_SIDE_EFFECTS__
  */
 export const length = quat.length;
 
@@ -760,6 +766,7 @@ export const len = length;
  *
  * @param a dual quat to calculate squared length of
  * @returns squared length of a
+ * @__NO_SIDE_EFFECTS__
  */
 export const squaredLength = quat.squaredLength;
 
@@ -810,6 +817,7 @@ export const normalize = (out: Quat2, a: Readonly<Quat2>): Quat2 => {
  *
  * @param a dual quaternion to represent as a string
  * @returns string representation of the dual quat
+ * @__NO_SIDE_EFFECTS__
  */
 export const str = (a: Readonly<Quat2>): string =>
   "quat2(" +
@@ -836,6 +844,7 @@ export const str = (a: Readonly<Quat2>): string =>
  * @param a the first dual quaternion.
  * @param b the second dual quaternion.
  * @returns true if the dual quaternions are equal, false otherwise.
+ * @__NO_SIDE_EFFECTS__
  */
 export const exactEquals = (a: Readonly<Quat2>, b: Readonly<Quat2>): boolean =>
   a[0] === b[0] &&
@@ -853,6 +862,7 @@ export const exactEquals = (a: Readonly<Quat2>, b: Readonly<Quat2>): boolean =>
  * @param a the first dual quat.
  * @param b the second dual quat.
  * @returns true if the dual quats are equal, false otherwise.
+ * @__NO_SIDE_EFFECTS__
  */
 export const equals = (a: Readonly<Quat2>, b: Readonly<Quat2>): boolean => {
   const a0 = a[0];

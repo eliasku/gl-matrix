@@ -11,6 +11,7 @@ import type { Mat3, Mat2d, Mat4, Quat, Vec2 } from "./types";
  * Creates a new identity mat3
  *
  * @returns a new 3x3 matrix
+ * @__NO_SIDE_EFFECTS__
  */
 export const create = (): Mat3 => {
   const out = createArray(9);
@@ -45,6 +46,7 @@ export const fromMat4 = (out: Mat3, a: Readonly<Mat4>): Mat3 => {
  *
  * @param a matrix to clone
  * @returns a new 3x3 matrix
+ * @__NO_SIDE_EFFECTS__
  */
 export const clone = (a: Readonly<Mat3>): Mat3 => {
   const out = createArray(9);
@@ -93,6 +95,7 @@ export const copy = (out: Mat3, a: Readonly<Mat3>): Mat3 => {
  * @param m21 Component in column 2, row 1 position (index 7)
  * @param m22 Component in column 2, row 2 position (index 8)
  * @returns A new mat3
+ * @__NO_SIDE_EFFECTS__
  */
 export const fromValues = (
   m00: number,
@@ -286,6 +289,7 @@ export const adjoint = (out: Mat3, a: Readonly<Mat3>): Mat3 => {
  *
  * @param a the source matrix
  * @returns determinant of a
+ * @__NO_SIDE_EFFECTS__
  */
 export const determinant = (a: Mat3): number => {
   const a00 = a[0];
@@ -670,6 +674,7 @@ export const projection = (out: Mat3, width: number, height: number): Mat3 => {
  *
  * @param a matrix to represent as a string
  * @returns string representation of the matrix
+ * @__NO_SIDE_EFFECTS__
  */
 export const str = (a: Readonly<Mat3>): string =>
   "mat3(" +
@@ -697,6 +702,7 @@ export const str = (a: Readonly<Mat3>): string =>
  *
  * @param a the matrix to calculate Frobenius norm of
  * @returns Frobenius norm
+ * @__NO_SIDE_EFFECTS__
  */
 export const frob = (a: Readonly<Mat3>): number =>
   SQRT(
@@ -802,6 +808,7 @@ export const multiplyScalarAndAdd = (out: Mat3, a: Readonly<Mat3>, b: Readonly<M
  * @param a The first matrix.
  * @param b The second matrix.
  * @returns True if the matrices are equal, false otherwise.
+ * @__NO_SIDE_EFFECTS__
  */
 export const exactEquals = (a: Readonly<Mat3>, b: Readonly<Mat3>): boolean =>
   a[0] === b[0] &&
@@ -820,6 +827,7 @@ export const exactEquals = (a: Readonly<Mat3>, b: Readonly<Mat3>): boolean =>
  * @param a The first matrix.
  * @param b The second matrix.
  * @returns True if the matrices are equal, false otherwise.
+ * @__NO_SIDE_EFFECTS__
  */
 export const equals = (a: Readonly<Mat3>, b: Readonly<Mat3>): boolean => {
   const a0 = a[0];

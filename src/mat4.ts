@@ -13,6 +13,8 @@ import type { FovParams, Mat4, Quat, Quat2, Vec3 } from "./types";
  * Creates a new identity mat4
  *
  * @returns a new 4x4 matrix
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export const create = (): Mat4 => {
   const out = createArray(16);
@@ -28,6 +30,7 @@ export const create = (): Mat4 => {
  *
  * @param a matrix to clone
  * @returns a new 4x4 matrix
+ * @__NO_SIDE_EFFECTS__
  */
 export const clone = (a: Readonly<Mat4>): Mat4 => {
   const out = createArray(16);
@@ -97,6 +100,7 @@ export const copy = (out: Mat4, a: Readonly<Mat4>): Mat4 => {
  * @param m32 Component in column 3, row 2 position (index 14)
  * @param m33 Component in column 3, row 3 position (index 15)
  * @returns A new mat4
+ * @__NO_SIDE_EFFECTS__
  */
 export const fromValues = (
   m00: number,
@@ -401,24 +405,25 @@ export const adjoint = (out: Mat4, a: Readonly<Mat4>): Mat4 => {
  *
  * @param a the source matrix
  * @returns determinant of a
+ * @__NO_SIDE_EFFECTS__
  */
 export const determinant = (a: Mat4): number => {
-  const a00 = a[0],
-    a01 = a[1],
-    a02 = a[2],
-    a03 = a[3];
-  const a10 = a[4],
-    a11 = a[5],
-    a12 = a[6],
-    a13 = a[7];
-  const a20 = a[8],
-    a21 = a[9],
-    a22 = a[10],
-    a23 = a[11];
-  const a30 = a[12],
-    a31 = a[13],
-    a32 = a[14],
-    a33 = a[15];
+  const a00 = a[0];
+  const a01 = a[1];
+  const a02 = a[2];
+  const a03 = a[3];
+  const a10 = a[4];
+  const a11 = a[5];
+  const a12 = a[6];
+  const a13 = a[7];
+  const a20 = a[8];
+  const a21 = a[9];
+  const a22 = a[10];
+  const a23 = a[11];
+  const a30 = a[12];
+  const a31 = a[13];
+  const a32 = a[14];
+  const a33 = a[15];
 
   const b0 = a00 * a11 - a01 * a10;
   const b1 = a00 * a12 - a02 * a10;
@@ -1889,6 +1894,8 @@ export const targetTo = (out: Mat4, eye: Readonly<Vec3>, target: Readonly<Vec3>,
  *
  * @param a matrix to represent as a string
  * @returns string representation of the matrix
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export const str = (a: Readonly<Mat4>): string =>
   "mat4(" +
@@ -1930,6 +1937,7 @@ export const str = (a: Readonly<Mat4>): string =>
  *
  * @param a the matrix to calculate Frobenius norm of
  * @returns Frobenius norm
+ * @__NO_SIDE_EFFECTS__
  */
 export const frob = (a: Readonly<Mat4>): number =>
   SQRT(
@@ -2070,6 +2078,7 @@ export const multiplyScalarAndAdd = (out: Mat4, a: Readonly<Mat4>, b: Readonly<M
  * @param a The first matrix.
  * @param b The second matrix.
  * @returns True if the matrices are equal, false otherwise.
+ * @__NO_SIDE_EFFECTS__
  */
 export const exactEquals = (a: Readonly<Mat4>, b: Readonly<Mat4>): boolean =>
   a[0] === b[0] &&
@@ -2095,6 +2104,7 @@ export const exactEquals = (a: Readonly<Mat4>, b: Readonly<Mat4>): boolean =>
  * @param a The first matrix.
  * @param b The second matrix.
  * @returns True if the matrices are equal, false otherwise.
+ * @__NO_SIDE_EFFECTS__
  */
 export const equals = (a: Readonly<Mat4>, b: Readonly<Mat4>): boolean => {
   const a0 = a[0];

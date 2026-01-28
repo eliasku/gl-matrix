@@ -11,6 +11,7 @@ import type { Mat2, Mat2d, Mat3, Mat4, Vec2, Vec3 } from "./types";
  * Creates a new, empty vec2
  *
  * @returns a new 2D vector
+ * @__NO_SIDE_EFFECTS__
  */
 export const create = (): Vec2 => createArray(2);
 
@@ -19,6 +20,7 @@ export const create = (): Vec2 => createArray(2);
  *
  * @param a vector to clone
  * @returns a new 2D vector
+ * @__NO_SIDE_EFFECTS__
  */
 export const clone = (a: Readonly<Vec2>): Vec2 => {
   const out = createArray(2);
@@ -33,6 +35,7 @@ export const clone = (a: Readonly<Vec2>): Vec2 => {
  * @param x X component
  * @param y Y component
  * @returns a new 2D vector
+ * @__NO_SIDE_EFFECTS__
  */
 export const fromValues = (x: number, y: number): Vec2 => {
   const out = createArray(2);
@@ -226,6 +229,7 @@ export const scaleAndAdd = (out: Vec2, a: Readonly<Vec2>, b: Readonly<Vec2>, sca
  * @param a the first operand
  * @param b the second operand
  * @returns distance between a and b
+ * @__NO_SIDE_EFFECTS__
  */
 export const distance = (a: Readonly<Vec2>, b: Readonly<Vec2>): number => {
   const x = b[0] - a[0];
@@ -239,6 +243,7 @@ export const distance = (a: Readonly<Vec2>, b: Readonly<Vec2>): number => {
  * @param a the first operand
  * @param b the second operand
  * @returns squared distance between a and b
+ * @__NO_SIDE_EFFECTS__
  */
 export const squaredDistance = (a: Readonly<Vec2>, b: Readonly<Vec2>): number => {
   const x = b[0] - a[0];
@@ -251,6 +256,7 @@ export const squaredDistance = (a: Readonly<Vec2>, b: Readonly<Vec2>): number =>
  *
  * @param a vector to calculate length of
  * @returns length of a
+ * @__NO_SIDE_EFFECTS__
  */
 export const length = (a: Readonly<Vec2>): number => {
   const x = a[0];
@@ -263,6 +269,7 @@ export const length = (a: Readonly<Vec2>): number => {
  *
  * @param a vector to calculate squared length of
  * @returns squared length of a
+ * @__NO_SIDE_EFFECTS__
  */
 export const squaredLength = (a: Readonly<Vec2>): number => {
   const x = a[0];
@@ -321,6 +328,7 @@ export const normalize = (out: Vec2, a: Readonly<Vec2>): Vec2 => {
  * @param a the first operand
  * @param b the second operand
  * @returns dot product of a and b
+ * @__NO_SIDE_EFFECTS__
  */
 export const dot = (a: Readonly<Vec2>, b: Readonly<Vec2>): number => a[0] * b[0] + a[1] * b[1];
 
@@ -506,6 +514,7 @@ export const zero = (out: Vec2): Vec2 => {
  *
  * @param a vector to represent as a string
  * @returns string representation of the vector
+ * @__NO_SIDE_EFFECTS__
  */
 export const str = (a: Readonly<Vec2>): string => "vec2(" + a[0] + ", " + a[1] + ")";
 
@@ -515,6 +524,7 @@ export const str = (a: Readonly<Vec2>): string => "vec2(" + a[0] + ", " + a[1] +
  * @param a The first vector.
  * @param b The second vector.
  * @returns True if the vectors are equal, false otherwise.
+ * @__NO_SIDE_EFFECTS__
  */
 export const exactEquals = (a: Readonly<Vec2>, b: Readonly<Vec2>): boolean => a[0] === b[0] && a[1] === b[1];
 
@@ -524,6 +534,7 @@ export const exactEquals = (a: Readonly<Vec2>, b: Readonly<Vec2>): boolean => a[
  * @param a The first vector.
  * @param b The second vector.
  * @returns True if the vectors are equal, false otherwise.
+ * @__NO_SIDE_EFFECTS__
  */
 export const equals = (a: Readonly<Vec2>, b: Readonly<Vec2>): boolean => {
   const a0 = a[0];

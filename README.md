@@ -17,3 +17,15 @@
 - skip `quat > setAxes > legacy example` test
 - forced `Float32Array` constructor
 - remove degree/radians conversion. always use radians
+- add `@__NO_SIDE_EFFECTS__` annotation
+
+# No side-effect functions
+
+Almost functions are PURE, but because of mutating `out` argument (pattern for optimization), we can't mark them. If we will mark all PURE function as PURE, so:
+- with correct usage: `d = perspective(d, ...)` function will not be stripped out
+- but just `perspective(d, ...)` usage will be removed
+
+Because of that these functions are not marked as no-side-effect.
+
+Pure functions are marked with annotation `/* @__NO_SIDE_EFFECTS__ */` for better treeshaking:
+`createArray, create, clone, str, frob, dot, length, squaredLength, fromValues, distance, squaredDistance, exactEquals, equals, fromRotationTranslationValues, getAngle, determinant`

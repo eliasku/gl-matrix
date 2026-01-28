@@ -25,6 +25,7 @@ import type { Mat2d, Vec2 } from "./types";
  * Creates a new identity mat2d
  *
  * @returns a new 2x3 matrix
+ * @__NO_SIDE_EFFECTS__
  */
 export const create = (): Mat2d => {
   const out = createArray(6);
@@ -38,6 +39,7 @@ export const create = (): Mat2d => {
  *
  * @param a matrix to clone
  * @returns a new 2x3 matrix
+ * @__NO_SIDE_EFFECTS__
  */
 export const clone = (a: Readonly<Mat2d>): Mat2d => {
   const out = createArray(6);
@@ -93,6 +95,7 @@ export const identity = (out: Mat2d): Mat2d => {
  * @param tx Component TX (index 4)
  * @param ty Component TY (index 5)
  * @returns A new mat2d
+ * @__NO_SIDE_EFFECTS__
  */
 export const fromValues = (a: number, b: number, c: number, d: number, tx: number, ty: number): Mat2d => {
   const out = createArray(6);
@@ -162,6 +165,7 @@ export const invert = (out: Mat2d, a: Readonly<Mat2d>): Mat2d | null => {
  *
  * @param a the source matrix
  * @returns determinant of a
+ * @__NO_SIDE_EFFECTS__
  */
 export const determinant = (a: Readonly<Mat2d>): number => a[0] * a[3] - a[1] * a[2];
 
@@ -174,18 +178,18 @@ export const determinant = (a: Readonly<Mat2d>): number => a[0] * a[3] - a[1] * 
  * @returns out
  */
 export const multiply = (out: Mat2d, a: Readonly<Mat2d>, b: Readonly<Mat2d>): Mat2d => {
-  const a0 = a[0],
-    a1 = a[1],
-    a2 = a[2],
-    a3 = a[3],
-    a4 = a[4],
-    a5 = a[5];
-  const b0 = b[0],
-    b1 = b[1],
-    b2 = b[2],
-    b3 = b[3],
-    b4 = b[4],
-    b5 = b[5];
+  const a0 = a[0];
+  const a1 = a[1];
+  const a2 = a[2];
+  const a3 = a[3];
+  const a4 = a[4];
+  const a5 = a[5];
+  const b0 = b[0];
+  const b1 = b[1];
+  const b2 = b[2];
+  const b3 = b[3];
+  const b4 = b[4];
+  const b5 = b[5];
   out[0] = a0 * b0 + a2 * b1;
   out[1] = a1 * b0 + a3 * b1;
   out[2] = a0 * b2 + a2 * b3;
@@ -204,12 +208,12 @@ export const multiply = (out: Mat2d, a: Readonly<Mat2d>, b: Readonly<Mat2d>): Ma
  * @returns out
  */
 export const rotate = (out: Mat2d, a: Readonly<Mat2d>, rad: number): Mat2d => {
-  const a0 = a[0],
-    a1 = a[1],
-    a2 = a[2],
-    a3 = a[3],
-    a4 = a[4],
-    a5 = a[5];
+  const a0 = a[0];
+  const a1 = a[1];
+  const a2 = a[2];
+  const a3 = a[3];
+  const a4 = a[4];
+  const a5 = a[5];
   const s = SIN(rad);
   const c = COS(rad);
   out[0] = a0 * c + a2 * s;
@@ -230,14 +234,14 @@ export const rotate = (out: Mat2d, a: Readonly<Mat2d>, rad: number): Mat2d => {
  * @returns out
  **/
 export const scale = (out: Mat2d, a: Readonly<Mat2d>, v: Readonly<Vec2>): Mat2d => {
-  const a0 = a[0],
-    a1 = a[1],
-    a2 = a[2],
-    a3 = a[3],
-    a4 = a[4],
-    a5 = a[5];
-  const v0 = v[0],
-    v1 = v[1];
+  const a0 = a[0];
+  const a1 = a[1];
+  const a2 = a[2];
+  const a3 = a[3];
+  const a4 = a[4];
+  const a5 = a[5];
+  const v0 = v[0];
+  const v1 = v[1];
   out[0] = a0 * v0;
   out[1] = a1 * v0;
   out[2] = a2 * v1;
@@ -256,14 +260,14 @@ export const scale = (out: Mat2d, a: Readonly<Mat2d>, v: Readonly<Vec2>): Mat2d 
  * @returns out
  **/
 export const translate = (out: Mat2d, a: Readonly<Mat2d>, v: Readonly<Vec2>): Mat2d => {
-  const a0 = a[0],
-    a1 = a[1],
-    a2 = a[2],
-    a3 = a[3],
-    a4 = a[4],
-    a5 = a[5];
-  const v0 = v[0],
-    v1 = v[1];
+  const a0 = a[0];
+  const a1 = a[1];
+  const a2 = a[2];
+  const a3 = a[3];
+  const a4 = a[4];
+  const a5 = a[5];
+  const v0 = v[0];
+  const v1 = v[1];
   out[0] = a0;
   out[1] = a1;
   out[2] = a2;
@@ -285,8 +289,8 @@ export const translate = (out: Mat2d, a: Readonly<Mat2d>, v: Readonly<Vec2>): Ma
  * @returns out
  */
 export const fromRotation = (out: Mat2d, rad: number): Mat2d => {
-  const s = SIN(rad),
-    c = COS(rad);
+  const s = SIN(rad);
+  const c = COS(rad);
   out[0] = c;
   out[1] = s;
   out[2] = -s;
@@ -343,6 +347,7 @@ export const fromTranslation = (out: Mat2d, v: Readonly<Vec2>): Mat2d => {
  *
  * @param a matrix to represent as a string
  * @returns string representation of the matrix
+ * @__NO_SIDE_EFFECTS__
  */
 export const str = (a: Readonly<Mat2d>): string =>
   "mat2d(" + a[0] + ", " + a[1] + ", " + a[2] + ", " + a[3] + ", " + a[4] + ", " + a[5] + ")";
@@ -352,6 +357,7 @@ export const str = (a: Readonly<Mat2d>): string =>
  *
  * @param a the matrix to calculate Frobenius norm of
  * @returns Frobenius norm
+ * @__NO_SIDE_EFFECTS__
  */
 export const frob = (a: Readonly<Mat2d>): number =>
   SQRT(a[0] * a[0] + a[1] * a[1] + a[2] * a[2] + a[3] * a[3] + a[4] * a[4] + a[5] * a[5] + 1);
@@ -435,6 +441,7 @@ export const multiplyScalarAndAdd = (out: Mat2d, a: Readonly<Mat2d>, b: Readonly
  * @param a The first matrix.
  * @param b The second matrix.
  * @returns True if the matrices are equal, false otherwise.
+ * @__NO_SIDE_EFFECTS__
  */
 export const exactEquals = (a: Readonly<Mat2d>, b: Readonly<Mat2d>): boolean =>
   a[0] === b[0] && a[1] === b[1] && a[2] === b[2] && a[3] === b[3] && a[4] === b[4] && a[5] === b[5];
@@ -445,20 +452,21 @@ export const exactEquals = (a: Readonly<Mat2d>, b: Readonly<Mat2d>): boolean =>
  * @param a The first matrix.
  * @param b The second matrix.
  * @returns True if the matrices are equal, false otherwise.
+ * @__NO_SIDE_EFFECTS__
  */
 export const equals = (a: Readonly<Mat2d>, b: Readonly<Mat2d>): boolean => {
-  const a0 = a[0],
-    a1 = a[1],
-    a2 = a[2],
-    a3 = a[3],
-    a4 = a[4],
-    a5 = a[5];
-  const b0 = b[0],
-    b1 = b[1],
-    b2 = b[2],
-    b3 = b[3],
-    b4 = b[4],
-    b5 = b[5];
+  const a0 = a[0];
+  const a1 = a[1];
+  const a2 = a[2];
+  const a3 = a[3];
+  const a4 = a[4];
+  const a5 = a[5];
+  const b0 = b[0];
+  const b1 = b[1];
+  const b2 = b[2];
+  const b3 = b[3];
+  const b4 = b[4];
+  const b5 = b[5];
   return (
     ABS(a0 - b0) <= EPSILON * MAX(1.0, ABS(a0), ABS(b0)) &&
     ABS(a1 - b1) <= EPSILON * MAX(1.0, ABS(a1), ABS(b1)) &&

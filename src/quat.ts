@@ -16,6 +16,7 @@ import type { Quat, Mat3, Vec3 } from "./types";
  * Creates a new identity quat
  *
  * @returns a new quaternion
+ * @__NO_SIDE_EFFECTS__
  */
 export const create = (): Quat => {
   const out = createArray(4);
@@ -97,6 +98,7 @@ export const getAxisAngle = (out_axis: Vec3, q: Readonly<Quat>): number => {
  * @param a     Origin unit quaternion
  * @param b     Destination unit quaternion
  * @returns Angle, in radians, between the two quaternions
+ * @__NO_SIDE_EFFECTS__
  */
 export const getAngle = (a: Readonly<Quat>, b: Readonly<Quat>): number => {
   const dotproduct = dot(a, b);
@@ -529,6 +531,7 @@ export const fromEuler = (out: Quat, x: number, y: number, z: number, order = An
  *
  * @param a vector to represent as a string
  * @returns string representation of the vector
+ * @__NO_SIDE_EFFECTS__
  */
 export const str = (a: Readonly<Quat>): string => "quat(" + a[0] + ", " + a[1] + ", " + a[2] + ", " + a[3] + ")";
 
@@ -537,6 +540,7 @@ export const str = (a: Readonly<Quat>): string => "quat(" + a[0] + ", " + a[1] +
  *
  * @param a quaternion to clone
  * @returns a new quaternion
+ * @__NO_SIDE_EFFECTS__
  */
 export const clone = vec4.clone;
 
@@ -548,6 +552,7 @@ export const clone = vec4.clone;
  * @param z Z component
  * @param w W component
  * @returns a new quaternion
+ * @__NO_SIDE_EFFECTS__
  */
 export const fromValues = vec4.fromValues;
 
@@ -603,6 +608,7 @@ export const scale = vec4.scale;
  * @param a the first operand
  * @param b the second operand
  * @returns dot product of a and b
+ * @__NO_SIDE_EFFECTS__
  */
 export const dot = vec4.dot;
 
@@ -622,6 +628,7 @@ export const lerp = vec4.lerp;
  *
  * @param a vector to calculate length of
  * @returns length of a
+ * @__NO_SIDE_EFFECTS__
  */
 export const length = vec4.length;
 
@@ -635,6 +642,7 @@ export const len = length;
  *
  * @param a vector to calculate squared length of
  * @returns squared length of a
+ * @__NO_SIDE_EFFECTS__
  */
 export const squaredLength = vec4.squaredLength;
 
@@ -658,6 +666,7 @@ export const normalize = vec4.normalize;
  * @param a The first quaternion.
  * @param b The second quaternion.
  * @returns True if the vectors are equal, false otherwise.
+ * @__NO_SIDE_EFFECTS__
  */
 export const exactEquals = vec4.exactEquals;
 
@@ -669,6 +678,7 @@ export const exactEquals = vec4.exactEquals;
  * @param a The first unit quaternion.
  * @param b The second unit quaternion.
  * @returns True if the quaternions are equal, false otherwise.
+ * @__NO_SIDE_EFFECTS__
  */
 export const equals = (a: Readonly<Quat>, b: Readonly<Quat>): boolean => ABS(vec4.dot(a, b)) >= 1 - EPSILON;
 

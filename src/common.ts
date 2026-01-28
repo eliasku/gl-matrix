@@ -7,6 +7,8 @@ import { ABS, MAX, ROUND, FLOOR, SQRT, EPSILON } from "./builtin";
  *
  * @param len elements number
  * @returns new array
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export const createArray = (len: number) => new Float32Array(len);
 
@@ -19,6 +21,8 @@ export const createArray = (len: number) => new Float32Array(len);
  * @param b          The second number to test.
  * @param tolerance  Absolute or relative tolerance (default EPSILON)
  * @returns True if the numbers are approximately equal, false otherwise.
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export const equals = (a: number, b: number, tolerance = EPSILON): boolean =>
   ABS(a - b) <= tolerance * MAX(1, ABS(a), ABS(b));
@@ -28,7 +32,10 @@ export const equals = (a: number, b: number, tolerance = EPSILON): boolean =>
  * see https://www.npmjs.com/package/round-half-up-symmetric#user-content-detailed-background
  *
  * @param a value to round
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export const symround = (a: number): number => (a >= 0 || a % 0.5 !== 0 ? ROUND(a) : FLOOR(a));
 
+/* @__NO_SIDE_EFFECTS__ */
 export const invSqrt = (x: number): number => 1 / SQRT(x);

@@ -11,6 +11,7 @@ import type { Mat2, Vec2 } from "./types";
  * Creates a new identity mat2
  *
  * @returns a new 2x2 matrix
+ * @__NO_SIDE_EFFECTS__
  */
 export const create = (): Mat2 => {
   const out = createArray(4);
@@ -24,6 +25,7 @@ export const create = (): Mat2 => {
  *
  * @param a matrix to clone
  * @returns a new 2x2 matrix
+ * @__NO_SIDE_EFFECTS__
  */
 export const clone = (a: Readonly<Mat2>): Mat2 => {
   const out = createArray(4);
@@ -71,6 +73,7 @@ export const identity = (out: Mat2): Mat2 => {
  * @param m10 Component in column 1, row 0 position (index 2)
  * @param m11 Component in column 1, row 1 position (index 3)
  * @returns out A new 2x2 matrix
+ * @__NO_SIDE_EFFECTS__
  */
 export const fromValues = (m00: number, m01: number, m10: number, m11: number): Mat2 => {
   const out = createArray(4);
@@ -131,10 +134,10 @@ export const transpose = (out: Mat2, a: Readonly<Mat2>): Mat2 => {
  * @returns out, or null if source matrix is not invertible
  */
 export const invert = (out: Mat2, a: Readonly<Mat2>): Mat2 | null => {
-  const a0 = a[0],
-    a1 = a[1],
-    a2 = a[2],
-    a3 = a[3];
+  const a0 = a[0];
+  const a1 = a[1];
+  const a2 = a[2];
+  const a3 = a[3];
 
   // Calculate the determinant
   let det = a0 * a3 - a2 * a1;
@@ -175,6 +178,7 @@ export const adjoint = (out: Mat2, a: Readonly<Mat2>): Mat2 => {
  *
  * @param a the source matrix
  * @returns determinant of a
+ * @__NO_SIDE_EFFECTS__
  */
 export const determinant = (a: Readonly<Mat2>): number => a[0] * a[3] - a[2] * a[1];
 
@@ -291,6 +295,7 @@ export const fromScaling = (out: Mat2, v: Readonly<Vec2>): Mat2 => {
  *
  * @param a matrix to represent as a string
  * @returns string representation of the matrix
+ * @__NO_SIDE_EFFECTS__
  */
 export const str = (a: Readonly<Mat2>): string => "mat2(" + a[0] + ", " + a[1] + ", " + a[2] + ", " + a[3] + ")";
 
@@ -299,6 +304,7 @@ export const str = (a: Readonly<Mat2>): string => "mat2(" + a[0] + ", " + a[1] +
  *
  * @param a the matrix to calculate Frobenius norm of
  * @returns Frobenius norm
+ * @__NO_SIDE_EFFECTS__
  */
 export const frob = (a: Readonly<Mat2>): number => SQRT(a[0] * a[0] + a[1] * a[1] + a[2] * a[2] + a[3] * a[3]);
 
@@ -355,6 +361,7 @@ export const subtract = (out: Mat2, a: Readonly<Mat2>, b: Readonly<Mat2>): Mat2 
  * @param a The first matrix.
  * @param b The second matrix.
  * @returns True if the matrices are equal, false otherwise.
+ * @__NO_SIDE_EFFECTS__
  */
 export const exactEquals = (a: Readonly<Mat2>, b: Readonly<Mat2>): boolean =>
   a[0] === b[0] && a[1] === b[1] && a[2] === b[2] && a[3] === b[3];
@@ -365,6 +372,7 @@ export const exactEquals = (a: Readonly<Mat2>, b: Readonly<Mat2>): boolean =>
  * @param a The first matrix.
  * @param b The second matrix.
  * @returns True if the matrices are equal, false otherwise.
+ * @__NO_SIDE_EFFECTS__
  */
 export const equals = (a: Readonly<Mat2>, b: Readonly<Mat2>): boolean => {
   const a0 = a[0];
