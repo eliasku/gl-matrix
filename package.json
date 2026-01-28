@@ -9,12 +9,18 @@
     "url": "git+https://github.com/eliasku/gl-matrix.git"
   },
   "author": "Ilya Kuzmichev",
+  "keywords": [
+    "glm",
+    "gl-matrix",
+    "webgl",
+    "math",
+    "gl"
+  ],
   "scripts": {
     "test": "bun test",
     "format": "prettier --write **/*.{ts,json,md}",
     "check": "tsc -p .",
     "lint": "eslint .",
-    "s": "",
     "build": "tsup ./src/index.ts --target esnext --platform neutral --format esm --dts --sourcemap --minify terser --treeshake smallest --splitting false",
     "doc": "typedoc --out doc"
   },
@@ -34,5 +40,18 @@
   "sideEffects": false,
   "exports": {
     ".": "./src/index.ts"
+  },
+  "files": [
+    "src"
+  ],
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "bugs": {
+    "url": "https://github.com/eliasku/gl-matrix/issues"
   }
 }
