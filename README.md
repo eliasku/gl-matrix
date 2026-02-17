@@ -25,6 +25,7 @@
 # No side-effect functions
 
 Almost functions are PURE, but because of mutating `out` argument (pattern for optimization), we can't mark them. If we will mark all PURE function as PURE, so:
+
 - with correct usage: `d = perspective(d, ...)` function will not be stripped out
 - but just `perspective(d, ...)` usage will be removed
 
