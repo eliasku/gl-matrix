@@ -12,11 +12,8 @@ jobs:
         with:
           bun-version: latest
 
-      # Install dependencies
-      - run: bun install
-
-      # Run Tests
-      - run: bun run test
-
-      # Build
+      - run: bun i
+      - run: bun run typecheck
+      - run: bun run check:ci
+      - run: bun test
       - run: bun run build

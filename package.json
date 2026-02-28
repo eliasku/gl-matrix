@@ -11,9 +11,9 @@
   "author": "Ilya Kuzmichev",
   "keywords": ["glm", "gl-matrix", "webgl", "math", "gl"],
   "scripts": {
-    "test": "bun test",
     "typecheck": "tsc -p .",
-    "check": "biome check",
+    "check:fix": "biome check --write",
+    "check:ci": "biome ci",
     "build": "tsup ./src/index.ts --target esnext --platform neutral --format esm --dts --sourcemap --minify terser --treeshake smallest --splitting false",
     "doc": "typedoc --out doc"
   },
