@@ -517,9 +517,9 @@ export const translate = (out: Mat4, a: Readonly<Mat4>, v: Readonly<Vec3>): Mat4
   const x = v[0],
     y = v[1],
     z = v[2];
-  let a00, a01, a02, a03;
-  let a10, a11, a12, a13;
-  let a20, a21, a22, a23;
+  let a00: number, a01: number, a02: number, a03: number;
+  let a10: number, a11: number, a12: number, a13: number;
+  let a20: number, a21: number, a22: number, a23: number;
 
   if (a === out) {
     out[12] = a[0] * x + a[4] * y + a[8] * z + a[12];
@@ -1758,7 +1758,6 @@ export const orthoZO = (
  * @returns out
  */
 export const lookAt = (out: Mat4, eye: Readonly<Vec3>, center: Readonly<Vec3>, up: Readonly<Vec3>): Mat4 => {
-  let x0, x1, x2, y0, y1, y2, z0, z1, z2, len;
   const eyex = eye[0];
   const eyey = eye[1];
   const eyez = eye[2];
@@ -1772,12 +1771,11 @@ export const lookAt = (out: Mat4, eye: Readonly<Vec3>, center: Readonly<Vec3>, u
   if (ABS(eyex - centerx) < EPSILON && ABS(eyey - centery) < EPSILON && ABS(eyez - centerz) < EPSILON) {
     return identity(out);
   }
+  let z0 = eyex - centerx;
+  let z1 = eyey - centery;
+  let z2 = eyez - centerz;
 
-  z0 = eyex - centerx;
-  z1 = eyey - centery;
-  z2 = eyez - centerz;
-
-  len = z0 * z0 + z1 * z1 + z2 * z2;
+  let len = z0 * z0 + z1 * z1 + z2 * z2;
   if (len > 0) {
     len = invSqrt(len);
   }
@@ -1786,9 +1784,9 @@ export const lookAt = (out: Mat4, eye: Readonly<Vec3>, center: Readonly<Vec3>, u
   z1 *= len;
   z2 *= len;
 
-  x0 = upy * z2 - upz * z1;
-  x1 = upz * z0 - upx * z2;
-  x2 = upx * z1 - upy * z0;
+  let x0 = upy * z2 - upz * z1;
+  let x1 = upz * z0 - upx * z2;
+  let x2 = upx * z1 - upy * z0;
   len = x0 * x0 + x1 * x1 + x2 * x2;
   if (len > 0) {
     len = invSqrt(len);
@@ -1797,9 +1795,9 @@ export const lookAt = (out: Mat4, eye: Readonly<Vec3>, center: Readonly<Vec3>, u
   x1 *= len;
   x2 *= len;
 
-  y0 = z1 * x2 - z2 * x1;
-  y1 = z2 * x0 - z0 * x2;
-  y2 = z0 * x1 - z1 * x0;
+  let y0 = z1 * x2 - z2 * x1;
+  let y1 = z2 * x0 - z0 * x2;
+  let y2 = z0 * x1 - z1 * x0;
 
   len = y0 * y0 + y1 * y1 + y2 * y2;
   if (len > 0) {

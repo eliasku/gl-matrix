@@ -1,6 +1,7 @@
 import { expect } from "bun:test";
 
 const EPSILON = 0.00001;
+const { isNaN: isnan } = Number;
 
 expect.extend({
   /**
@@ -11,7 +12,7 @@ expect.extend({
    */
   toBeEqualish(a: unknown, e: number | number[] | Float32Array) {
     if (typeof a === "number" && typeof e === "number") {
-      if (isNaN(e) !== isNaN(a)) {
+      if (isnan(e) !== isnan(a)) {
         return {
           pass: false,
           message: e + " to be equalish to " + a,
@@ -42,10 +43,10 @@ expect.extend({
     }
     const A = a as number[];
     for (let i = 0; i < e.length; i++) {
-      if (isNaN(e[i]) !== isNaN(A[i])) {
+      if (isnan(e[i]) !== isnan(A[i])) {
         return {
           pass: false,
-          message: isNaN(e[i]) + " " + isNaN(A[i]) + " el " + i,
+          message: isnan(e[i]) + " " + isnan(A[i]) + " el " + i,
         };
       }
       if (Math.abs(e[i] - A[i]) >= EPSILON) {
@@ -75,7 +76,7 @@ expect.extend({
       };
     }
     let allSignsFlipped = false;
-    if (e.length != a.length) {
+    if (e.length !== a.length) {
       return {
         pass: false,
         message: `${e} to have the same length as ${a}`,
@@ -84,7 +85,7 @@ expect.extend({
 
     const A = a as number[];
     for (let i = 0; i < e.length; i++) {
-      if (isNaN(e[i]) !== isNaN(A[i])) {
+      if (isnan(e[i]) !== isnan(A[i])) {
         return {
           pass: false,
           message: `${e} to be equalish to ${a}`,

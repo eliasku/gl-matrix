@@ -2,37 +2,25 @@
   "name": "@eliasku/gl-matrix",
   "description": "gl-matrix typescript port (buildless)",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/eliasku/gl-matrix.git"
   },
   "author": "Ilya Kuzmichev",
-  "keywords": [
-    "glm",
-    "gl-matrix",
-    "webgl",
-    "math",
-    "gl"
-  ],
+  "keywords": ["glm", "gl-matrix", "webgl", "math", "gl"],
   "scripts": {
     "test": "bun test",
-    "format": "prettier --write **/*.{ts,json,md}",
-    "check": "tsc -p .",
-    "lint": "eslint .",
+    "typecheck": "tsc -p .",
+    "check": "biome check",
     "build": "tsup ./src/index.ts --target esnext --platform neutral --format esm --dts --sourcemap --minify terser --treeshake smallest --splitting false",
     "doc": "typedoc --out doc"
   },
   "devDependencies": {
-    "@types/bun": "1.3.9"
-  },
-  "optionalDependencies": {
-    "prettier": "latest",
-    "eslint": "10.0.0",
-    "typescript-eslint": "8.56.0",
+    "@types/bun": "1.3.9",
+    "@biomejs/biome": "^2.4.4",
     "typescript": "latest",
-    "tsdown": "0.20.3",
     "tsup": "latest",
     "terser": "latest",
     "typedoc": "0.28.17"
@@ -41,9 +29,7 @@
   "exports": {
     ".": "./src/index.ts"
   },
-  "files": [
-    "src"
-  ],
+  "files": ["src"],
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=8.0.0"

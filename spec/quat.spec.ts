@@ -35,7 +35,7 @@ describe("quat", () => {
         expect(result).toBe(out);
       });
       it("should calculate proper quat", () => {
-        expect(result).toBeEqualish([0, 0.707106, 0, 0.707106]);
+        expect(result).toBeEqualish([0, Math.SQRT1_2, 0, Math.SQRT1_2]);
       });
     });
 
@@ -208,7 +208,7 @@ describe("quat", () => {
       });
 
       it("should set dest to the correct value", () => {
-        expect(result).toBeEqualish([-0.707106, 0, 0, 0.707106]);
+        expect(result).toBeEqualish([-Math.SQRT1_2, 0, 0, Math.SQRT1_2]);
       });
     });
 
@@ -354,13 +354,13 @@ describe("quat", () => {
   });
 
   describe("setAxes", () => {
-    let r;
+    let r: Vec3;
     beforeEach(() => {
       r = vec3.create();
     });
 
     describe("looking left", () => {
-      let view, up, right;
+      let view: Vec3, up: Vec3, right: Vec3;
       beforeEach(() => {
         view = [-1, 0, 0];
         up = [0, 1, 0];
@@ -380,7 +380,7 @@ describe("quat", () => {
     });
 
     describe("given opengl defaults", () => {
-      let view, up, right;
+      let view: number[], up: number[], right: number[];
       beforeEach(() => {
         view = [0, 0, -1];
         up = [0, 1, 0];
@@ -414,7 +414,7 @@ describe("quat", () => {
       });
 
       it("should calculate proper quaternion", () => {
-        expect(out).toBeEqualish([0, 0, -0.707106, 0.707106]);
+        expect(out).toBeEqualish([0, 0, -Math.SQRT1_2, Math.SQRT1_2]);
       });
     });
 
@@ -543,7 +543,7 @@ describe("quat", () => {
       result = quat.setAxisAngle(out, [1, 0, 0], Math.PI * 0.5);
     });
     it("should place values into out", () => {
-      expect(result).toBeEqualish([0.707106, 0, 0, 0.707106]);
+      expect(result).toBeEqualish([Math.SQRT1_2, 0, 0, Math.SQRT1_2]);
     });
     it("should return out", () => {
       expect(result).toBe(out);
@@ -602,11 +602,11 @@ describe("quat", () => {
 
     describe("for a slightly irregular axis and right angle", () => {
       beforeEach(() => {
-        result = quat.setAxisAngle(out, [0.707106, 0, 0.707106], Math.PI * 0.5);
+        result = quat.setAxisAngle(out, [Math.SQRT1_2, 0, Math.SQRT1_2], Math.PI * 0.5);
         deg90 = quat.getAxisAngle(vec, out);
       });
       it("should place values into vec", () => {
-        expect(vec).toBeEqualish([0.707106, 0, 0.707106]);
+        expect(vec).toBeEqualish([Math.SQRT1_2, 0, Math.SQRT1_2]);
       });
       it("should return a numeric angle", () => {
         expect(deg90).toBeEqualish(Math.PI * 0.5);

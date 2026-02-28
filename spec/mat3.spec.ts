@@ -3,7 +3,7 @@ import * as mat4 from "../src/mat4";
 import * as vec3 from "../src/vec3";
 import { describe, beforeEach, it, expect } from "bun:test";
 import "./helpers";
-import { Mat3, Quat } from "../src/types";
+import type { Mat3, Quat } from "../src/types";
 
 describe("mat3", () => {
   let out: Mat3;
@@ -330,19 +330,7 @@ describe("mat3", () => {
       result = mat3.frob(matA);
     });
     it("should return the Frobenius Norm of the matrix", () => {
-      expect(result).toEqual(
-        Math.sqrt(
-          Math.pow(1, 2) +
-            Math.pow(0, 2) +
-            Math.pow(0, 2) +
-            Math.pow(0, 2) +
-            Math.pow(1, 2) +
-            Math.pow(0, 2) +
-            Math.pow(1, 2) +
-            Math.pow(2, 2) +
-            Math.pow(1, 2),
-        ),
-      );
+      expect(result).toEqual(Math.sqrt(1 ** 2 + 0 ** 2 + 0 ** 2 + 0 ** 2 + 1 ** 2 + 0 ** 2 + 1 ** 2 + 2 ** 2 + 1 ** 2));
     });
   });
 

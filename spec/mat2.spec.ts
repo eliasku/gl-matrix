@@ -317,7 +317,7 @@ describe("mat2", () => {
       result = mat2.frob(matA);
     });
     it("should return the Frobenius Norm of the matrix", () => {
-      expect(result).toEqual(Math.sqrt(Math.pow(1, 2) + Math.pow(2, 2) + Math.pow(3, 2) + Math.pow(4, 2)));
+      expect(result).toEqual(Math.sqrt(1 ** 2 + 2 ** 2 + 3 ** 2 + 4 ** 2));
     });
   });
 

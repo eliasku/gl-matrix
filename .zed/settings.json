@@ -1,0 +1,62 @@
+{
+  "languages": {
+    "TSX": {
+      "formatter": { "language_server": { "name": "biome" } },
+      "code_actions_on_format": {
+        "source.fixAll.biome": true,
+        "source.organizeImports.biome": true
+      }
+    },
+    "TypeScript": {
+      "formatter": { "language_server": { "name": "biome" } },
+      "code_actions_on_format": {
+        "source.fixAll.biome": true,
+        "source.organizeImports.biome": true
+      }
+    },
+    "JavaScript": {
+      "formatter": { "language_server": { "name": "biome" } },
+      "code_actions_on_format": {
+        "source.fixAll.biome": true,
+        "source.organizeImports.biome": true
+      }
+    },
+    "CSS": {
+      "formatter": { "language_server": { "name": "biome" } },
+      "code_actions_on_format": {
+        "source.fixAll.biome": true
+      }
+    },
+    "HTML": {
+      "formatter": { "language_server": { "name": "biome" } },
+      "code_actions_on_format": {
+        "source.fixAll.biome": true
+      }
+    },
+    "JSON": {
+      "formatter": { "language_server": { "name": "biome" } },
+      "code_actions_on_format": {
+        "source.fixAll.biome": true
+      }
+    },
+    "JSONC": {
+      "formatter": { "language_server": { "name": "biome" } },
+      "code_actions_on_format": {
+        "source.fixAll.biome": true
+      }
+    },
+    "Markdown": {
+      "format_on_save": "on"
+    },
+    "Markdown-Inline": {
+      "format_on_save": "on"
+    }
+  },
+  "lsp": {
+    "biome": {
+      "settings": {
+        "require_config_file": true
+      }
+    }
+  }
+}
